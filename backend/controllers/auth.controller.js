@@ -4,13 +4,18 @@ import generateToken from "../utils/generateToken.js";
 
 export const signup = async (req, res) => {
   try {
-    const { fullname, username, password, confirmPassword } = req.body;
+    const { firstname, lastname, phone, email, password, confirmPassword } =
+      req.body;
     if (password !== confirmPassword) {
       return res
         .status(400)
         .json({ error: "Password and conferm password do not match!" });
     }
-    const user = await User.findOne({ username });
+
+    if (phone.length < 10 || phone.length > 10) {
+      return res.status(400).json({ error: "Not a valid phone number" });
+    }
+    const user = await User.findOne({ email });
 
     if (user) {
       return res.status(201).json({ message: "User created successfully!" });
@@ -21,10 +26,12 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Profile picture
-    const profilePicture = `https://avatar.iran.liara.run/username?username=${fullname}`;
+    const profilePicture = `https://avatar.iran.liara.run/email?email=${firstname}+${lastname}`;
     const newUser = new User({
-      fullname,
-      username,
+      firstname,
+      lastname,
+      phone,
+      email,
       password: hashedPassword,
       profilePicture,
     });
@@ -35,8 +42,9 @@ export const signup = async (req, res) => {
 
       res.status(201).json({
         _id: newUser._id,
-        fullname: newUser.fullname,
-        username: newUser.username,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
         profilePicture: newUser.profilePicture,
       });
     } else {
@@ -51,23 +59,24 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   console.log(req.body);
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     const isPasswordCorrect = await bcrypt.compare(
       password,
       user?.password || ""
     );
 
     if (!user || !isPasswordCorrect) {
-      return res.status(400).json({ error: "Invalid username or password" });
+      return res.status(400).json({ error: "Invalid email or password" });
     }
 
     generateToken(user._id, res);
 
     res.status(200).json({
       _id: user._id,
-      fullName: user.fullName,
-      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
       profilePicture: user.profilePicture,
     });
   } catch (error) {
