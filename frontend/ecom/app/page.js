@@ -1,21 +1,12 @@
-
-import React from "react";
-
-//To check the working of the card component, we need to import it in the page.js file.
-import Card from "../components/card.jsx";
-
-
-
+import Image from "next/image";
+import shoppingCart from "../components/shoppingCart.jsx";
+import logIn from "../components/SignUpForm.jsx";
+import SignUpForm from "../components/SignUpForm.jsx";
+ 
 export default function Home() {
   return (
-    <div className="App">
-      {/* The card component working */}
-      <Card
-        productName="Product Name"
-        imageSrc="product-image.jpg"
-        description="Description of the product goes here."
-        price="$XX.XX"
-      />
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <SignUpForm />
+    </main>
   );
 }
