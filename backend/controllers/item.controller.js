@@ -15,10 +15,10 @@ export const addItem = async (req, res) => {
         .json({ error: "Count in stock cannot be negative" });
     }
 
-    const item = await Item.findOne({ email });
+    const item = await Item.findOne({ name });
 
     if (item) {
-      return res.status(201).json({ message: "User created successfully!" });
+      return res.status(201).json({ message: "Item  already exists!" });
     }
 
     const newItem = new Item({
@@ -41,6 +41,33 @@ export const addItem = async (req, res) => {
     }
   } catch (error) {
     console.log("error creating item", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getItems = async (req, res) => {
+  try {
+    const items = await Item.find();
+
+    res.status(200).json(items);
+  } catch (error) {
+    console.log("error getting items", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getItemByCategory = async (req, res) => {
+  try {
+    const { category } = req.body;
+    const item = await Item.find({ category });
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    res.status(200).json(item);
+  } catch (error) {
+    console.log("error getting item by id", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
