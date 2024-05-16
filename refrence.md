@@ -1,0 +1,1 @@
+https://www.youtube.com/watch?v=HwCqsOis894 refrenced by: Gurjagjot, Urooba, Mohjeet files:useLogin.jsx, useLogout.jsx, useSignup.jsx, app.jsx, generateToken.js, connectToMongoDB.js, auth.controller.js, auth.routes.js, server.js
