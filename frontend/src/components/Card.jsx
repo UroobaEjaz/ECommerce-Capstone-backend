@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function Card({ productName, imageSrc, description, price }) {
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg">
