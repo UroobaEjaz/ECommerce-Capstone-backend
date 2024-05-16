@@ -4,17 +4,13 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10">
       <Link to="/login" className="">
-        <img
-          src="../images/logo.jpg"
-          alt="logo"
-          style={{ width: "50px", height: "50px" }}
-        />
+        <img src="../images/logo.jpg" alt="Logo" />
       </Link>
       <ul className="flex space-x-4">
         <li>
-          <a href="/" className="text-gray-600 hover:text-blue-600">
+          <Link to="/" className="text-gray-600 hover:text-blue-600">
             Home
-          </a>
+          </Link>
         </li>
         <li>
           <a href="/about" className="text-gray-600 hover:text-blue-600">
