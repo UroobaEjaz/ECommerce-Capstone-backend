@@ -6,7 +6,6 @@ export const signup = async (req, res) => {
   try {
     const { firstname, lastname, phone, email, password, confirmPassword } =
       req.body;
-    console.log(firstname, lastname, phone, email, password, confirmPassword);
     if (password !== confirmPassword) {
       return res
         .status(400)
