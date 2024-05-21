@@ -1,3 +1,4 @@
+import { BiCart } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -27,6 +28,11 @@ const Navbar = () => {
         <li>
           <Link href="/login" className="text-gray-600 hover:text-blue-600">
             Login
+          </Link>
+        </li>
+        <li>
+          <Link to="/cart">
+            <BiCart className="text-gray-600 hover:text-blue-600 text-2xl" />
           </Link>
         </li>
       </ul>
