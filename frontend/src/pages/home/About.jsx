@@ -1,5 +1,6 @@
 
 /* reference; https://www.youtube.com/watch?v=oP-0wi0CRzc */
+/* how to embed google maps in react */
 
 
 import React from 'react';
@@ -13,10 +14,6 @@ const About = () => {
         <iframe
           width="100%"
           height="100%"
-          frameBorder="0"
-          scrolling="no"
-          marginHeight="0"
-          marginWidth="0"
           src="https://maps.google.com/maps?width=100%25&amp;height=700&amp;hl=en&amp;q=208%20Haddon%20Rd%20SW,%20Calgary,%20AB%20T2V%202Y6+(JK%20Convenience%20Store)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
           title="JK Convenience Store Location"
         ></iframe>
