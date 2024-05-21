@@ -49,7 +49,7 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="Enter Last Name"
-                className="w-full input input-bordered h-10"
+                className="w-full input input-bordered h-10 ml-1"
                 value={input.lastname}
                 onChange={(e) =>
                   setInput({ ...input, lastname: e.target.value })

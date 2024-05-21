@@ -9,33 +9,42 @@ const Navbar = () => {
       <Link to="/" className="">
         <img src="/logo.jpg" alt="Logo " className="w-12 rounded-full" />
       </Link>
-      <ul className="flex space-x-4">
-        <li>
-          <Link to="/" className="text-gray-600 hover:text-blue-600">
-            Home
-          </Link>
-        </li>
-        <li>
-          <a href="/about" className="text-gray-600 hover:text-blue-600">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="/contact" className="text-gray-600 hover:text-blue-600">
-            Contact
-          </a>
-        </li>
-        <li>
-          <Link href="/login" className="text-gray-600 hover:text-blue-600">
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to="/cart">
-            <BiCart className="text-gray-600 hover:text-blue-600 text-2xl" />
-          </Link>
-        </li>
-      </ul>
+      <div className="flex-grow flex justify-center">
+        <ul className="flex space-x-4">
+          <li>
+            <Link to="/" className="text-gray-600 hover:text-blue-600">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/about" className="text-gray-600 hover:text-blue-600">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/pages/Contact/Contact.jsx"
+              className="text-gray-600 hover:text-blue-600"
+            >
+              Contact
+            </Link>
+          </li>
+          <li>
+            <Link href="/login" className="text-gray-600 hover:text-blue-600">
+              Login
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>
+            <Link to="/cart">
+              <BiCart className="text-gray-600 hover:text-blue-600 text-2xl" />
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };
