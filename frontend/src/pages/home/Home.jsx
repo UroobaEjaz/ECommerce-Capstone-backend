@@ -7,7 +7,7 @@ const Home = () => {
     <div className="flex">
       Home
       <Navbar />
-      <Header />
+     
       <Footer />
     </div>
   );
