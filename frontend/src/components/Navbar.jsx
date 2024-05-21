@@ -2,6 +2,10 @@ import { BiCart } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+
+
+
+
   return (
     // used chatgpt to get the syntax on navbar url="build a simple navbar "
     <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 ">
@@ -16,9 +20,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <a href="/about" className="text-gray-600 hover:text-blue-600">
+        <Link to="/About" className="text-gray-600 hover:text-blue-600">
             About
-          </a>
+          </Link>
         </li>
         <li>
           <a href="/contact" className="text-gray-600 hover:text-blue-600">
