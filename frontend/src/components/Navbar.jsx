@@ -20,12 +20,12 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <a href="/about" className="text-gray-600 hover:text-blue-600">
+          <Link to="/About" className="text-gray-600 hover:text-blue-600">
             About
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/contact" className="text-gray-600 hover:text-blue-600">
+          <a href="/Contact" className="text-gray-600 hover:text-blue-600">
             Contact
           </a>
         </li>
