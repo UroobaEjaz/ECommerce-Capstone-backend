@@ -1,5 +1,6 @@
 import React from "react";
 
+/* reference: https://chatgpt.com/c/0c9b5125-bd4a-4d11-afe8-0eb143669f0c */
 
 function Card({ productName, imageSrc, description, price }) {
   return (
