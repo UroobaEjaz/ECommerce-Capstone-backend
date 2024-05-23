@@ -1,7 +1,7 @@
 
 /* reference; https://www.youtube.com/watch?v=oP-0wi0CRzc */
 /* how to embed google maps in react */
-/* styling from the chatgpt */
+/* reference from the chatgpt : https://chatgpt.com/c/22d48e7d-7aa2-4f1e-9acf-9f4a96719e81*/
 
 
 import React from 'react';
@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">About Us</h1>
-      <p className="mb-4">Welcome to our convenience store! We are located at 208 Haddon Rd SW, Calgary, AB T2V 2Y6.</p>
+      <p className="mb-4">Welcome to our convenience store! We are located at 208 Hadson Rd SW, Calgary, AB T2V 2Y6.</p>
       <div className="w-full h-96 mb-4">
         <iframe
           width="100%"
