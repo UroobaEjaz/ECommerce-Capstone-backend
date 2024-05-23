@@ -5,9 +5,10 @@ import SignUp from "../signup/SignUp";
 
 const Home = () => {
   return (
-    <div className="flex">
-      Home
+    <div className="">
+      
       <Navbar />
+      
       <Footer />
       
     </div>
