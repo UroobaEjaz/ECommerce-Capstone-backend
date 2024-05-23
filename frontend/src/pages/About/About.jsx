@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">About Us</h1>
-      <p className="mb-4">Welcome to our convenience store! We are located at 208 Haddon Rd SW, Calgary, AB T2V 2Y6.</p>
+      <p className="mb-4">Welcome to our convenience store! We are located at 208 Hadson Rd SW, Calgary, AB T2V 2Y6.</p>
       <div className="w-full h-96 mb-4">
         <iframe
           width="100%"
