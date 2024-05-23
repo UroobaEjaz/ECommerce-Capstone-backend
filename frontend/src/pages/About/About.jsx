@@ -1,6 +1,7 @@
 
 /* reference; https://www.youtube.com/watch?v=oP-0wi0CRzc */
 /* how to embed google maps in react */
+/* styling from the chatgpt */
 
 
 import React from 'react';
