@@ -2,12 +2,17 @@ import React from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/footer";
 import About from "../About/About";
+import Card from "../../components/Card";
 
 const Home = () => {
   return (
     <div className="">
       <Navbar />
-      <About />
+      <div className=" ">
+        <img src="/logo.jpg" />
+      </div>
+
+      {/* <About /> */}
 
       {/* <Footer /> */}
 

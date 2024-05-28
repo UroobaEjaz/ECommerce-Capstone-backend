@@ -63,14 +63,15 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-<<<<<<< Updated upstream
-          <Link to="/About" className="text-gray-600 hover:text-blue-600">
-=======
           <Link
-            to="pages/About/About.jsx"
+            to="/pages/Products/Products.jsx"
             className="text-gray-600 hover:text-blue-600"
           >
->>>>>>> Stashed changes
+            Products
+          </Link>
+        </li>
+        <li>
+          <Link to="/About" className="text-gray-600 hover:text-blue-600">
             About
           </Link>
         </li>
