@@ -63,7 +63,14 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
+<<<<<<< Updated upstream
           <Link to="/About" className="text-gray-600 hover:text-blue-600">
+=======
+          <Link
+            to="pages/About/About.jsx"
+            className="text-gray-600 hover:text-blue-600"
+          >
+>>>>>>> Stashed changes
             About
           </Link>
         </li>
