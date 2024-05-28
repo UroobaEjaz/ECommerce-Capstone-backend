@@ -18,7 +18,7 @@ const Navbar = () => {
   Reference for using router: https://chatgpt.com/c/cec6a917-8d3e-444f-a498-a6ad0c5706cb*/
 
     /* searched on chat gpt for the tailwind and logo syntax url="https://chatgpt.com/c/a8500a72-5c40-4bb6-af94-9817af802cee"*/
-    /*<nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 "> 
+    <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 "> 
       <Link to="/" className="">
         <img src="/logo.jpg" alt="Logo " className="w-12 rounded-full" />
       </Link>
@@ -49,10 +49,10 @@ const Navbar = () => {
           </Link>
         </li>
   </ul>
-    </nav>*/
+    </nav>
 
     /* searched on chat gpt for the tailwind and logo syntax url="https://chatgpt.com/c/a8500a72-5c40-4bb6-af94-9817af802cee"*/
-    <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 ">
+   /* <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 ">
       <Link to="/" className="">
         <img src="/logo.jpg" alt="Logo " className="w-12 rounded-full" />
       </Link>
@@ -95,4 +95,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; */
+  );
+};

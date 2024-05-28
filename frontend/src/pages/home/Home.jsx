@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/footer";
 import About from "../About/About";
 import Card from "../../components/Card";
+import About from "../about/aboutPage";
 
 const Home = () => {
   return (
