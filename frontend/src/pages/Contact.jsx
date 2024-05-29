@@ -1,12 +1,9 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+/* The whole idea of making a contact is to create a chatbot that will answer the question and will
+give the information about the help desk */
 
-export default function Contact() {
-  return (
-    <div className="flex">
-      <Navbar />
-      Contact
-    </div>
-  );
-}
+/* reference: https://www.youtube.com/watch?v=0XqSujRgVXI */
+
+
+
+
+

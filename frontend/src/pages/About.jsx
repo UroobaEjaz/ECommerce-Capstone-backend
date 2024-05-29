@@ -22,7 +22,7 @@ export default function About() {
       <Navbar />
       <h1 className="text-3xl font-bold mb-4 my-9">About Us</h1>
       <p className="mb-4">
-        Welcome to our convenience store! Our current locations are in NE and SE. Pick one to display the map.
+        Welcome to our convenience store! Our current locations are in NE and SW. Pick one to display the map.
       </p>
       <div className="flex space-x-4 mb-4">
         <button
