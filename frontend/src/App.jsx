@@ -15,20 +15,17 @@ export default function App() {
     <>
       <div className="p-4 h-screen flex items-center justify-center bg-white">
         <Routes>
-          <Route
-            path="/"
-            element={authUser ? <Home /> : <Navigate to="/login" />}
-          />
+          <Route path="/" element={authUser ? <Home /> : <Navigate to="/" />} />
           <Route
             path="/login"
-            element={authUser ? <Navigate to="/" /> : <Login />}
+            element={authUser ? <Login /> : <Navigate to="/" />}
           />
           <Route
             path="/signup"
-            element={authUser ? <Navigate to="/" /> : <SignUp />}
+            element={authUser ? <SignUp /> : <Navigate to="/" />}
           />
           <Route
-            path="/products"
+            path="/Products"
             element={authUser ? <Products /> : <Navigate to="/" />}
           />
           <Route
@@ -40,8 +37,6 @@ export default function App() {
             element={authUser ? <Contact /> : <Navigate to="/" />}
           />
         </Routes>
-
-        <Toaster />
       </div>
     </>
   );
