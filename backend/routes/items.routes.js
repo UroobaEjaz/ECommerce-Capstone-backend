@@ -4,9 +4,12 @@ import {
   addItem,
   getItems,
   getItemByCategory,
+  getItemImage,
 } from "../controllers/item.controller.js";
 
 const router = express.Router();
+
+// refrenced from my old work
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -28,7 +31,8 @@ router.post("/", upload.single("image"), async (req, res) => {
   res.send(req.file);
 });
 
-router.post("/add", addItem);
+router.post("/add", upload.single("image"), addItem);
+router.post("/getImage", getItemImage);
 router.post("/get", getItems);
 router.post("/getByCategory", getItemByCategory);
 

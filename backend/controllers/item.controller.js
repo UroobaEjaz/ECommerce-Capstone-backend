@@ -2,8 +2,8 @@ import Item from "../models/item.model.js";
 
 export const addItem = async (req, res) => {
   try {
-    const { name, price, image, category, description, countInStock } =
-      req.body;
+    const { name, price, category, description, countInStock } = req.body;
+    const image = req.file.path;
 
     if (price < 0) {
       return res.status(400).json({ error: "Price cannot be negative" });
@@ -49,7 +49,7 @@ export const getItems = async (req, res) => {
   try {
     const items = await Item.find();
 
-    res.status(200).json(items);
+    res.status(200).send(items);
   } catch (error) {
     console.log("error getting items", error);
     res.status(500).json({ error: "Internal server error" });
@@ -58,7 +58,7 @@ export const getItems = async (req, res) => {
 
 export const getItemByCategory = async (req, res) => {
   try {
-    const { category } = req.body;
+    const { category } = res.body;
     const item = await Item.find({ category });
 
     if (!item) {
@@ -70,4 +70,12 @@ export const getItemByCategory = async (req, res) => {
     console.log("error getting item by id", error);
     res.status(500).json({ error: "Internal server error" });
   }
+};
+
+export const getItemImage = async (req, res) => {
+  // res.sendFile("S:/Semester 4/ECommerce/uploads/rainmeter.jpg");
+  const { category } = req.body;
+  console.log(category);
+  console.log(req.body);
+  res.send(req.body);
 };
