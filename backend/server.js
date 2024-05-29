@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import itemsRoutes from "./routes/items.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import path from "path";
 
 const app = express();
 
