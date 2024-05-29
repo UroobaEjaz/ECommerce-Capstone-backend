@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
-export default ProductCategoryNav = () => {
+export default function Products() {
   return (
     <nav className="bg-gray-800 p-4">
+      <Navbar />
       <ul className="flex justify-around">
         <li className="mx-2">
           <Link to="/beverages" className="text-white hover:text-gray-300">
@@ -51,4 +53,4 @@ export default ProductCategoryNav = () => {
       </ul>
     </nav>
   );
-};
+}

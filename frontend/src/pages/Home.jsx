@@ -1,8 +1,7 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/footer";
-import Card from "../../components/Card";
-import About from "../about/aboutPage";
+import Navbar from "../components/Navbar";
+import Footer from "../components/footer";
+import Card from "../components/Card";
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 const Home = () => {
   return (
@@ -15,12 +14,6 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
-
-      {/* <About /> */}
-
-      {/* <Footer /> */}
-
-      {/* <About /> */}
     </div>
   );
 };
