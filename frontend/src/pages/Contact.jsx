@@ -5,52 +5,52 @@ give the information about the help desk */
 
 
 
-
-
-
-
 import React from "react";
+
 import ChatBot from "react-simple-chatbot";
 
-const Contact = () => {
-  const steps = [
-    {
-      id: '1',
-      message: 'Hello! How can I assist you today?',
-      trigger: '2'
-    },
-    {
-      id: '2',
-      message: 'Please select an option:',
-      trigger: 'options'
-    },
-    {
-      id: 'options',
-      options: [
-        { value: 'option1', label: 'Option 1', trigger: '3' },
-        { value: 'option2', label: 'Option 2', trigger: '4' }
-      ]
-    },
-    {
-      id: '3',
-      message: 'You selected Option 1.',
-      end: true
-    },
-    {
-      id: '4',
-      message: 'You selected Option 2.',
-      end: true
-    }
-  ];
+export default function Contact() {
 
-  return (
-    <div>
-      <h1>ChatBot Example</h1>
-      <Segment floated= 'right'/>
-      <ChatBot steps={steps} />
-    </div>
-  );
-};
+  
+    return (
+      <div>
+        <ChatBot
+          steps={[
+            {
+              id: '1',
+              message: 'Welcome to JK-convenience. How can I help you?',
+              trigger: '2',
+            },
+            {
+              id: '2',
+              message: 'Please enter your query here',
+              trigger: '3',
+            },
+            {
+              id: '3',
+              options: [
+                { value: 'return', label: 'Do you want to return?', trigger: '4' },
+                { value: 'complaint', label: 'Are you having a complaint?', trigger: '5' },
+            
+              ],
+            },
+            {
+              id: '4',
+              message: 'You selected Return. Please call us at `123-456-7890`, our agent will be at your service. Thank you.',
+              end: true,
+            },
+            {
+              id: '5',
+              message: 'You selected Complaint. Please provide details of your complaint by calling us at `123-456-7890`',
+              end: true,
+            },
+        
+          ]}
+          floating={true}
+        />
+      </div>
+    );
+  };
+  
 
-export default Contact;
-
+  
