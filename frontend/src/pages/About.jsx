@@ -3,9 +3,11 @@
 /* reference; https://www.youtube.com/watch?v=oP-0wi0CRzc */
 /* how to embed google maps in react */
 /* https://chatgpt.com/c/deaa3004-8d11-48c0-845c-aba7ccfb6b64 */
+
+
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+
 
 export default function About() {
   const [location, setLocation] = useState(null);
