@@ -61,7 +61,23 @@ export const getItemByCategory = async (req, res) => {
     const { category } = req.body;
     const item = await Item.find({ category });
 
-    if (!item) {
+    if (item == "") {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    res.status(200).json(item);
+  } catch (error) {
+    console.log("error getting item by id", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getItemByName = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const item = await Item.find({ name });
+
+    if (item == "") {
       return res.status(404).json({ error: "Item not found" });
     }
 
