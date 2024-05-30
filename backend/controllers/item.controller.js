@@ -58,7 +58,7 @@ export const getItems = async (req, res) => {
 
 export const getItemByCategory = async (req, res) => {
   try {
-    const { category } = res.body;
+    const { category } = req.body;
     const item = await Item.find({ category });
 
     if (!item) {
@@ -74,8 +74,6 @@ export const getItemByCategory = async (req, res) => {
 
 export const getItemImage = async (req, res) => {
   // res.sendFile("S:/Semester 4/ECommerce/uploads/rainmeter.jpg");
-  const { category } = req.body;
-  console.log(category);
-  console.log(req.body);
-  res.send(req.body);
+  const { Image } = req.body;
+  res.sendFile("S:/Semester 4/ECommerce/" + Image);
 };

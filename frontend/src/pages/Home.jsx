@@ -4,6 +4,21 @@ import Footer from "../components/footer";
 import Card from "../components/Card";
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 const Home = () => {
+  const getItems = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/items/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log("error getting items", error);
+    }
+  };
   return (
     <div className="">
       <Navbar />
@@ -14,6 +29,7 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
+      <button onClick={getItems}>getitems</button>
     </div>
   );
 };
