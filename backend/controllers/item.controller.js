@@ -58,10 +58,26 @@ export const getItems = async (req, res) => {
 
 export const getItemByCategory = async (req, res) => {
   try {
-    const { category } = res.body;
+    const { category } = req.body;
     const item = await Item.find({ category });
 
-    if (!item) {
+    if (item == "") {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    res.status(200).json(item);
+  } catch (error) {
+    console.log("error getting item by id", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getItemByName = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const item = await Item.find({ name });
+
+    if (item == "") {
       return res.status(404).json({ error: "Item not found" });
     }
 
@@ -74,8 +90,6 @@ export const getItemByCategory = async (req, res) => {
 
 export const getItemImage = async (req, res) => {
   // res.sendFile("S:/Semester 4/ECommerce/uploads/rainmeter.jpg");
-  const { category } = req.body;
-  console.log(category);
-  console.log(req.body);
-  res.send(req.body);
+  const { Image } = req.body;
+  res.sendFile("S:/Semester 4/ECommerce/" + Image);
 };

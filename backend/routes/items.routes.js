@@ -5,6 +5,7 @@ import {
   getItems,
   getItemByCategory,
   getItemImage,
+  getItemByName,
 } from "../controllers/item.controller.js";
 
 const router = express.Router();
@@ -35,5 +36,6 @@ router.post("/add", upload.single("image"), addItem);
 router.post("/getImage", getItemImage);
 router.post("/get", getItems);
 router.post("/getByCategory", getItemByCategory);
+router.post("/getByName", getItemByName);
 
 export default router;
