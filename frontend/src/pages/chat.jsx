@@ -4,10 +4,11 @@ give the information about the help desk */
 /* reference: https://www.youtube.com/watch?v=0XqSujRgVXI */
 /* reference: https://www.youtube.com/watch?v=E0OL6qSgsb0 */
 // used this reference to remove the strict mode to get the bot working once before that it was working twice
+//npm install react-simple-chatbot styled-components --save
 
 import React from "react";
 
-// import ChatBot from "react-simple-chatbot";
+import ChatBot from "react-simple-chatbot";
 
 export default function Chat() {
   return (
@@ -21,7 +22,7 @@ export default function Chat() {
           },
           {
             id: "2",
-            message: "Please enter your query here",
+            message: "Please select your problem here",
             trigger: "3",
           },
           {
