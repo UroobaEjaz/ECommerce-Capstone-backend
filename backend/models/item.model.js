@@ -31,6 +31,7 @@ const itemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Item = mongoose.model("Item", itemSchema);
+// changed the name of the model to Items (instead of Item)
+const Items = mongoose.model("Items", itemSchema);
 
-export default Item;
+export default Items;

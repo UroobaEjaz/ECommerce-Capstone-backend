@@ -29,7 +29,8 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
-      <button onClick={getItems}>getitems</button>
+      <Card />
+      {/*<button onClick={getItems}>getItems</button>*/}
     </div>
   );
 };

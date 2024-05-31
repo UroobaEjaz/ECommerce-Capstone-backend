@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import itemsRoutes from "./routes/items.routes.js";
-import purchaseRoutes from "./routes/purchase.routes.js";
+//import purchaseRoutes from "./routes/purchase.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/items", itemsRoutes);
-app.use("/api/purchase", purchaseRoutes);
+//app.use("/api/purchase", purchaseRoutes);
 app.use("/api/users", userRoutes);
 
 app.get("*", (req, res) => {
