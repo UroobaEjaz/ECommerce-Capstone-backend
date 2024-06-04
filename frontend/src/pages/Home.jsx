@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Card from "../components/Card";
+import { Item } from "semantic-ui-react";
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 const Home = () => {
+  const [item, setItem] = useState([]);
   const getItems = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/items/get", {
+      const response = await fetch("/api/items/get", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -14,11 +16,17 @@ const Home = () => {
       });
 
       const data = await response.json();
+      setItem(data);
       console.log(data);
     } catch (error) {
       console.log("error getting items", error);
     }
   };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
   return (
     <div className="">
       <Navbar />
@@ -29,8 +37,8 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
-      <Card />
-      {/*<button onClick={getItems}>getItems</button>*/}
+      <Card items={item} />
+      <button onClick={getItems}>getItems</button>
     </div>
   );
 };

@@ -33,7 +33,10 @@ router.post("/", upload.single("image"), async (req, res) => {
 });
 
 router.post("/add", upload.single("image"), addItem);
-router.post("/getImage", getItemImage);
+
+// https://www.geeksforgeeks.org/how-to-fetch-images-from-node-js-server/
+router.use("/images", express.static("uploads"));
+
 router.post("/get", getItems);
 router.post("/getByCategory", getItemByCategory);
 router.post("/getByName", getItemByName);

@@ -4,6 +4,7 @@ export const addItem = async (req, res) => {
   try {
     const { name, price, category, description, countInStock } = req.body;
     const image = req.file.path;
+    console.log(req.file.originalname);
 
     if (price < 0) {
       return res.status(400).json({ error: "Price cannot be negative" });
@@ -31,7 +32,7 @@ export const addItem = async (req, res) => {
     });
 
     if (newItem) {
-      await newItem.save();
+      // await newItem.save();
 
       res.status(201).json({
         Res: "Item created successfully!",
@@ -86,10 +87,4 @@ export const getItemByName = async (req, res) => {
     console.log("error getting item by id", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
-
-export const getItemImage = async (req, res) => {
-  // res.sendFile("S:/Semester 4/ECommerce/uploads/rainmeter.jpg");
-  const { Image } = req.body;
-  res.sendFile("S:/Semester 4/ECommerce/" + Image);
 };

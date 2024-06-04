@@ -15,26 +15,29 @@ export default function App() {
     <>
       <div className="p-4 h-screen flex items-center justify-center bg-white">
         <Routes>
-          <Route path="/" element={authUser ? <Home /> : <Navigate to="/" />} />
+          <Route
+            path="/"
+            element={!authUser ? <Home /> : <Navigate to="/" />}
+          />
           <Route
             path="/login"
-            element={authUser ? <Login /> : <Navigate to="/" />}
+            element={!authUser ? <Login /> : <Navigate to="/" />}
           />
           <Route
             path="/signup"
-            element={authUser ? <SignUp /> : <Navigate to="/" />}
+            element={!authUser ? <SignUp /> : <Navigate to="/" />}
           />
           <Route
             path="/Products"
-            element={authUser ? <Products /> : <Navigate to="/" />}
+            element={!authUser ? <Products /> : <Navigate to="/" />}
           />
           <Route
             path="/About"
-            element={authUser ? <About /> : <Navigate to="/" />}
+            element={!authUser ? <About /> : <Navigate to="/" />}
           />
           <Route
             path="/Contact"
-            element={authUser ? <Contact /> : <Navigate to="/" />}
+            element={!authUser ? <Contact /> : <Navigate to="/" />}
           />
         </Routes>
       </div>
