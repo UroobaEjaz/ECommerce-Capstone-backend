@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Card from "../components/Card";
-import { Item } from "semantic-ui-react";
-import { data } from "../components/data/Data";
-
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 const Home = () => {
   const [item, setItem] = useState([]);
@@ -40,7 +37,6 @@ const Home = () => {
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
       <Card items={item} />
-      <button onClick={getItems}>getItems</button>
     </div>
   );
 };
