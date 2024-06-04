@@ -4,7 +4,6 @@ import {
   addItem,
   getItems,
   getItemByCategory,
-  getItemImage,
   getItemByName,
 } from "../controllers/item.controller.js";
 
