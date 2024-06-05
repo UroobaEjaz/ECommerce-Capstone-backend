@@ -3,8 +3,8 @@ import Item from "../models/item.model.js";
 export const addItem = async (req, res) => {
   try {
     const { name, price, category, description, countInStock } = req.body;
-    const image = req.file.path;
-    console.log(req.file.originalname);
+    const image = req.file.originalname;
+    console.log(image);
 
     if (price < 0) {
       return res.status(400).json({ error: "Price cannot be negative" });
