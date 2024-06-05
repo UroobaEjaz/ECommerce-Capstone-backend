@@ -32,7 +32,7 @@ export const addItem = async (req, res) => {
     });
 
     if (newItem) {
-      // await newItem.save();
+      await newItem.save();
 
       res.status(201).json({
         Res: "Item created successfully!",
