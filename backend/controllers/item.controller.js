@@ -4,7 +4,7 @@ export const addItem = async (req, res) => {
   try {
     const { name, price, category, description, countInStock } = req.body;
     const image = req.file.path;
-    console.log(req.file.originalname);
+    console.log(name, price, category, description, countInStock, image);
 
     if (price < 0) {
       return res.status(400).json({ error: "Price cannot be negative" });
@@ -32,7 +32,7 @@ export const addItem = async (req, res) => {
     });
 
     if (newItem) {
-      // await newItem.save();
+      await newItem.save();
 
       res.status(201).json({
         Res: "Item created successfully!",
