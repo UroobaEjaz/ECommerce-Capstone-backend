@@ -14,7 +14,7 @@
 /out/
 
 # uploads
-/uploads/
+/uploads/*
 
 # production
 /build

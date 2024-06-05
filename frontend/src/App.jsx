@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
+import ListItems from "./pages/ListItems";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import About from "./pages/About";
@@ -38,6 +39,10 @@ export default function App() {
           <Route
             path="/Contact"
             element={!authUser ? <Contact /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/listitems"
+            element={!authUser ? <ListItems /> : <Navigate to="/" />}
           />
         </Routes>
       </div>
