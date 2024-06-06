@@ -29,7 +29,7 @@ export default function Products() {
       <ul className="flex justify-around">
         <li className="mx-2">
           <button onClick={getItems("Drinks")} className=" hover:text-gray-300">
-            Drinks
+            Cold Drink
           </button>
         </li>
         <li className="mx-2">
