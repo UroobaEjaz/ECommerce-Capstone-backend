@@ -27,7 +27,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="flex flex-col mt-[2500px]">
       <Navbar />
       <div className="flex justify-between items-center p-4">
         <h1 className="text-6xl font-bold">
@@ -36,7 +36,9 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
-      <Card items={item} />
+      <div className="">
+        <Card items={item} />
+      </div>
     </div>
   );
 };

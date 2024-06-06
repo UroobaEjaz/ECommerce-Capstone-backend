@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
 import ListItems from "./pages/ListItems";
+import Search from "./pages/Search";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import About from "./pages/About";
@@ -43,6 +44,10 @@ export default function App() {
           <Route
             path="/listitems"
             element={!authUser ? <ListItems /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/search"
+            element={!authUser ? <Search /> : <Navigate to="/" />}
           />
         </Routes>
       </div>

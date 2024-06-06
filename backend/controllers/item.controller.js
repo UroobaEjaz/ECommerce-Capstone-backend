@@ -48,6 +48,7 @@ export const addItem = async (req, res) => {
 export const getItems = async (req, res) => {
   try {
     const items = await Item.find();
+    console.log(items);
 
     res.status(200).send(items);
   } catch (error) {
@@ -62,7 +63,7 @@ export const getItemByCategory = async (req, res) => {
     const item = await Item.find({ category });
 
     if (item == "") {
-      return res.status(404).json({ error: "Item not found" });
+      return res.status(404).json({ error: "No item found" });
     }
 
     res.status(200).json(item);
@@ -75,7 +76,8 @@ export const getItemByCategory = async (req, res) => {
 export const getItemByName = async (req, res) => {
   try {
     const { name } = req.body;
-    const item = await Item.find({ name });
+    // refreenced: https://www.geeksforgeeks.org/how-to-query-mongodb-with-like/
+    const item = await Item.find({ name: { $regex: name } });
 
     if (item == "") {
       return res.status(404).json({ error: "Item not found" });
