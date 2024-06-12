@@ -73,7 +73,7 @@ const Cards = ({ items }) => {
           <Card key={item.name} style={{ margin: 16, maxWidth: 345 }}>
             <CardMedia
               component="img"
-              height="140"
+              height="100"
               image={`/api/items/images/${item.image}`}
               alt={item.name}
             />
@@ -81,20 +81,28 @@ const Cards = ({ items }) => {
               <Typography gutterBottom variant="h5" component="div">
                 {item.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1.1rem', color: 'black' }}>
                 {item.description}
               </Typography>
-              <Typography variant="h6" color="text.primary">
-                {item.price}
-              </Typography>
-              <Button size="small" color="primary">
+              <div style={{ marginTop: 10 }}> {/* Add margin top to create space between description and price */}
+                <Typography variant="h6" color="text.primary">
+                  {`${item.price} $`}
+                </Typography>
+              </div>
+              <Button size="small" color="primary"  sx={{
+                  backgroundColor: 'darkred',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'red', // darken color on hover if needed
+                  }, marginTop: 3
+                }}>
                 Add to Cart
               </Button>
             </CardContent>
           </Card>
         ))
       ) : (
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="h7" color="text.secondary">
           No items found.
         </Typography>
       )}
