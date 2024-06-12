@@ -9,38 +9,38 @@ const Navbar = () => {
     /* searched on chat gpt for the tailwind and logo syntax url="https://chatgpt.com/c/a8500a72-5c40-4bb6-af94-9817af802cee"*/
 
     <nav className="bg-white shadow-md p-4 flex justify-between top-0 left-0 z-10 fixed items-center w-full font-bold">
-      <Link to="/" className="">
-        <img src="/logo.jpg" alt="Logo " className="w-12 rounded-full" />
+      <Link to="/" className="p-3">
+        <img src="/logo.jpg" alt="Logo " className="w-10 rounded-full" />
       </Link>
       <ul className="flex space-x-4">
         <li>
-          <Link to="/" className="text-gray-600 hover:text-blue-600">
+          <Link to="/" className="text-black-600 font-large hover:text-red-600 p-3">
             Home
           </Link>
         </li>
         <li>
-          <Link to="/Products" className="text-gray-600 hover:text-blue-600">
+          <Link to="/Products" className="text-black-600 font-large hover:text-red-600 p-3">
             Products
           </Link>
         </li>
         <li>
-          <Link to="/About" className="text-gray-600 hover:text-blue-600">
+          <Link to="/About" className="text-black-600 font-large hover:text-red-600 p-3">
             About
           </Link>
         </li>
         <li>
-          <Link to="/Contact" className="text-gray-600 hover:text-blue-600">
+          <Link to="/Contact" className="text-black-600 font-large hover:text-red-600 p-3 mt-2">
             Contact
           </Link>
         </li>
         <li>
-          <Link to="/Login" className="text-gray-600 hover:text-blue-600">
+          <Link to="/Login" className="text-black-600 font-large hover:text-red-600 p-3">
             Login
           </Link>
         </li>
         <li>
-          <Link to="/cart">
-            <BiCart className="text-gray-600 hover:text-blue-600 text-2xl" />
+          <Link to="/cart" className="py-6">
+            <BiCart className="text-black-600 font-large hover:text-red-600 text-2xl" />
           </Link>
         </li>
       </ul>

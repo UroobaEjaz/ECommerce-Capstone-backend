@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Card from "../components/Card";
+import Card from "../components/Cards";
 
 export default function Products() {
   const [items, setItems] = useState([]);
