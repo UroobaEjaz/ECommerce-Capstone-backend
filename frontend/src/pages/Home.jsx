@@ -36,8 +36,10 @@ const Home = () => {
         </h1>
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
-      <div className="">
-        <Card items={item} />
+      <div className="w-1/2">
+        <div>
+          <Card items={item} />
+        </div>
       </div>
     </div>
   );
