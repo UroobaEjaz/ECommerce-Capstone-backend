@@ -22,11 +22,11 @@ const Home = () => {
       console.log("error getting items", error);
     }
   };
- 
+
   useEffect(() => {
     getItems();
   }, []);
-  
+
   return (
     <div className="flex flex-col mt-[2500px]">
       <Navbar />
@@ -39,12 +39,10 @@ const Home = () => {
       </div>
       <div className="">
       <Card items={item} /> 
+>>>>>>>>> Temporary merge branch 2
       </div>
     </div>
   );
 };
 
-export default Home; 
-
-
-
+export default Home;
