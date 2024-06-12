@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mt-[2500px]">
+    <div className="flex flex-col mt-[800px]">
       <Navbar />
       <div className="flex justify-between items-center p-4">
         <h1 className="text-6xl font-bold">

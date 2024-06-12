@@ -61,12 +61,20 @@ function Card({ items }) {
 export default Card; */
 
 // src/components/ItemGrid.js
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+} from "@mui/material";
 
 const Cards = ({ items }) => {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <div
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+    >
       {items.length > 0 ? (
         items.map((item) => (
           <Card key={item.name} style={{ margin: 16, maxWidth: 345 }}>
@@ -102,4 +110,3 @@ const Cards = ({ items }) => {
 };
 
 export default Cards;
-
