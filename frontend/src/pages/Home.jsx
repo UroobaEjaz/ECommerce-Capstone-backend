@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
-import Card from "../components/Card";
+import Card from "../components/Cards";
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
+
 const Home = () => {
   const [item, setItem] = useState([]);
   const getItems = async () => {
@@ -21,11 +22,11 @@ const Home = () => {
       console.log("error getting items", error);
     }
   };
-
+ 
   useEffect(() => {
     getItems();
   }, []);
-
+  
   return (
     <div className="flex flex-col mt-[2500px]">
       <Navbar />
@@ -37,10 +38,13 @@ const Home = () => {
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
       <div className="">
-        <Card items={item} />
+      <Card items={item} /> 
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Home; 
+
+
+
