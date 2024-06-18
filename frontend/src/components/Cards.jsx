@@ -59,6 +59,8 @@ function Card({ items }) {
 }
 
 export default Card; */
+//reference: https://www.google.com/search?sca_esv=b8996be4c462e1ec&sca_upv=1&rlz=1C1OPNX_enCA1057CA1057&sxsrf=ADLYWILNwRNlDNp1RIm4pU8diULUBW20LA:1718222177946&q=how+to+create+cards+when+data+is+being+fetched+from+api&tbm=vid&source=lnms&fbs=AEQNm0DVrIRjdA3gRKfJJ-deMT8ZtYOjoIt1NWOMRkEKym4u5PkAZgxJOmIgPx6WieMhF6q1Hq7W6nME2Vp0eHuijF3ZElaTgD0zbj1gkQrti2r6HtU_FSIC_TOIRePmNlS6X7JM5HBW5XbZDBZ4_7u7u_1S0lBKWZanVrzOMi5iZT88U7e3_wgsAQOPU_p9Gb66BSsVUXKxPRPH2pqhwDp-oi5jONlpDQ&sa=X&ved=2ahUKEwiV7b607NaGAxWwADQIHakRAsYQ0pQJegQIDBAB&biw=1396&bih=632&dpr=1.38#fpstate=ive&vld=cid:15d3deed,vid:RYF4_pqhS38,st:0
+// to run this install : npm install @mui/material @emotion/react @emotion/styled
 
 // src/components/ItemGrid.js
 import React from "react";
@@ -80,7 +82,7 @@ const Cards = ({ items }) => {
           <Card key={item.name} style={{ margin: 16, maxWidth: 345 }}>
             <CardMedia
               component="img"
-              height="140"
+              height="100"
               image={`/api/items/images/${item.image}`}
               alt={item.name}
             />
@@ -88,20 +90,39 @@ const Cards = ({ items }) => {
               <Typography gutterBottom variant="h5" component="div">
                 {item.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontSize: "1.1rem", color: "black" }}
+              >
                 {item.description}
               </Typography>
-              <Typography variant="h6" color="text.primary">
-                {item.price}
-              </Typography>
-              <Button size="small" color="primary">
+              <div style={{ marginTop: 10 }}>
+                {" "}
+                {/* Add margin top to create space between description and price */}
+                <Typography variant="h6" color="text.primary">
+                  {`${item.price} $`}
+                </Typography>
+              </div>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  backgroundColor: "darkred",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "red", // darken color on hover if needed
+                  },
+                  marginTop: 3,
+                }}
+              >
                 Add to Cart
               </Button>
             </CardContent>
           </Card>
         ))
       ) : (
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="h7" color="text.secondary">
           No items found.
         </Typography>
       )}

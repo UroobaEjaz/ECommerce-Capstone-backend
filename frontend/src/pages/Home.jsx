@@ -38,7 +38,7 @@ const Home = () => {
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
       <div className="">
-        <Card items={item} />
+      <Card items={item} /> 
       </div>
     </div>
   );
