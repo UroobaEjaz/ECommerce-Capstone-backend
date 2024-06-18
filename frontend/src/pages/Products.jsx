@@ -27,8 +27,8 @@ export default function Products() {
     <div className="p-4">
       <Navbar />
       <ul className="flex justify-around">
-         {/* Example of how to use the getItems function */}
-         <li className="mx-2">
+        {/* Example of how to use the getItems function */}
+        <li className="mx-2">
           <button onClick={getItems("Sweet")} className=" hover:text-gray-300">
             Sweets
           </button>
@@ -39,7 +39,7 @@ export default function Products() {
           </button>
         </li>
         <li className="mx-2">
-          <button onClick={getItems("snacks")} className=" hover:text-gray-300">
+          <button onClick={getItems("Chips")} className=" hover:text-gray-300">
             Snacks
           </button>
         </li>
@@ -78,7 +78,3 @@ export default function Products() {
     </div>
   );
 }
- 
-
-
-
