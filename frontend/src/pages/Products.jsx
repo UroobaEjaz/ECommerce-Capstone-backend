@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Card from "../components/Card";
+import Card from "../components/Cards";
 
 export default function Products() {
   const [items, setItems] = useState([]);
@@ -27,13 +27,19 @@ export default function Products() {
     <div className="p-4">
       <Navbar />
       <ul className="flex justify-around">
+         {/* Example of how to use the getItems function */}
+         <li className="mx-2">
+          <button onClick={getItems("Sweet")} className=" hover:text-gray-300">
+            Sweets
+          </button>
+        </li>
         <li className="mx-2">
           <button onClick={getItems("Drinks")} className=" hover:text-gray-300">
             Cold Drink
           </button>
         </li>
         <li className="mx-2">
-          <button onClick={getItems("s")} className=" hover:text-gray-300">
+          <button onClick={getItems("snacks")} className=" hover:text-gray-300">
             Snacks
           </button>
         </li>
@@ -72,3 +78,7 @@ export default function Products() {
     </div>
   );
 }
+ 
+
+
+
