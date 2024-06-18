@@ -48,7 +48,6 @@ export const addItem = async (req, res) => {
 export const getItems = async (req, res) => {
   try {
     const items = await Item.find();
-    console.log(items);
 
     res.status(200).send(items);
   } catch (error) {

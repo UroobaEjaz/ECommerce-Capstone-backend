@@ -13,52 +13,39 @@ const Login = () => {
     await login({ email, password });
   };
   return (
-    <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-black-400 bg-clip-padding backdrop-blur-lg bg-opacity-0">
-        <h1 className="text-3xl font-semibold text-center text-white-300 mb-8">
-          Login
-        </h1>
+    <div className="flex flex-col gap-2 border rounded-md p-3">
+      <div className="flex flex-col text-center justify-center gap-4">
+        <h1 className="text-4xl font-bold">Login</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label className="label p-2">
-              <span className="text-base label-text">email</span>
+          <div className="flex flex-col gap-1">
+            <label className="p-2">
+              <span className="font-bold">Email</span>
             </label>
             <input
               type="text"
               placeholder="Enter email"
-              className="w-full input input-bordered h-10"
+              className=""
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Password</span>
+            <label className="p-2">
+              <span className="">Password</span>
             </label>
             <input
               type="password"
               placeholder="Enter Password"
-              className="w-full input input-bordered h-10"
+              className=""
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Link
-            to="/signup"
-            className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
-          >
+          <Link to="/signup" className="">
             {"Don't"} have an account
           </Link>
-          <button
-            type="submit"
-            className="btn btn-block btn-sm mt-2"
-            disabled={loading}
-          >
-            {loading ? (
-              <span className="loading loading-spinner"></span>
-            ) : (
-              "Login"
-            )}
+          <button type="submit" className="" disabled={loading}>
+            {loading ? <span className=""></span> : "Login"}
           </button>
         </form>
       </div>
