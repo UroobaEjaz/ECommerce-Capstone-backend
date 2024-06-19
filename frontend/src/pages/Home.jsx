@@ -28,16 +28,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <Navbar />
-      <div className="flex justify-between items-center p-4">
+      <div className="flex flex-row justify-between items-center p-4">
         <h1 className="text-6xl font-bold">
           Welcome To <br />
           JK Convenience Store
         </h1>
-        <img src="/logo.jpg" className="rounded-full w-1/3" />
+        <img src="/logo.jpg" alt="Store Logo" className="rounded-full w-1/3" />
       </div>
-      <div className="">
+      <div className="flex flex-row">
         <Card items={item} />
       </div>
     </div>

@@ -72,9 +72,18 @@ import {
   Button,
 } from "@mui/material";
 
+const truncateText = (text, wordLimit) => {
+  const words = text.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
+  return text;
+};
+
 const Cards = ({ items }) => {
   return (
     <div
+      className="flex flex-wrap justify-center h-1 mt-12"
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
     >
       {items.length > 0 ? (
@@ -95,7 +104,7 @@ const Cards = ({ items }) => {
                 color="text.secondary"
                 sx={{ fontSize: "1.1rem", color: "black" }}
               >
-                {item.description}
+                {truncateText(item.description, 15)}
               </Typography>
               <div style={{ marginTop: 10 }}>
                 {" "}
