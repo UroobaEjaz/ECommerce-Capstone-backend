@@ -7,6 +7,7 @@
 
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import Cart from "../components/Cart";
 
 
 export default function About() {
@@ -62,6 +63,7 @@ export default function About() {
         Come visit us for a wide range of products and excellent customer
         service!
       </p>
+      <Cart />
     </div>
   );
 }
