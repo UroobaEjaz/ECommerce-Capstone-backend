@@ -14,27 +14,42 @@ const Navbar = () => {
       </Link>
       <ul className="flex space-x-4">
         <li>
-          <Link to="/" className="text-black-600 font-large hover:text-red-600 p-3">
+          <Link
+            to="/"
+            className="text-black-600 font-large hover:text-red-600 p-3"
+          >
             Home
           </Link>
         </li>
         <li>
-          <Link to="/Products" className="text-black-600 font-large hover:text-red-600 p-3">
+          <Link
+            to="/Products"
+            className="text-black-600 font-large hover:text-red-600 p-3"
+          >
             Products
           </Link>
         </li>
         <li>
-          <Link to="/About" className="text-black-600 font-large hover:text-red-600 p-3">
+          <Link
+            to="/About"
+            className="text-black-600 font-large hover:text-red-600 p-3"
+          >
             About
           </Link>
         </li>
         <li>
-          <Link to="/Contact" className="text-black-600 font-large hover:text-red-600 p-3 mt-2">
+          <Link
+            to="/Contact"
+            className="text-black-600 font-large hover:text-red-600 p-3 mt-2"
+          >
             Contact
           </Link>
         </li>
         <li>
-          <Link to="/Login" className="text-black-600 font-large hover:text-red-600 p-3">
+          <Link
+            to="/Login"
+            className="text-black-600 font-large hover:text-red-600 p-3"
+          >
             Login
           </Link>
         </li>

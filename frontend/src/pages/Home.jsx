@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mt-[800px]">
+    <div className="flex flex-col">
       <Navbar />
       <div className="flex justify-between items-center p-4">
         <h1 className="text-6xl font-bold">
@@ -38,7 +38,7 @@ const Home = () => {
         <img src="/logo.jpg" className="rounded-full w-1/3" />
       </div>
       <div className="">
-      <Card items={item} /> 
+        <Card items={item} />
       </div>
     </div>
   );
