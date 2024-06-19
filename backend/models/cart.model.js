@@ -2,7 +2,26 @@ import mongoose from "mongoose";
 
 const cartSchema = new mongoose.Schema(
   {
-    
+    email: {
+      type: String,
+      required: true,
+    },
+    cartItems: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
