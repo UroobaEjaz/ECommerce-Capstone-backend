@@ -55,6 +55,7 @@ const Home = () => {
       <div className="flex flex-row">
         <Card items={item} handleClick={handleClick} />
       </div>
+      <Cart cart={cart} setCart={setCart} />
     </div>
   );
 };

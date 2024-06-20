@@ -48,17 +48,15 @@ import Navbar from "./Navbar";
 export default function Cart({ cart = [], setCart }) {
   const [price, setPrice] = useState(0);
   return (
-    <div>
+    <article>
       <Navbar />
-      <div>
-        <article>
-          {cart.map((item) => (
-            <div className="Cart_box" key={item.id}>
-              <div className="Cart_img"></div>
-            </div>
-          ))}
-        </article>
-      </div>
-    </div>
+      {cart.map((item) => (
+        <div className="Cart_box" key={item.id}>
+          <div className="Cart_img">
+            <img src={item.image} alt={item.name} />
+          </div>
+        </div>
+      ))}
+    </article>
   );
 }
