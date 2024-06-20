@@ -72,6 +72,8 @@ import {
   Button,
 } from "@mui/material";
 
+// Used Chat gpt for truncate text
+
 const truncateText = (text, wordLimit) => {
   const words = text.split(" ");
   if (words.length > wordLimit) {
@@ -80,7 +82,7 @@ const truncateText = (text, wordLimit) => {
   return text;
 };
 
-const Cards = ({ items }) => {
+const Cards = ({ items, handleClick }) => {
   return (
     <div
       className="flex flex-wrap justify-center h-1 mt-12"
@@ -113,6 +115,7 @@ const Cards = ({ items }) => {
                 </Typography>
               </div>
               <Button
+                onClick={() => handleClick(item)}
                 size="small"
                 color="primary"
                 sx={{

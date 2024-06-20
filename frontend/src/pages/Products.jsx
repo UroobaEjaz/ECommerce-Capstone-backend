@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Card from "../components/Cards";
 
 export default function Products() {
   const [items, setItems] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  // useEffect(() => {
+  //   const savedCart = localStorage.getItem("cart");
+  //   if (savedCart) {
+  //     setCart(JSON.parse(savedCart));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+  // }, [cart]);
+
+  const handleClick = (item) => {
+    setCart([...cart, item]);
+  };
 
   const getItems = (category) => async () => {
     try {
@@ -25,7 +41,8 @@ export default function Products() {
   };
   return (
     <div className="p-4">
-      <Navbar />
+      <Navbar size={cart.length} />
+      {<cart cart={cart} setCart={setCart} />}
       <ul className="flex justify-around">
         {/* Example of how to use the getItems function */}
         <li className="mx-2">
@@ -63,6 +80,7 @@ export default function Products() {
             Personal Care
           </Link>
         </li>
+        s
         <li className="mx-2">
           <Link to="/frozen-foods" className=" hover:text-gray-300">
             Frozen Foods
@@ -74,7 +92,7 @@ export default function Products() {
           </Link>
         </li>
       </ul>
-      <Card items={items} />
+      <Card items={items} handleClick={handleClick} />
     </div>
   );
 }
