@@ -1,8 +1,9 @@
-// Cart.js
-import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import axios from "axios"; // Assuming you are using axios for HTTP requests
-import Navbar from "./Navbar";
+// // Cart.js
+// import { Link } from "react-router-dom";
+// import React, { useEffect, useState } from "react";
+// import axios from "axios"; // Assuming you are using axios for HTTP requests
+// import Navbar from "./Navbar";
+
 // export default function Cart() {
 //   const [cart, setCart] = useState(null);
 //   const [loading, setLoading] = useState(true);
@@ -45,18 +46,48 @@ import Navbar from "./Navbar";
 //   );
 // }
 
-export default function Cart({ cart = [], setCart }) {
-  const [price, setPrice] = useState(0);
+// Cart component
+// Cart.js
+// export default function Cart({ cart }) {
+//   if (!cart || cart.length === 0) {
+//     return (
+//       <div>
+//         <Navbar />
+//         <h2>Cart</h2>
+//         <p>No items in cart.</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div>
+//       <Navbar />
+//       <h2>Cart</h2>
+//       <ul>
+//         {cart.map((item, index) => (
+//           <li key={index}>
+//             <div>{item.name}</div>
+//             <div>Quantity: {item.quantity}</div>
+//             <div>Price: ${item.price}</div>
+//           </li>
+//         ))}
+//       </ul>
+//       <Cart cart={cart} />
+//     </div>
+//   );
+// }
+
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+
+export default function Cart() {
+  const [cart, setCart] = useState(null);
   return (
-    <article>
+    <div>
       <Navbar />
-      {cart.map((item) => (
-        <div className="Cart_box" key={item.id}>
-          <div className="Cart_img">
-            <img src={item.image} alt={item.name} />
-          </div>
-        </div>
-      ))}
-    </article>
+      <h2>Cart</h2>
+      <p>No items in cart.</p>
+    </div>
   );
 }
