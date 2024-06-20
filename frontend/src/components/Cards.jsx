@@ -91,7 +91,6 @@ const Cards = ({ items }) => {
           <Card key={item.name} style={{ margin: 16, maxWidth: 345 }}>
             <CardMedia
               component="img"
-              height="100"
               image={`/api/items/images/${item.image}`}
               alt={item.name}
             />
@@ -104,7 +103,7 @@ const Cards = ({ items }) => {
                 color="text.secondary"
                 sx={{ fontSize: "1.1rem", color: "black" }}
               >
-                {truncateText(item.description, 15)}
+                {truncateText(item.description, 8)}
               </Typography>
               <div style={{ marginTop: 10 }}>
                 {" "}
