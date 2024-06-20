@@ -6,8 +6,8 @@ import Navbar from "../components/Navbar.jsx";
 export default function Contact() {
   return (
     <div>
-      <Navbar size={Cart.length} />
-      {/* <Chat /> */}
+     {/* <Navbar size={Cart.length} /> */ }
+       <Chat /> 
     </div>
   );
 }
