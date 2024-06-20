@@ -24,7 +24,7 @@ app.use("/api/items", itemsRoutes);
 //app.use("/api/purchase", purchaseRoutes);
 app.use("/api/users", userRoutes);
 //cart routes
-app.use('/api/cart', cartRoutes); // cart routes under /api/cart
+app.use("/api/cart", cartRoutes); // cart routes under /api/cart
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));

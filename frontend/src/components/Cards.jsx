@@ -1,69 +1,8 @@
-/*import { set } from "mongoose";
-import React, { useEffect } from "react";
-import { useState } from "react"; */
-
-/* reference: https://chatgpt.com/c/0c9b5125-bd4a-4d11-afe8-0eb143669f0c */
-/*
-function Card({ items }) {
-  // if (item.length < 1 && (items = "{error : 'No item found'}")) {
-  //   return (
-  //     <div>
-  //       <p>We dont currently has items for this catagory</p>
-  //       <div>{items}</div>
-  //     </div>
-  //   );
-  // }
-  const [item, setItem] = useState([]);
-  const getItems = async () => {
-    try {
-      const response = await fetch("/api/items/get", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-      setItem(data);
-      console.log(data);
-    } catch (error) {
-      console.log("error getting items", error);
-    }
-  };
-
-  useEffect(() => {
-    getItems();
-  }, []);
-  return (
-    <div className="flex flex-col">
-      {items &&
-        items.map((item) => (
-          <div className="" style={{ width: "18rem" }} key={item.name}>
-            <img
-              src={`/api/items/images/${item.image}`}
-              className=""
-              alt="..."
-            />
-            <div className="">
-              <h5 className="">{item.name}</h5>
-              <p className="">{item.description}</p>
-              <p className="">{item.price}</p>
-              <a href="#" className="">
-                Add to Cart
-              </a>
-            </div>
-          </div>
-        ))}
-    </div>
-  );
-}
-
-export default Card; */
 //reference: https://www.google.com/search?sca_esv=b8996be4c462e1ec&sca_upv=1&rlz=1C1OPNX_enCA1057CA1057&sxsrf=ADLYWILNwRNlDNp1RIm4pU8diULUBW20LA:1718222177946&q=how+to+create+cards+when+data+is+being+fetched+from+api&tbm=vid&source=lnms&fbs=AEQNm0DVrIRjdA3gRKfJJ-deMT8ZtYOjoIt1NWOMRkEKym4u5PkAZgxJOmIgPx6WieMhF6q1Hq7W6nME2Vp0eHuijF3ZElaTgD0zbj1gkQrti2r6HtU_FSIC_TOIRePmNlS6X7JM5HBW5XbZDBZ4_7u7u_1S0lBKWZanVrzOMi5iZT88U7e3_wgsAQOPU_p9Gb66BSsVUXKxPRPH2pqhwDp-oi5jONlpDQ&sa=X&ved=2ahUKEwiV7b607NaGAxWwADQIHakRAsYQ0pQJegQIDBAB&biw=1396&bih=632&dpr=1.38#fpstate=ive&vld=cid:15d3deed,vid:RYF4_pqhS38,st:0
 // to run this install : npm install @mui/material @emotion/react @emotion/styled
 
 // src/components/ItemGrid.js
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -71,6 +10,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { set } from "mongoose";
 
 // Used Chat gpt for truncate text
 
@@ -83,6 +23,22 @@ const truncateText = (text, wordLimit) => {
 };
 
 const Cards = ({ items, handleClick }) => {
+  const [cartItems, setCartItems] = useState([]);
+  const addToCart = async (item) => {
+    const data = await fetch("/api/cart/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "hello@gmail.com",
+        cartItems,
+      }),
+    });
+    setCartItems([...cartItems, item]);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    console.log(cartItems);
+  };
   return (
     <div
       className="flex flex-wrap justify-center h-1 mt-12"
@@ -115,7 +71,7 @@ const Cards = ({ items, handleClick }) => {
                 </Typography>
               </div>
               <Button
-                onClick={() => handleClick(item)}
+                onClick={() => addToCart(item)}
                 size="small"
                 color="primary"
                 sx={{
