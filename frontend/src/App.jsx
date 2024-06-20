@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Cart from "./components/Cart";
+import Checkout from "./pages/Checkout";
 // Used ChatGPT to get the syntax for the Router and the Routes URL:https://chatgpt.com/c/eed16b61-cd05-4273-bf35-cdd64b66b642
 // Watched Youtube videos as well url:https://www.youtube.com/watch?v=17l6AOc8s10&ab_channel=CodeComplete , https://www.youtube.com/watch?v=SLfhMt5OUPI&ab_channel=WebDevSimplified
 export default function App() {
@@ -52,7 +52,7 @@ export default function App() {
           />
           <Route
             path="/Cart"
-            element={!authUser ? <Cart /> : <Navigate to="/" />}
+            element={!authUser ? <Checkout /> : <Navigate to="/" />}
           />
         </Routes>
       </div>

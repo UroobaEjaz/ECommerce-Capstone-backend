@@ -88,3 +88,15 @@ export const getItemByName = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getItemsById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const item = await Item.findById(id);
+
+    res.status(200).json(item);
+  } catch (error) {
+    console.log("error getting item by id", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

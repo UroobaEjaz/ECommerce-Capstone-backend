@@ -22,8 +22,9 @@ const truncateText = (text, wordLimit) => {
   return text;
 };
 
-const Cards = ({ items, handleClick }) => {
+const Cards = ({ items }) => {
   const [cartItems, setCartItems] = useState([]);
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
   const addToCart = async (item) => {
     const data = await fetch("/api/cart/", {
       method: "POST",
@@ -35,7 +36,7 @@ const Cards = ({ items, handleClick }) => {
         cartItems,
       }),
     });
-    setCartItems([...cartItems, item]);
+    setCartItems([...cartItems, item._id]);
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     console.log(cartItems);
   };
