@@ -5,6 +5,7 @@ import Card from "../components/Cards";
 import { Slides } from "../Data/CarouselData.json";
 import Carousel from "../components/Carousel";
 import ListItem from "./ListItems";
+import Search from "./Search";
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 // for Cart length Reference: https://www.youtube.com/watch?v=P9-zbdMTwjM&ab_channel=CodeForU
@@ -38,10 +39,12 @@ const Home = () => {
   }, []);
 
   return (
-   <div className="flex flex-col items-center">
+   <div className="">
     <Navbar/>
      {/* <Card items={item} /> */}
-     <Carousel data = {Slides}/> 
+    
+     <Carousel data = {Slides}/>    
+     <Search/>
     {/* <ListItem /> */}
      
     </div>
