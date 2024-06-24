@@ -141,11 +141,14 @@ export default Search;  */
 
 
 // dependency to install : npm install react-speech-recognition
+// npm install @babel/polyfill
+// npm install framer-motion
+// import '@babel/polyfill';
+
 
 // reference: https://www.youtube.com/watch?v=W0-hJ-9YG3I
 
-
-
+import '@babel/polyfill';
 import React, { useState } from "react";
 import Card from "../components/Cards";
 import { VscDebugStart, VscDebugStop } from "react-icons/vsc";
@@ -212,10 +215,10 @@ const Search = () => {
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            exit={{ y: 100 }}
-            transition={{ duration: 0.3 }}
+            initial={{ x: '-100%' }} // Slide in from left
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }} // Slide out to left
+            transition={{ duration: 0.5 }} // Slower animation duration
             className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 rounded-t-md z-10"
           >
             <form onSubmit={getItems} className="flex items-center">
@@ -256,4 +259,3 @@ const Search = () => {
 };
 
 export default Search;
-
