@@ -148,7 +148,7 @@ export default Search;  */
 
 // reference: https://www.youtube.com/watch?v=W0-hJ-9YG3I
 
-import '@babel/polyfill';
+import 'regenerator-runtime/runtime';
 import React, { useState } from "react";
 import Card from "../components/Cards";
 import { VscDebugStart, VscDebugStop } from "react-icons/vsc";
@@ -219,7 +219,8 @@ const Search = () => {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }} // Slide out to left
             transition={{ duration: 0.5 }} // Slower animation duration
-            className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 rounded-t-md z-10"
+            className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 rounded-t-md z-10 overflow-y-auto"
+            style={{ maxHeight: "80vh" }} // Limit height and enable scrolling
           >
             <form onSubmit={getItems} className="flex items-center">
               <input
@@ -227,7 +228,8 @@ const Search = () => {
                 placeholder="Ask me"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-grow border rounded-md border-gray-300 p-2 mr-2"
+                className="flex-grow border rounded-md border-gray-300 p-2 mr-2 max-w-xs"
+                style={{ maxWidth: "calc(100% - 100px)" }} // Adjust width as needed
               />
               <button
                 type="button"

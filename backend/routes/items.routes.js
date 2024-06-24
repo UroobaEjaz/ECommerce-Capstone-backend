@@ -33,6 +33,26 @@ router.post("/", upload.single("image"), async (req, res) => {
 
 router.post("/add", upload.single("image"), addItem);
 
+/* ----Remove from here , if it does not work---- */
+
+// Route to handle visual search
+{/*router.post("/visualSearch", upload.single("image"), async (req, res) => {
+  try {
+    // Logic to process the uploaded image for visual search
+    const imageUrl = `uploads/${req.file.filename}`; // Path to uploaded image
+
+    // Perform visual search logic (example: dummy response)
+    const visualSearchResults = await performVisualSearch(imageUrl);
+
+    res.json(visualSearchResults);
+  } catch (error) {
+    console.error("Error performing visual search:", error);
+    res.status(500).json({ error: "Failed to perform visual search" });
+  }
+}); */}
+
+/*------------Till here----------------- */
+
 // https://www.geeksforgeeks.org/how-to-fetch-images-from-node-js-server/
 router.use("/images", express.static("uploads"));
 

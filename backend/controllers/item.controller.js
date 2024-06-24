@@ -1,4 +1,25 @@
 import Item from "../models/item.model.js";
+{/*
+//added material-------------> If it does not work, remove from here
+
+export async function performVisualSearch(imageUrl) {
+  // Dummy logic to simulate visual search results
+  const dummyVisualResults = [
+    { id: 1, name: "Visual Result 1", imageUrl: "path/to/image1.jpg" },
+    { id: 2, name: "Visual Result 2", imageUrl: "path/to/image2.jpg" },
+    // Add more results as needed
+  ];
+
+  return dummyVisualResults;
+}
+
+
+*/}
+
+
+
+
+
 
 export const addItem = async (req, res) => {
   try {
