@@ -97,7 +97,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 {/*bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 */}
 
 {/*flex h-20 bg-black w-full top-0 items-center justify-between bg-primary text-white px-0 py-0 md:px-6 shadow-sm*/}
-export default function Component() {
+export default function Navbar() {
 
   // implement the user context
 
@@ -161,7 +161,7 @@ export default function Component() {
               <AvatarFallback>{authUser.firstname}</AvatarFallback>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="text-white">Login</Link>
           )} 
         </Avatar>
         </DropdownMenuTrigger>  
