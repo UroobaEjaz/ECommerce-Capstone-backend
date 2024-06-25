@@ -43,7 +43,7 @@ const Home = () => {
     <Navbar/>
      {/* <Card items={item} /> */}
     
-    {/* <Carousel data = {Slides}/>    */}
+    <Carousel data = {Slides}/>    
      <Search/>
     {/* <ListItem /> */}
      
