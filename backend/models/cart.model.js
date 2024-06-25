@@ -11,11 +11,11 @@ const cartSchema = new mongoose.Schema(
         _id: {
           type: String,
           required: true,
-<<<<<<< HEAD
-        }, 
-=======
         },
->>>>>>> 84c6fa6de7c200c26799b55e484f07e9404bb5fc
+        quantity: {
+          type: Number,
+          required: true,
+        },
       },
     ],
   },
