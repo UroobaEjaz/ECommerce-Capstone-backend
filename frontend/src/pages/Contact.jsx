@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar.jsx";
 export default function Contact() {
   return (
     <div>
-     {/* <Navbar size={Cart.length} /> */ }
+      <Navbar /> 
        <Chat /> 
     </div>
   );

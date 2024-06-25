@@ -8,7 +8,7 @@ give the information about the help desk */
 
 import React from "react";
 
-// import ChatBot from "react-simple-chatbot";
+ import ChatBot from "react-simple-chatbot";
 
 export default function Chat() {
   return (

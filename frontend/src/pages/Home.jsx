@@ -3,9 +3,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Card from "../components/Cards";
 import { Slides } from "../Data/CarouselData.json";
-import Carousel from "../components/Carousel";
 import ListItem from "./ListItems";
 import Search from "./Search";
+import CarouselPage from "../components/CarouselPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 // for Cart length Reference: https://www.youtube.com/watch?v=P9-zbdMTwjM&ab_channel=CodeForU
@@ -39,14 +40,14 @@ const Home = () => {
   }, []);
 
   return (
-   <div className="">
-    <Navbar/>
+   <div >
+    <Navbar/> 
      {/* <Card items={item} /> */}
     
-    <Carousel data = {Slides}/>    
-     <Search/>
+   {/* <Carousel data = {Slides}/>    */}
+     <Search/> 
     {/* <ListItem /> */}
-     
+    <CarouselPage/>
     </div>
 
 
