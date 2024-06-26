@@ -1,13 +1,15 @@
 import React from "react";
 
-import Chat from "./chat.jsx";
+
 import Navbar from "../components/Navbar.jsx";
+import ChatbotComponent from "./Chatbot.jsx";
+
 
 export default function Contact() {
   return (
     <div>
-     {/* <Navbar size={Cart.length} /> */ }
-       <Chat /> 
+      <Navbar /> 
+       <ChatbotComponent /> 
     </div>
   );
 }

@@ -2,7 +2,8 @@
 // to run this install : npm install @mui/material @emotion/react @emotion/styled
 
 // src/components/ItemGrid.js
-import React, { useState } from "react";
+
+{/*import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -65,7 +66,7 @@ const Cards = ({ items }) => {
               </Typography>
               <div style={{ marginTop: 10 }}>
                 {" "}
-                {/* Add margin top to create space between description and price */}
+                
                 <Typography variant="h6" color="text.primary">
                   {`${item.price} $`}
                 </Typography>
@@ -92,6 +93,61 @@ const Cards = ({ items }) => {
         <Typography variant="h7" color="text.secondary">
           No items found.
         </Typography>
+      )}
+    </div>
+  );
+};
+
+export default Cards; */}
+
+import React, { useState } from "react";
+import { Card, Button } from "react-bootstrap";
+import { motion } from "framer-motion";
+
+const truncateText = (text, wordLimit) => {
+  const words = text.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
+  return text;
+};
+
+const Cards = ({ items }) => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    const updatedCartItems = [...cartItems, item._id];
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    console.log(updatedCartItems); // Log updated cart items
+  };
+
+  return (
+    <div className="d-flex flex-wrap justify-content-center mt-4">
+      {items.length > 0 ? (
+        items.map((item) => (
+          <motion.div
+            key={item._id}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            style={{ width: "18rem", margin: "0.5rem" }}
+          >
+            <Card>
+              <Card.Img variant="top" src={`/api/items/images/${item.image}`} alt={item.name} />
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                <Card.Text>{truncateText(item.description, 8)}</Card.Text>
+                <Card.Text>${item.price}</Card.Text>
+                <Button onClick={() => addToCart(item)} variant="primary">
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          </motion.div>
+        ))
+      ) : (
+        <p>No items found.</p>
       )}
     </div>
   );
