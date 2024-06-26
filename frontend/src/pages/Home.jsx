@@ -7,6 +7,7 @@ import ListItem from "./ListItems";
 import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductList from "./ProductList";
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 // for Cart length Reference: https://www.youtube.com/watch?v=P9-zbdMTwjM&ab_channel=CodeForU
@@ -48,6 +49,8 @@ const Home = () => {
      <Search/> 
     {/* <ListItem /> */}
     <CarouselPage/>
+
+    <ProductList/>
     </div>
 
 
