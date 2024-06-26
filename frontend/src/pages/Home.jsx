@@ -65,25 +65,26 @@ const Home = () => {
   }, []);
 
   return (
-   <div className="">
-    <Navbar/>
-     {/* <Card items={item} /> */}
-    
-    <Carousel data = {Slides}/>    
-     <Search/>
-    {/* <ListItem /> */}
-     
     <div className="">
       <Navbar />
-      {/* <div className="m-6 p-6">{test}</div>
-      <div className="m-6 p-6">length: {test.length}</div> */}
-      <div className="m-6 p-6">id: {id}</div>
-      <div className="m-6 p-6"></div>
-      <Card items={item} />
+      {/* <Card items={item} /> */}
 
-      {/* <Carousel data = {Slides}/>    */}
+      <Carousel data={Slides} />
       <Search />
       {/* <ListItem /> */}
+
+      <div className="">
+        <Navbar />
+        {/* <div className="m-6 p-6">{test}</div>
+      <div className="m-6 p-6">length: {test.length}</div> */}
+        <div className="m-6 p-6">id: {id}</div>
+        <div className="m-6 p-6"></div>
+        <Card items={item} />
+
+        {/* <Carousel data = {Slides}/>    */}
+        <Search />
+        {/* <ListItem /> */}
+      </div>
     </div>
   );
 };
