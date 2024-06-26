@@ -21,7 +21,7 @@ function CarouselPage() {
               First slide label
             </motion.h3>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-              Nulla vitae elit libero, a pharetra augue mollis interdum.
+              We offer you the best products
             </motion.p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -36,10 +36,10 @@ function CarouselPage() {
           />
           <Carousel.Caption>
             <motion.h3 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-              Second slide label
+              JK Convenience Store
             </motion.h3>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Offers you Icecream
             </motion.p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -54,10 +54,10 @@ function CarouselPage() {
           />
           <Carousel.Caption>
             <motion.h3 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-              Third slide label
+              This Summer!
             </motion.h3>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              Beat the heat at our store!
             </motion.p>
           </Carousel.Caption>
         </Carousel.Item>
