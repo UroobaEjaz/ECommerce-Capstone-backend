@@ -65,6 +65,14 @@ const Home = () => {
   }, []);
 
   return (
+   <div className="">
+    <Navbar/>
+     {/* <Card items={item} /> */}
+    
+    <Carousel data = {Slides}/>    
+     <Search/>
+    {/* <ListItem /> */}
+     
     <div className="">
       <Navbar />
       {/* <div className="m-6 p-6">{test}</div>
