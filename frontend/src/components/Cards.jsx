@@ -10,7 +10,6 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { set } from "mongoose";
 
 // Used Chat gpt for truncate text
 
@@ -36,7 +35,7 @@ const Cards = ({ items }) => {
         cartItems,
       }),
     });
-    setCartItems([...cartItems, item._id]);
+    setCartItems([...cartItems, { itemId: item._id, quantity: 1 }]);
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     console.log(cartItems);
   };
