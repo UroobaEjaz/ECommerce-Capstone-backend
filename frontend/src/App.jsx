@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -21,6 +22,33 @@ export default function App() {
     window.localStorage.removeItem("cartItems");
     window.localStorage.removeItem("id");
   };
+
+  const [id, setId] = useState(null);
+
+  const getId = async () => {
+    try {
+      const id = await fetch("/api/cart/tempid", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await id.json();
+      setId(data.email);
+      console.log(data.email);
+      localStorage.setItem("id", JSON.stringify(data.email));
+    } catch (error) {
+      console.log("error getting tempid", error);
+    }
+  };
+
+  if (localStorage.getItem("id") === null) {
+    getId();
+  }
+
+  useEffect(() => {
+    setId(localStorage.getItem("id"));
+  }, []);
 
   return (
     <>

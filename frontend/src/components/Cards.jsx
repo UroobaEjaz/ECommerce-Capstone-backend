@@ -3,7 +3,8 @@
 
 // src/components/ItemGrid.js
 
-{/*import React, { useState } from "react";
+{
+  /*import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -98,7 +99,8 @@ const Cards = ({ items }) => {
   );
 };
 
-export default Cards; */}
+export default Cards; */
+}
 
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
@@ -115,11 +117,27 @@ const truncateText = (text, wordLimit) => {
 const Cards = ({ items }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  const addToDatabase = async (id, list) => {
+    const response = await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: id,
+        cartItems: list,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   const addToCart = (item) => {
-    const updatedCartItems = [...cartItems, item._id];
+    const updatedCartItems = [...cartItems, { _id: item._id, quantity: 1 }];
     setCartItems(updatedCartItems);
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-    console.log(updatedCartItems); // Log updated cart items
+    const id = localStorage.getItem("id");
+    addToDatabase(id, updatedCartItems);
   };
 
   return (
@@ -134,7 +152,11 @@ const Cards = ({ items }) => {
             style={{ width: "18rem", margin: "0.5rem" }}
           >
             <Card>
-              <Card.Img variant="top" src={`/api/items/images/${item.image}`} alt={item.name} />
+              <Card.Img
+                variant="top"
+                src={`/api/items/images/${item.image}`}
+                alt={item.name}
+              />
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
