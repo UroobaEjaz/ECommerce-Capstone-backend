@@ -21,8 +21,7 @@ const Checkout = () => {
   // });
   return (
     <div className="flex flex-col">
-      <h1>hello</h1>
-      <div></div>
+      <div>{data}</div>
     </div>
   );
 };
