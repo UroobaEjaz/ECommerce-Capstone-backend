@@ -102,6 +102,81 @@ const Cards = ({ items }) => {
 export default Cards; */
 }
 
+// import React, { useState } from "react";
+// import { Card, Button } from "react-bootstrap";
+// import { motion } from "framer-motion";
+
+// const truncateText = (text, wordLimit) => {
+//   const words = text.split(" ");
+//   if (words.length > wordLimit) {
+//     return words.slice(0, wordLimit).join(" ") + "...";
+//   }
+//   return text;
+// };
+
+// const Cards = ({ items }) => {
+//   const [cartItems, setCartItems] = useState([]);
+
+//   const addToDatabase = async (id, list) => {
+//     const response = await fetch("/api/cart", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         email: id,
+//         cartItems: list,
+//       }),
+//     });
+//     const data = await response.json();
+//     console.log(data);
+//   };
+
+//   const addToCart = (item) => {
+//     const updatedCartItems = [...cartItems, { _id: item._id, quantity: 1 }];
+//     setCartItems(updatedCartItems);
+//     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+//     const id = localStorage.getItem("id");
+//     addToDatabase(id, updatedCartItems);
+//   };
+
+//   return (
+//     <div className="d-flex flex-wrap justify-content-center ">
+//       {items.length > 0 ? (
+//         items.map((item) => (
+//           <motion.div
+//             key={item._id}
+//             whileHover={{ scale: 1.05 }}
+//             whileTap={{ scale: 0.95 }}
+//             transition={{ duration: 0.2 }}
+//             style={{ width: "18rem", margin: "0.5rem" }}
+//           >
+//             <Card>
+//               <Card.Img
+//                 variant="top"
+//                 src={`/api/items/images/${item.image}`}
+//                 alt={item.name}
+//               />
+//               <Card.Body>
+//                 <Card.Title>{item.name}</Card.Title>
+//                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
+//                 <Card.Text>${item.price}</Card.Text>
+//                 <Button onClick={() => addToCart(item)} variant="primary">
+//                   Add to Cart
+//                 </Button>
+//               </Card.Body>
+//             </Card>
+//           </motion.div>
+//         ))
+//       ) : (
+//         <p>No items found.</p>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Cards;
+
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -116,6 +191,7 @@ const truncateText = (text, wordLimit) => {
 
 const Cards = ({ items }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [itemQuantities, setItemQuantities] = useState({});
 
   const addToDatabase = async (id, list) => {
     const response = await fetch("/api/cart", {
@@ -133,15 +209,63 @@ const Cards = ({ items }) => {
   };
 
   const addToCart = (item) => {
-    const updatedCartItems = [...cartItems, { _id: item._id, quantity: 1 }];
+    const existingItem = cartItems.find(
+      (cartItem) => cartItem._id === item._id
+    );
+    const updatedCartItems = existingItem
+      ? cartItems.map((cartItem) =>
+          cartItem._id === item._id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      : [...cartItems, { _id: item._id, quantity: 1 }];
+
     setCartItems(updatedCartItems);
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+    setItemQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [item._id]: (prevQuantities[item._id] || 0) + 1,
+    }));
+
+    const id = localStorage.getItem("id");
+    addToDatabase(id, updatedCartItems);
+  };
+
+  const removeFromCart = (item) => {
+    const existingItem = cartItems.find(
+      (cartItem) => cartItem._id === item._id
+    );
+    if (!existingItem) return;
+
+    const updatedCartItems =
+      existingItem.quantity > 1
+        ? cartItems.map((cartItem) =>
+            cartItem._id === item._id
+              ? { ...cartItem, quantity: cartItem.quantity - 1 }
+              : cartItem
+          )
+        : cartItems.filter((cartItem) => cartItem._id !== item._id);
+
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+    setItemQuantities((prevQuantities) => {
+      const newQuantities = { ...prevQuantities };
+      if (newQuantities[item._id] > 1) {
+        newQuantities[item._id] -= 1;
+      } else {
+        delete newQuantities[item._id];
+      }
+      return newQuantities;
+    });
+
     const id = localStorage.getItem("id");
     addToDatabase(id, updatedCartItems);
   };
 
   return (
-    <div className="d-flex flex-wrap justify-content-center mt-4">
+    <div className="d-flex flex-wrap justify-content-center">
       {items.length > 0 ? (
         items.map((item) => (
           <motion.div
@@ -161,9 +285,29 @@ const Cards = ({ items }) => {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
-                <Button onClick={() => addToCart(item)} variant="primary">
-                  Add to Cart
-                </Button>
+                {itemQuantities[item._id] ? (
+                  <div>
+                    <Button
+                      onClick={() => removeFromCart(item)}
+                      variant="danger"
+                      className="mr-2"
+                    >
+                      -
+                    </Button>
+                    <span>{itemQuantities[item._id]}</span>
+                    <Button
+                      onClick={() => addToCart(item)}
+                      variant="success"
+                      className="ml-2"
+                    >
+                      +
+                    </Button>
+                  </div>
+                ) : (
+                  <Button onClick={() => addToCart(item)} variant="primary">
+                    Add to Cart
+                  </Button>
+                )}
               </Card.Body>
             </Card>
           </motion.div>
