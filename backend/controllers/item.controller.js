@@ -1,5 +1,6 @@
 import Item from "../models/item.model.js";
-{/*
+{
+  /*
 //added material-------------> If it does not work, remove from here
 
 export async function performVisualSearch(imageUrl) {
@@ -14,12 +15,8 @@ export async function performVisualSearch(imageUrl) {
 }
 
 
-*/}
-
-
-
-
-
+*/
+}
 
 export const addItem = async (req, res) => {
   try {
@@ -119,6 +116,19 @@ export const getItemsById = async (req, res) => {
     res.status(200).json(item);
   } catch (error) {
     console.log("error getting item by id", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const listItemsById = async (req, res) => {
+  try {
+    const { ids } = req.body;
+
+    const items = await Item.find({ _id: { $in: ids } });
+
+    res.status(200).json(items);
+  } catch (error) {
+    console.log("error listing items by id", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 
 const Checkout = () => {
   const [data, setData] = useState(null);
-  setData(localStorage.getItem("cartItems"));
+
+  useEffect(() => {
+    setData(localStorage.getItem("cartItems"));
+  }, []);
+
+  console.log("data", data);
+
   // setData(() => {
   //   fetch("/api/items/getById/?id=" + data._id, {
   //     method: "POST",
@@ -14,17 +20,9 @@ const Checkout = () => {
   //     .catch((err) => console.log(err));
   // });
   return (
-    <div>
-      <h1>Checkout</h1>
-      <div>
-        {data.map((item) => (
-          <div key={item.id}>
-            <div>{item.name}</div>
-            <div>Quantity: {item.quantity}</div>
-            <div>Price: ${item.price}</div>
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-col">
+      <h1>hello</h1>
+      <div></div>
     </div>
   );
 };
