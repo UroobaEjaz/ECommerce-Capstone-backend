@@ -36,7 +36,7 @@ export default function App() {
       const data = await id.json();
       setId(data.email);
       console.log(data.email);
-      localStorage.setItem("id", JSON.stringify(data.email));
+      localStorage.setItem("id", data.email);
     } catch (error) {
       console.log("error getting tempid", error);
     }

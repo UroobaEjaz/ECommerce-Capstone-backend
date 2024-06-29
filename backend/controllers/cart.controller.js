@@ -63,7 +63,6 @@ export const tempid = async (req, res) => {
 export const getCartDetails = async (req, res) => {
   const { email } = req.body;
   console.log(email);
-  res.status(200).json({ email });
 
   try {
     // Find the cart for the user
