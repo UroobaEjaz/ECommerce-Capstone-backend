@@ -46,11 +46,12 @@ const Home = () => {
      {/* <Card items={item} /> */}
     
    {/* <Carousel data = {Slides}/>    */}
-     <Search/> 
+    {/*<Search/>  */}
     {/* <ListItem /> */}
-    <CarouselPage/>
+    <CarouselPage/>  
 
-    <ProductList/>
+
+   {/* <ProductList/>  */}
     </div>
 
 
