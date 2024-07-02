@@ -112,7 +112,8 @@ export const getItemByName = async (req, res) => {
 
 export const getItemsById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
+
     const item = await Item.findById(id);
 
     res.status(200).json(item);

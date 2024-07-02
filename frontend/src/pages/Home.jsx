@@ -6,7 +6,7 @@ import { Slides } from "../Data/CarouselData.json";
 import ListItem from "./ListItems";
 import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import ProductList from "./ProductList";
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
@@ -15,6 +15,30 @@ import ProductList from "./ProductList";
 const Home = () => {
   const [item, setItem] = useState([]);
   const [cart, setCart] = useState([]);
+  const [id, setId] = useState(null);
+
+  const getId = async () => {
+    try {
+      const id = await fetch("/api/cart/tempid", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await id.json();
+      setId(data.email);
+      console.log(data.email);
+      localStorage.setItem("id", JSON.stringify(data.email));
+    } catch (error) {
+      console.log("error getting tempid", error);
+    }
+  };
+
+  // const test = localStorage.getItem("id", JSON.stringify(id));
+
+  if (localStorage.getItem("id") === null) {
+    getId();
+  }
 
   const handleClick = (item) => {
     setCart([...cart, item]);
@@ -38,24 +62,21 @@ const Home = () => {
 
   useEffect(() => {
     getItems();
+    setId(localStorage.getItem("id"));
   }, []);
 
   return (
-   <div >
-    <Navbar/> 
-     {/* <Card items={item} /> */}
-    
-   {/* <Carousel data = {Slides}/>    */}
-    {/*<Search/>  */}
-    {/* <ListItem /> */}
-    <CarouselPage/>  
+    <div>
+      <Navbar />
+      {/* <Card items={item} /> */}
 
+      {/* <Carousel data = {Slides}/>    */}
+      <Search />
+      {/* <ListItem /> */}
+      <CarouselPage />
 
-   {/* <ProductList/>  */}
+      <ProductList />
     </div>
-
-
-
   );
 };
 

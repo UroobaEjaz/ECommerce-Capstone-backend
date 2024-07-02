@@ -5,6 +5,7 @@ import {
   getItems,
   getItemByCategory,
   getItemByName,
+  getItemsById,
 } from "../controllers/item.controller.js";
 
 const router = express.Router();
@@ -36,7 +37,8 @@ router.post("/add", upload.single("image"), addItem);
 /* ----Remove from here , if it does not work---- */
 
 // Route to handle visual search
-{/*router.post("/visualSearch", upload.single("image"), async (req, res) => {
+{
+  /*router.post("/visualSearch", upload.single("image"), async (req, res) => {
   try {
     // Logic to process the uploaded image for visual search
     const imageUrl = `uploads/${req.file.filename}`; // Path to uploaded image
@@ -49,7 +51,8 @@ router.post("/add", upload.single("image"), addItem);
     console.error("Error performing visual search:", error);
     res.status(500).json({ error: "Failed to perform visual search" });
   }
-}); */}
+}); */
+}
 
 /*------------Till here----------------- */
 
