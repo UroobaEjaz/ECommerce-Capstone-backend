@@ -165,6 +165,9 @@ function CarouselPage() {
           </button>
         )}
       </div>
+      <div className="flex justify-center bg-red-950 h-11 mt-3">
+        <h1 className="text-3xl font-serif text-white py-2">Salty Cravings</h1>
+      </div>
     </div>
   );
 }
