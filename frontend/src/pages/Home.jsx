@@ -8,6 +8,7 @@ import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductList from "./ProductList";
+import SaltyCravings from "../components/SaltyCravings";
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
 // for Cart length Reference: https://www.youtube.com/watch?v=P9-zbdMTwjM&ab_channel=CodeForU
@@ -67,15 +68,12 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
-      {/* <Card items={item} /> */}
+     <Navbar/>
+     <CarouselPage/>
+     <SaltyCravings/>
+     
 
-      {/* <Carousel data = {Slides}/>    */}
-      <Search />
-      {/* <ListItem /> */}
-      <CarouselPage />
 
-      <ProductList />
     </div>
   );
 };

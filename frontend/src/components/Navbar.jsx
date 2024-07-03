@@ -15,7 +15,7 @@ const Navbar = ({ size }) => {
 
     <nav className="bg-white shadow-md p-4 flex justify-between top-0 left-0 z-10 fixed items-center w-full font-bold">
       <Link to="/" className="p-3">
-        <img src="/logo.jpg" alt="Logo " className="w-10 rounded-full" />
+        <img src="/logo.jpg" alt="Logo " className="w-12 rounded-full" />
       </Link>
       <ul className="flex space-x-4">
         <li>
