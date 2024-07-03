@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
 import Card from "../components/Cards";
 import { Slides } from "../Data/CarouselData.json";
-import ListItem from "./ListItems";
+import ListItem from "./Admin";
 import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -68,12 +68,9 @@ const Home = () => {
 
   return (
     <div>
-     <Navbar/>
-     <CarouselPage/>
-     <SaltyCravings/>
-     
-
-
+      <Navbar />
+      <CarouselPage />
+      <SaltyCravings />
     </div>
   );
 };

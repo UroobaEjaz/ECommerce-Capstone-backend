@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ListItems = () => {
+const Admin = () => {
   const [items, setItems] = useState([]);
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
@@ -127,4 +127,4 @@ const ListItems = () => {
   );
 };
 
-export default ListItems;
+export default Admin;
