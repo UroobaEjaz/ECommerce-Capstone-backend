@@ -273,7 +273,7 @@ const Cards = ({ items }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            style={{ width: "18rem", margin: "0.5rem" }}
+            style={{ width: "18rem", margin: "1rem", display: "flex"}}
           >
             <Card>
               <Card.Img

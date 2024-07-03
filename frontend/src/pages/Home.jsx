@@ -68,16 +68,12 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
-      {/* <Card items={item} /> */}
+     <Navbar/>
+     <CarouselPage/>
+     <SaltyCravings/>
+     
 
-      {/* <Carousel data = {Slides}/>    */}
-      <Search />
-      {/* <ListItem /> */}
-      <CarouselPage />
-      <SaltyCravings />
 
-    {/*  <ProductList /> */}
     </div>
   );
 };
