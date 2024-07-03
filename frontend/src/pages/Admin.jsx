@@ -1,4 +1,15 @@
+import { CgPlayListRemove } from "react-icons/cg";
+import { MdDelete } from "react-icons/md";
+import { CiMenuKebab } from "react-icons/ci";
 import React, { useEffect, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Admin = () => {
   const [items, setItems] = useState([]);
@@ -51,6 +62,10 @@ const Admin = () => {
       console.log("error adding item", error);
     }
   };
+
+  const hideItem = async () => {};
+
+  const deleteItem = async () => {};
 
   useEffect(() => {
     getItems();
@@ -105,24 +120,62 @@ const Admin = () => {
           <button type="submit">Add Item</button>
         </form>
       </div>
-      <table className="text-center">
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>Item Price</th>
-            <th>Item Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
-              <td>{item.countInStock}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="flex flex-col items-center">
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div className="overflow-hidden shadow-md sm:rounded-lg">
+              <div className="bg-gray-100 text-center">
+                <div className="py-2">
+                  <span className="text-lg font-semibold">Item Name</span>
+                </div>
+                <div className="py-2">
+                  <span className="text-lg font-semibold">Item Price</span>
+                </div>
+                <div className="py-2">
+                  <span className="text-lg font-semibold">Item Quantity</span>
+                </div>
+              </div>
+              <div className="bg-white">
+                {items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="grid grid-cols-3 py-2 text-center border-b border-gray-200"
+                  >
+                    <div>{item.name}</div>
+                    <div>{item.price}</div>
+                    <div>{item.countInStock}</div>
+                    <div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="text-2xl">
+                          <CiMenuKebab />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel className="text-center">
+                            Item Options
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem className="justify-center ml-2">
+                            <div className="flex-1">
+                              <CgPlayListRemove />
+                            </div>
+                            <div className="flex-auto">Remove</div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="justify-center ml-2">
+                            <div className="flex-1">
+                              <MdDelete />
+                            </div>
+                            <div className="flex-auto">Delete</div>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
