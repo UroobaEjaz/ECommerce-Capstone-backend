@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
-import ListItems from "./pages/ListItems";
+import Admin from "./pages/Admin";
 import Search from "./pages/Search";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
@@ -36,7 +36,7 @@ export default function App() {
       const data = await id.json();
       setId(data.email);
       console.log(data.email);
-      localStorage.setItem("id", JSON.stringify(data.email));
+      localStorage.setItem("id", data.email);
     } catch (error) {
       console.log("error getting tempid", error);
     }
@@ -79,8 +79,8 @@ export default function App() {
             element={!authUser ? <Contact /> : <Navigate to="/" />}
           />
           <Route
-            path="/listitems"
-            element={!authUser ? <ListItems /> : <Navigate to="/" />}
+            path="/Admin"
+            element={!authUser ? <Admin /> : <Navigate to="/" />}
           />
           <Route
             path="/search"

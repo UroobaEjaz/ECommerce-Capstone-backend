@@ -11,6 +11,6 @@ import {
 // Routes for cart operations
 router.post("/", cartController); // Create or update a cart for a user
 router.get("/tempid", tempid);
-router.post("/getCartDetails/:email", getCartDetails); // Get cart details for a user
+router.post("/getCartDetails", getCartDetails); // Get cart details for a user
 
 export default router;

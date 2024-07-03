@@ -63,7 +63,6 @@ export const tempid = async (req, res) => {
 export const getCartDetails = async (req, res) => {
   const { email } = req.body;
   console.log(email);
-  res.status(200).json({ email });
 
   try {
     // Find the cart for the user
@@ -72,6 +71,10 @@ export const getCartDetails = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ error: "Cart not found for this user" });
     }
+
+    cart.cartItems.map((item) => {
+      console.log(item);
+    });
 
     res.status(200).json({ cart });
     console.log("Cart details fetched successfully");
