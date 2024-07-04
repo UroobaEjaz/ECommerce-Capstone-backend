@@ -52,6 +52,14 @@ const Navbar = ({ size }) => {
         </li>
         <li>
           <Link
+            to="/Careers"
+            className="text-black-600 font-large hover:text-red-600 p-3 mt-2"
+          >
+            Careers
+          </Link>
+        </li>
+        <li>
+          <Link
             to="/Login"
             className="text-black-600 font-large hover:text-red-600 p-3"
           >
