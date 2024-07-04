@@ -27,6 +27,29 @@ const itemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    normalPrice: {
+      type: Number,
+      required: true,
+    },
+    discount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    discountStart: {
+      type: String,
+      required: true,
+      default: "na",
+    },
+    discountEnd: {
+      type: String,
+      required: true,
+      default: "na",
+    },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );
