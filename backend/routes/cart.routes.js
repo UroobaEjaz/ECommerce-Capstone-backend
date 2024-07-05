@@ -19,24 +19,20 @@ export default router;
 
 // cart.routes.js
 
+
+// cart.routes.js
+
 import express from "express";
-import { cartController, getCartDetails, tempid, addToCart, removeFromCart } from "../controllers/cart.controller.js";
+import {
+  addToCart,
+  removeFromCart,
+  getCartItems,
+} from "../controllers/cart.controller.js";
 
 const router = express.Router();
 
-// Create or update a cart
-router.post("/", cartController);
-
-// Get cart details
-router.post("/getCartDetails", getCartDetails);
-
-// Generate temporary ID
-router.get("/tempid", tempid);
-
-// Add item to cart
 router.post("/add", addToCart);
-
-// Remove item from cart
-router.delete("/remove", removeFromCart);
+router.post("/remove", removeFromCart);
+router.get("/", getCartItems);
 
 export default router;

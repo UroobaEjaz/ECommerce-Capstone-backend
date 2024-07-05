@@ -7,7 +7,7 @@ import ListItem from "./Admin";
 import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProductList from "./ProductList";
+
 import SaltyCravings from "../components/SaltyCravings";
 
 //Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
@@ -70,7 +70,8 @@ const Home = () => {
     <div>
       <Navbar />
       <CarouselPage />
-      <SaltyCravings />
+  {/*   <SaltyCravings /> */}
+   <Card items={item}/>
     </div>
   );
 };
