@@ -174,7 +174,7 @@ export const updateItem = async (req, res) => {
       await item.save();
 
       res.status(201).json({
-        Res: "Item created successfully!",
+        Res: "Item updates successfully!",
       });
     } else {
       res.status(400).json({ error: "Invalid item data" });

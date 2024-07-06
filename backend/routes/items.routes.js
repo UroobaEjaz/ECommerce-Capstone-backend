@@ -10,6 +10,7 @@ import {
   discountItem,
   removeDiscount,
   hideItem,
+  showItem,
   deleteItem,
   test,
 } from "../controllers/item.controller.js";
@@ -57,6 +58,7 @@ router.post("/getById", getItemsById);
 router.post("/discount", discountItem);
 router.post("/removeDiscount", removeDiscount);
 router.post("/hide", hideItem);
+router.post("/show", showItem);
 router.post("/delete", deleteItem);
 router.get("/test", test);
 

@@ -15,17 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import UpdateAlert from "@/components/admin/ui/updateAlert";
 
 const Admin = () => {
@@ -37,20 +26,15 @@ const Admin = () => {
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState("");
 
-  const [idupdate, setIdupdate] = useState("");
-  const [itemsUpdate, setItemsUpdate] = useState([]);
   const [nameUpdate, setNameUpdate] = useState("");
   const [imageUpdate, setImageUpdate] = useState(null);
   const [priceUpdate, setPriceUpdate] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState("");
   const [descriptionUpdate, setDescriptionUpdate] = useState("");
   const [countInStockUpdate, setCountInStockUpdate] = useState("");
-  const [discountUpdate, setDiscountUpdate] = useState("");
-  const [discountStartUpdate, setDiscountStartUpdate] = useState("");
-  const [discountEndUpdate, setDiscountEndUpdate] = useState("");
-  const [showUpdate, setShowUpdate] = useState("");
+  const [idupdate, setIdupdate] = useState("");
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const getItems = async () => {
     try {
@@ -69,7 +53,6 @@ const Admin = () => {
     }
   };
 
-  // used chatgpt to fix this feature
   const addItem = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -80,7 +63,7 @@ const Admin = () => {
     formData.append("category", category);
     formData.append("description", description);
     formData.append("countInStock", countInStock);
-    formdata.append("normalPrice", price);
+    formData.append("normalPrice", price);
 
     try {
       const response = await fetch("/api/items/add", {
@@ -98,7 +81,7 @@ const Admin = () => {
 
   const updateItem = async () => {
     const formdata = new FormData();
-    formdata.append("image", fileInput.files[0], imageUpdate);
+    if (imageUpdate) formdata.append("image", imageUpdate);
     formdata.append("name", nameUpdate);
     formdata.append("price", priceUpdate);
     formdata.append("category", categoryUpdate);
@@ -111,10 +94,18 @@ const Admin = () => {
       redirect: "follow",
     };
 
-    fetch(`localhost:5000/api/items/update?id=${idupdate}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch(
+        `/api/items/update?id=${idupdate}`,
+        requestOptions
+      );
+      const result = await response.json();
+      console.log(result);
+      getItems();
+      setOpen(false); // Close the dialog after updating
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const discountItem = async () => {
@@ -135,10 +126,14 @@ const Admin = () => {
       redirect: "follow",
     };
 
-    fetch("localhost:5000/api/items/discount", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch("/api/items/discount", requestOptions);
+      const result = await response.json();
+      console.log(result);
+      getItems();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const removeDiscount = async () => {
@@ -156,21 +151,21 @@ const Admin = () => {
       redirect: "follow",
     };
 
-    fetch("localhost:5000/api/items/removeDiscount", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch("/api/items/removeDiscount", requestOptions);
+      const result = await response.json();
+      console.log(result);
+      getItems();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const hideItem = async () => {};
-
-  const deleteItem = async () => {
+  const deleteItem = async (id) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw = JSON.stringify({
-      _id: "6686209a820035e15aefc571",
-    });
+    const raw = JSON.stringify({ _id: id });
 
     const requestOptions = {
       method: "POST",
@@ -179,10 +174,14 @@ const Admin = () => {
       redirect: "follow",
     };
 
-    fetch("localhost:5000/api/items/delete", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch("/api/items/delete", requestOptions);
+      const result = await response.json();
+      console.log(result);
+      getItems();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -238,7 +237,6 @@ const Admin = () => {
           <button type="submit">Add Item</button>
         </form>
       </div>
-      {/* used chatgpt */}
       <div className="flex flex-col items-center">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -257,8 +255,8 @@ const Admin = () => {
               <div className="bg-white">
                 {items.map((item) => (
                   <div
-                    key={item.name}
-                    className="grid grid-cols-3 py-2 text-center border-b border-gray-200"
+                    key={item._id}
+                    className="grid grid-cols-6 py-2 text-center border-b border-gray-200"
                   >
                     <div>
                       <Checkbox />
@@ -266,9 +264,6 @@ const Admin = () => {
                     <div>{item.name}</div>
                     <div>{item.price}</div>
                     <div>{item.countInStock}</div>
-                    <div>
-                      <UpdateAlert open={open} setOpen={setOpen} />
-                    </div>
                     <div>
                       <DropdownMenu>
                         <DropdownMenuTrigger className="text-2xl">
@@ -279,41 +274,51 @@ const Admin = () => {
                             Item Options
                           </DropdownMenuLabel>
                           <DropdownMenuSeparator />
-                          <div
+                          <DropdownMenuItem
                             className="justify-center ml-2"
-                            onClick={() => setOpen(true)}
+                            onClick={() => {
+                              setOpen(true);
+                              setIdupdate(item._id);
+                              setNameUpdate(item.name);
+                              setImageUpdate(item.image);
+                              setPriceUpdate(item.price);
+                              setCategoryUpdate(item.category);
+                              setDescriptionUpdate(item.description);
+                              setCountInStockUpdate(item.countInStock);
+                            }}
                           >
-                            <DropdownMenuItem>
-                              <div className="flex-1">
-                                <RxUpdate />
-                              </div>
-                              <div className="flex-auto">Update</div>
-                            </DropdownMenuItem>
-                          </div>
-                          <div className="justify-center ml-2">
-                            <DropdownMenuItem>
-                              <div className="flex-1">
-                                <MdDiscount />
-                              </div>
-                              <div className="flex-auto">Discount</div>
-                            </DropdownMenuItem>
-                          </div>
-                          <div className="justify-center ml-2">
-                            <DropdownMenuItem>
-                              <div className="flex-1">
-                                <CgPlayListRemove />
-                              </div>
-                              <div className="flex-auto">Remove</div>
-                            </DropdownMenuItem>
-                          </div>
-                          <div className="justify-center ml-2">
-                            <DropdownMenuItem>
-                              <div className="flex-1">
-                                <MdDelete />
-                              </div>
-                              <div className="flex-auto">Delete</div>
-                            </DropdownMenuItem>
-                          </div>
+                            <div className="flex-1">
+                              <RxUpdate />
+                            </div>
+                            <div className="flex-auto">Update</div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="justify-center ml-2"
+                            onClick={() => discountItem()}
+                          >
+                            <div className="flex-1">
+                              <MdDiscount />
+                            </div>
+                            <div className="flex-auto">Discount</div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="justify-center ml-2"
+                            onClick={() => removeDiscount()}
+                          >
+                            <div className="flex-1">
+                              <CgPlayListRemove />
+                            </div>
+                            <div className="flex-auto">Remove</div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="justify-center ml-2"
+                            onClick={() => deleteItem(item._id)}
+                          >
+                            <div className="flex-1">
+                              <MdDelete />
+                            </div>
+                            <div className="flex-auto">Delete</div>
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
@@ -324,6 +329,19 @@ const Admin = () => {
           </div>
         </div>
       </div>
+      {open && (
+        <UpdateAlert
+          open={open}
+          setOpen={setOpen}
+          updateItem={updateItem}
+          setNameUpdate={setNameUpdate}
+          setImageUpdate={setImageUpdate}
+          setPriceUpdate={setPriceUpdate}
+          setCategoryUpdate={setCategoryUpdate}
+          setDescriptionUpdate={setDescriptionUpdate}
+          setCountInStockUpdate={setCountInStockUpdate}
+        />
+      )}
     </div>
   );
 };
