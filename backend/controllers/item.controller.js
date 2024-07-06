@@ -66,7 +66,6 @@ export const addItem = async (req, res) => {
 };
 
 export const getItems = async (req, res) => {
-  console.log("error getting items");
   try {
     const items = await Item.find();
 
@@ -162,7 +161,11 @@ export const updateItem = async (req, res) => {
         .json({ error: "Count in stock cannot be negative" });
     }
 
-    const item = await Item.findOne({ _id: id });
+    const item = await Item.findById({ id });
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
 
     // asked chatgpt to fix this
     if (name) item.name = name;

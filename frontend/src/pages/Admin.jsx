@@ -26,6 +26,7 @@ const Admin = () => {
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState("");
 
+  const [itemsUpdate, setItemsUpdate] = useState([]);
   const [nameUpdate, setNameUpdate] = useState("");
   const [imageUpdate, setImageUpdate] = useState(null);
   const [priceUpdate, setPriceUpdate] = useState("");
@@ -76,63 +77,6 @@ const Admin = () => {
       getItems();
     } catch (error) {
       console.log("error adding item", error);
-    }
-  };
-
-  const updateItem = async () => {
-    const formdata = new FormData();
-    if (imageUpdate) formdata.append("image", imageUpdate);
-    formdata.append("name", nameUpdate);
-    formdata.append("price", priceUpdate);
-    formdata.append("category", categoryUpdate);
-    formdata.append("description", descriptionUpdate);
-    formdata.append("countInStock", countInStockUpdate);
-
-    const requestOptions = {
-      method: "POST",
-      body: formdata,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch(
-        `/api/items/update?id=${idupdate}`,
-        requestOptions
-      );
-      const result = await response.json();
-      console.log(result);
-      getItems();
-      setOpen(false); // Close the dialog after updating
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const discountItem = async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      ids: ["66862871464daff9e67b6c3e", "66862139aa62e9ecf6f521c3"],
-      discountPercentage: 25,
-      discountStart: "2024-07-05T00:00:00.000Z",
-      discountEnd: "2024-07-15T23:59:59.000Z",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch("/api/items/discount", requestOptions);
-      const result = await response.json();
-      console.log(result);
-      getItems();
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -190,6 +134,7 @@ const Admin = () => {
 
   return (
     <div>
+      <button onClick={() => console.log("items", itemsUpdate)}>click</button>
       <div className="flex flex-col">
         <form onSubmit={addItem}>
           <input
@@ -259,7 +204,19 @@ const Admin = () => {
                     className="grid grid-cols-6 py-2 text-center border-b border-gray-200"
                   >
                     <div>
-                      <Checkbox />
+                      <input
+                        type="checkbox"
+                        checked={itemsUpdate.includes(item._id)}
+                        onChange={() => {
+                          if (itemsUpdate.includes(item._id)) {
+                            setItemsUpdate(
+                              itemsUpdate.filter((id) => id !== item._id)
+                            );
+                          } else {
+                            setItemsUpdate([...itemsUpdate, item._id]);
+                          }
+                        }}
+                      />
                     </div>
                     <div>{item.name}</div>
                     <div>{item.price}</div>
@@ -333,7 +290,6 @@ const Admin = () => {
         <UpdateAlert
           open={open}
           setOpen={setOpen}
-          updateItem={updateItem}
           setNameUpdate={setNameUpdate}
           setImageUpdate={setImageUpdate}
           setPriceUpdate={setPriceUpdate}

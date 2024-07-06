@@ -11,43 +11,43 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const UpdateAlert = ({ open, setOpen, idupdate }) => {
+const DiscountAlert = ({ open, setOpen, items }) => {
   const [nameUpdate, setNameUpdate] = useState("");
   const [imageUpdate, setImageUpdate] = useState(null);
   const [priceUpdate, setPriceUpdate] = useState("");
   const [categoryUpdate, setCategoryUpdate] = useState("");
   const [descriptionUpdate, setDescriptionUpdate] = useState("");
   const [countInStockUpdate, setCountInStockUpdate] = useState("");
+  const [idupdate, setIdupdate] = useState("");
 
-  const updateItem = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", nameUpdate);
-    if (imageUpdate) formData.append("image", imageUpdate);
-    formData.append("price", priceUpdate);
-    formData.append("category", categoryUpdate);
-    formData.append("description", descriptionUpdate);
-    formData.append("countInStock", countInStockUpdate);
-    formData.append("normalPrice", priceUpdate); // Ensure normalPrice is included
+  const discountItem = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      ids: ["66862871464daff9e67b6c3e", "66862139aa62e9ecf6f521c3"],
+      discountPercentage: 25,
+      discountStart: "2024-07-05T00:00:00.000Z",
+      discountEnd: "2024-07-15T23:59:59.000Z",
+    });
 
     const requestOptions = {
       method: "POST",
-      body: formData,
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
     };
 
     try {
-      const response = await fetch(
-        `/api/items/update?id=${idupdate}`,
-        requestOptions
-      );
+      const response = await fetch("/api/items/discount", requestOptions);
       const result = await response.json();
       console.log(result);
       getItems();
-      setOpen(false);
     } catch (error) {
-      console.error("Error updating item:", error);
+      console.error(error);
     }
   };
+
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
@@ -114,4 +114,4 @@ const UpdateAlert = ({ open, setOpen, idupdate }) => {
   );
 };
 
-export default UpdateAlert;
+export default DiscountAlert;

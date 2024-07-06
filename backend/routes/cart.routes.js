@@ -16,9 +16,7 @@ router.post("/getCartDetails", getCartDetails); // Get cart details for a user
 export default router;
 */
 
-
 // cart.routes.js
-
 
 // cart.routes.js
 
@@ -27,12 +25,14 @@ import {
   addToCart,
   removeFromCart,
   getCartItems,
+  tempid,
 } from "../controllers/cart.controller.js";
 
 const router = express.Router();
 
 router.post("/add", addToCart);
 router.post("/remove", removeFromCart);
+router.get("/tempid", tempid);
 router.get("/", getCartItems);
 
 export default router;
