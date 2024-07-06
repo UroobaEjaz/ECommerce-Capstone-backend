@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Products from "./pages/Products";
+//import Products from "./pages/Products";
 import Admin from "./pages/Admin";
 import Search from "./pages/Search";
 import { Toaster } from "react-hot-toast";
@@ -66,10 +66,10 @@ export default function App() {
             path="/signup"
             element={!authUser ? <SignUp /> : <Navigate to="/" />}
           />
-          <Route
+         {/* <Route
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
-          />
+          />   */}
           <Route
             path="/About"
             element={!authUser ? <About /> : <Navigate to="/" />}

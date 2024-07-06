@@ -66,6 +66,7 @@ export const addItem = async (req, res) => {
 };
 
 export const getItems = async (req, res) => {
+  console.log("error getting items");
   try {
     const items = await Item.find();
 
@@ -77,6 +78,7 @@ export const getItems = async (req, res) => {
 };
 
 export const getItemByCategory = async (req, res) => {
+  console.log(req.body);
   try {
     const { category } = req.body;
     const item = await Item.find({ category });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 import Card from '../components/Cards'; // Assuming Card component displays individual product cards
 
 const ProductList = () => {
@@ -31,5 +31,6 @@ const ProductList = () => {
     </div>
   );
 };
-
+ 
 export default ProductList;
+*/}
