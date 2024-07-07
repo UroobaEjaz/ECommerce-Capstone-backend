@@ -16,7 +16,7 @@ const DeleteAlert = ({ open, setOpen, items, getItems }) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const raw = JSON.stringify({ _id: items });
+    const raw = JSON.stringify({ ids: items });
 
     const requestOptions = {
       method: "POST",

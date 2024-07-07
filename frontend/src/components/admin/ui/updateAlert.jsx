@@ -21,31 +21,31 @@ const UpdateAlert = ({ open, setOpen, idupdate, getItems }) => {
 
   const updateItem = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", nameUpdate);
-    if (imageUpdate) formData.append("image", imageUpdate);
-    formData.append("price", priceUpdate);
-    formData.append("category", categoryUpdate);
-    formData.append("description", descriptionUpdate);
-    formData.append("countInStock", countInStockUpdate);
-    formData.append("normalPrice", priceUpdate); // Ensure normalPrice is included
+
+    const formdata = new FormData();
+    formdata.append("image", imageUpdate);
+    formdata.append("name", nameUpdate);
+    formdata.append("price", priceUpdate);
+    formdata.append("category", categoryUpdate);
+    formdata.append("description", descriptionUpdate);
+    formdata.append("countInStock", countInStockUpdate);
 
     const requestOptions = {
       method: "POST",
-      body: formData,
+      body: formdata,
     };
 
     try {
       const response = await fetch(
-        `/api/items/update?id=${idupdate}`,
+        `http://localhost:5000/api/items/update?id=${idupdate}`,
         requestOptions
       );
       const result = await response.json();
       console.log(result);
       getItems();
-      setOpen(false);
+      setOpen(false); // Close the dialog on success
     } catch (error) {
-      console.error("Error updating item:", error);
+      console.error("Error:", error);
     }
   };
 

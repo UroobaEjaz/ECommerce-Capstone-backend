@@ -54,7 +54,7 @@ const Home = () => {
       });
 
       const data = await response.json();
-      setItem(data);
+      setItem(data.filter((item) => item.show));
       console.log(data);
     } catch (error) {
       console.log("error getting items", error);
@@ -70,8 +70,8 @@ const Home = () => {
     <div>
       <Navbar />
       <CarouselPage />
-  {/*   <SaltyCravings /> */}
-   <Card items={item}/>
+      {/*   <SaltyCravings /> */}
+      <Card items={item} />
     </div>
   );
 };

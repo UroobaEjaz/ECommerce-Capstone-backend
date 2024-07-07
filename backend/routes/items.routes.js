@@ -6,6 +6,7 @@ import {
   getItemByCategory,
   getItemByName,
   getItemsById,
+  listItemsById,
   updateItem,
   discountItem,
   removeDiscount,
@@ -55,6 +56,7 @@ router.post("/getByCategory", getItemByCategory);
 router.post("/getByName", getItemByName);
 //router.post("/getById/:id", getItemsById);
 router.post("/getById", getItemsById);
+router.post("/listById", listItemsById);
 router.post("/discount", discountItem);
 router.post("/removeDiscount", removeDiscount);
 router.post("/hide", hideItem);

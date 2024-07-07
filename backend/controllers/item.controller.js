@@ -18,6 +18,7 @@ export async function performVisualSearch(imageUrl) {
 */
 }
 
+// used chatgpt
 export const addItem = async (req, res) => {
   try {
     const { name, price, category, description, countInStock } = req.body;
@@ -127,9 +128,19 @@ export const listItemsById = async (req, res) => {
   try {
     const { ids } = req.body;
 
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ error: "Item IDs array is required" });
+    }
+
+    let itemsreturn = [];
+
     const items = await Item.find({ _id: { $in: ids } });
 
-    res.status(200).json(items);
+    items.forEach((item) => {
+      itemsreturn.push(item);
+    });
+
+    res.status(200).json(itemsreturn);
   } catch (error) {
     console.log("error listing items by id", error);
     res.status(500).json({ error: "Internal server error" });
@@ -139,10 +150,8 @@ export const listItemsById = async (req, res) => {
 export const updateItem = async (req, res) => {
   try {
     const { id } = req.query;
-
     const { name, price, category, description, countInStock } = req.body;
 
-    // asked chatgpt to fix this
     let image;
     if (req.file) {
       image = req.file.originalname;
@@ -151,23 +160,22 @@ export const updateItem = async (req, res) => {
       console.log("No new image uploaded");
     }
 
-    if (price < 0) {
+    if (price && price < 0) {
       return res.status(400).json({ error: "Price cannot be negative" });
     }
 
-    if (countInStock < 0) {
+    if (countInStock && countInStock < 0) {
       return res
         .status(400)
         .json({ error: "Count in stock cannot be negative" });
     }
 
-    const item = await Item.findById({ id });
+    const item = await Item.findById(id);
 
     if (!item) {
       return res.status(404).json({ error: "Item not found" });
     }
 
-    // asked chatgpt to fix this
     if (name) item.name = name;
     if (price) item.price = price;
     if (category) item.category = category;
@@ -175,17 +183,13 @@ export const updateItem = async (req, res) => {
     if (countInStock) item.countInStock = countInStock;
     if (image) item.image = image;
 
-    if (item) {
-      await item.save();
+    await item.save();
 
-      res.status(201).json({
-        Res: "Item updates successfully!",
-      });
-    } else {
-      res.status(400).json({ error: "Invalid item data" });
-    }
+    res.status(200).json({
+      message: "Item updated successfully!",
+    });
   } catch (error) {
-    console.log("error creating item", error);
+    console.log("Error updating item", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -223,7 +227,6 @@ export const discountItem = async (req, res) => {
         .json({ error: "Invalid discount start or end date" });
     }
 
-    // used chatgpt to fix this
     const items = await Item.find({ _id: { $in: ids } });
 
     if (!items || items.length === 0) {
@@ -285,6 +288,7 @@ export const removeDiscount = async (req, res) => {
 export const hideItem = async (req, res) => {
   try {
     const { ids } = req.body;
+    console.log(ids);
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return res
@@ -314,6 +318,7 @@ export const hideItem = async (req, res) => {
 export const showItem = async (req, res) => {
   try {
     const { ids } = req.body;
+    console.log(ids);
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return res
@@ -346,37 +351,43 @@ export const deleteItem = async (req, res) => {
   const __dirname = path.resolve();
 
   try {
-    const { _id } = req.body;
+    const { ids } = req.body;
 
-    if (!_id) {
-      return res.status(400).json({ error: "Item ID is required" });
+    if (!ids || !ids.length) {
+      return res.status(400).json({ error: "Item IDs array is required" });
     }
 
-    let item = await Item.findById(_id);
+    // used chatgpt to make this methord delete multiple items at once
+    for (let i = 0; i < ids.length; i++) {
+      const itemId = ids[i];
 
-    if (!item) {
-      return res.status(404).json({ error: "Item not found" });
-    }
+      let item = await Item.findById(itemId);
 
-    const filePath = path.join(__dirname, "uploads", item.image);
-
-    // https://betterstack.com/community/questions/how-to-remove-file-in-node-js/
-    if (fs.existsSync(filePath)) {
-      try {
-        fs.unlinkSync(filePath);
-        console.log(`Deleted file: ${filePath}`);
-      } catch (error) {
-        console.error("Error deleting file:", error);
-        return res.status(500).json({ error: "Failed to delete file" });
+      if (!item) {
+        console.log(`Item with ID ${itemId} not found`);
       }
-    } else {
-      console.log(`File not found: ${filePath}`);
+
+      const filePath = path.join(__dirname, "uploads", item.image);
+
+      if (fs.existsSync(filePath)) {
+        try {
+          fs.unlinkSync(filePath);
+          console.log(`Deleted file: ${filePath}`);
+        } catch (error) {
+          console.error("Error deleting file:", error);
+          return res.status(500).json({ error: "Failed to delete file" });
+        }
+      } else {
+        console.log(`File not found: ${filePath}`);
+      }
+
+      await item.deleteOne();
+      console.log(`Item with ID ${itemId} deleted successfully`);
     }
 
-    await item.deleteOne();
-    return res.status(200).json({ message: "Item deleted successfully" });
+    return res.status(200).json({ message: "Items deleted successfully" });
   } catch (error) {
-    console.error("Error deleting item:", error);
+    console.error("Error deleting items:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };

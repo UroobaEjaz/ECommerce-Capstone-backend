@@ -14,34 +14,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
 import UpdateAlert from "@/components/admin/ui/updateAlert";
 import DiscountAlert from "@/components/admin/ui/discountAlert";
 import DeleteAlert from "@/components/admin/ui/DeleteAlert";
 import AddAlert from "@/components/admin/ui/addAlert";
+import { HideAlert, ShowAlert } from "@/components/admin/ui/showHideAlert";
 
 const Admin = () => {
   const [items, setItems] = useState([]);
-  const [name, setName] = useState("");
-  const [image, setImage] = useState(null);
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-
   const [itemsUpdate, setItemsUpdate] = useState([]);
-  const [nameUpdate, setNameUpdate] = useState("");
-  const [imageUpdate, setImageUpdate] = useState(null);
-  const [priceUpdate, setPriceUpdate] = useState("");
-  const [categoryUpdate, setCategoryUpdate] = useState("");
-  const [descriptionUpdate, setDescriptionUpdate] = useState("");
-  const [countInStockUpdate, setCountInStockUpdate] = useState("");
-  const [discountUpdate, SetdiscountUpdate] = useState("");
-  const [discountPercentUpdate, setDiscountPercentUpdate] = useState("");
-  const [discountStart, setDiscountStart] = useState("");
-  const [discountEnd, setDiscountEnd] = useState("");
   const [idupdate, setIdupdate] = useState("");
-
   const [open, setOpen] = useState("false");
 
   const getItems = async () => {
@@ -83,11 +65,16 @@ const Admin = () => {
                 <div className="py-2">
                   <span className="text-lg font-semibold">Item Quantity</span>
                 </div>
+                <div className="py-2">
+                  <span className="text-lg font-semibold">Item show</span>
+                </div>
               </div>
               <div className="flex flex-col">
                 <button onClick={() => setOpen("Add")}>Add</button>
                 <button onClick={() => setOpen("Discount")}>discount</button>
                 <button onClick={() => setOpen("Delete")}>Delete</button>
+                <button onClick={() => setOpen("Hide")}>Hide</button>
+                <button onClick={() => setOpen("Show")}>Show</button>
               </div>
               <div className="bg-white">
                 {items.map((item) => (
@@ -113,6 +100,7 @@ const Admin = () => {
                     <div>{item.name}</div>
                     <div>{item.price}</div>
                     <div>{item.countInStock}</div>
+                    <div>{item.show === true ? "showing" : "not showing"}</div>
                     <div>
                       <DropdownMenu>
                         <DropdownMenuTrigger className="text-2xl">
@@ -128,12 +116,6 @@ const Admin = () => {
                             onClick={() => {
                               setOpen("Update");
                               setIdupdate(item._id);
-                              setNameUpdate(item.name);
-                              setImageUpdate(item.image);
-                              setPriceUpdate(item.price);
-                              setCategoryUpdate(item.category);
-                              setDescriptionUpdate(item.description);
-                              setCountInStockUpdate(item.countInStock);
                             }}
                           >
                             <div className="flex-1">
@@ -143,25 +125,50 @@ const Admin = () => {
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="justify-center ml-2"
-                            onClick={() => discountItem()}
+                            onClick={() => {
+                              setItemsUpdate([item._id]);
+                              setOpen("Discount");
+                            }}
                           >
                             <div className="flex-1">
                               <MdDiscount />
                             </div>
                             <div className="flex-auto">Discount</div>
                           </DropdownMenuItem>
+                          {item.show === true ? (
+                            <DropdownMenuItem
+                              className="justify-center ml-2"
+                              onClick={() => {
+                                setItemsUpdate([item._id]);
+                                setOpen("Hide");
+                                console.log("hide", [item._id]);
+                              }}
+                            >
+                              <div className="flex-1">
+                                <CgPlayListRemove />
+                              </div>
+                              <div className="flex-auto">Hide</div>
+                            </DropdownMenuItem>
+                          ) : item.show === false ? (
+                            <DropdownMenuItem
+                              className="justify-center ml-2"
+                              onClick={() => {
+                                setItemsUpdate([item._id]);
+                                setOpen("Show");
+                              }}
+                            >
+                              <div className="flex-1">
+                                <CgPlayListRemove />
+                              </div>
+                              <div className="flex-auto">Show</div>
+                            </DropdownMenuItem>
+                          ) : null}
                           <DropdownMenuItem
                             className="justify-center ml-2"
-                            onClick={() => removeDiscount()}
-                          >
-                            <div className="flex-1">
-                              <CgPlayListRemove />
-                            </div>
-                            <div className="flex-auto">Remove</div>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            className="justify-center ml-2"
-                            onClick={() => deleteItem(item._id)}
+                            onClick={() => {
+                              setItemsUpdate([item._id]);
+                              setOpen("Delete");
+                            }}
                           >
                             <div className="flex-1">
                               <MdDelete />
@@ -189,6 +196,20 @@ const Admin = () => {
         />
       ) : open === "Discount" ? (
         <DiscountAlert
+          open={open}
+          setOpen={setOpen}
+          items={itemsUpdate}
+          getItems={getItems}
+        />
+      ) : open === "Hide" ? (
+        <HideAlert
+          open={open}
+          setOpen={setOpen}
+          items={itemsUpdate}
+          getItems={getItems}
+        />
+      ) : open === "Show" ? (
+        <ShowAlert
           open={open}
           setOpen={setOpen}
           items={itemsUpdate}

@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AddAlert = ({ open, setOpen, idupdate, getItems }) => {
+const AddAlert = ({ open, setOpen, getItems }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
   const [price, setPrice] = useState("");
