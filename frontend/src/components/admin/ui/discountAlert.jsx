@@ -11,8 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const DiscountAlert = ({ open, setOpen, items }) => {
-  const [discountUpdate, SetdiscountUpdate] = useState("");
+const DiscountAlert = ({ open, setOpen, items, getItems }) => {
   const [discountPercentUpdate, setDiscountPercentUpdate] = useState("");
   const [discountStart, setDiscountStart] = useState("");
   const [discountEnd, setDiscountEnd] = useState("");
@@ -71,6 +70,7 @@ const DiscountAlert = ({ open, setOpen, items }) => {
     }
   };
 
+  // used shadcnui's code for the discount alert
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>

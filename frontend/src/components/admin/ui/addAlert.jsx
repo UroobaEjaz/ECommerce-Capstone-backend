@@ -11,45 +11,41 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const UpdateAlert = ({ open, setOpen, idupdate, getItems }) => {
-  const [nameUpdate, setNameUpdate] = useState("");
-  const [imageUpdate, setImageUpdate] = useState(null);
-  const [priceUpdate, setPriceUpdate] = useState("");
-  const [categoryUpdate, setCategoryUpdate] = useState("");
-  const [descriptionUpdate, setDescriptionUpdate] = useState("");
-  const [countInStockUpdate, setCountInStockUpdate] = useState("");
+const AddAlert = ({ open, setOpen, idupdate, getItems }) => {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState(null);
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [countInStock, setCountInStock] = useState("");
 
-  const updateItem = async (e) => {
+  const addItem = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", nameUpdate);
-    if (imageUpdate) formData.append("image", imageUpdate);
-    formData.append("price", priceUpdate);
-    formData.append("category", categoryUpdate);
-    formData.append("description", descriptionUpdate);
-    formData.append("countInStock", countInStockUpdate);
-    formData.append("normalPrice", priceUpdate); // Ensure normalPrice is included
 
-    const requestOptions = {
-      method: "POST",
-      body: formData,
-    };
+    formData.append("name", name);
+    formData.append("image", image);
+    formData.append("price", price);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("countInStock", countInStock);
+    formData.append("normalPrice", price);
 
     try {
-      const response = await fetch(
-        `/api/items/update?id=${idupdate}`,
-        requestOptions
-      );
-      const result = await response.json();
-      console.log(result);
+      const response = await fetch("/api/items/add", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
       getItems();
-      setOpen(false);
     } catch (error) {
-      console.error("Error updating item:", error);
+      console.log("error adding item", error);
     }
   };
 
-  // used shadcnui's code for the update alert
+  // used shadcnui's code for the Add alert
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
@@ -58,51 +54,51 @@ const UpdateAlert = ({ open, setOpen, idupdate, getItems }) => {
           <AlertDialogHeader>
             <AlertDialogTitle>Update</AlertDialogTitle>
             <AlertDialogDescription>
-              <div>
-                <form onSubmit={updateItem}>
+              <div className="flex flex-col">
+                <form onSubmit={addItem}>
                   <input
                     type="text"
                     name="name"
                     id="name"
                     placeholder="name"
-                    onChange={(e) => setNameUpdate(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <input
                     type="file"
                     name="image"
                     id="image"
                     placeholder="image"
-                    onChange={(e) => setImageUpdate(e.target.files[0])}
+                    onChange={(e) => setImage(e.target.files[0])}
                   />
                   <input
                     type="text"
                     name="price"
                     id="price"
                     placeholder="price"
-                    onChange={(e) => setPriceUpdate(e.target.value)}
+                    onChange={(e) => setPrice(e.target.value)}
                   />
                   <input
                     type="text"
                     name="category"
                     id="category"
                     placeholder="category"
-                    onChange={(e) => setCategoryUpdate(e.target.value)}
+                    onChange={(e) => setCategory(e.target.value)}
                   />
                   <input
                     type="text"
                     name="description"
                     id="description"
                     placeholder="description"
-                    onChange={(e) => setDescriptionUpdate(e.target.value)}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                   <input
                     type="text"
                     name="countInStock"
                     id="countInStock"
                     placeholder="countInStock"
-                    onChange={(e) => setCountInStockUpdate(e.target.value)}
+                    onChange={(e) => setCountInStock(e.target.value)}
                   />
-                  <button type="submit">Continue</button>
+                  <button type="submit">Add Item</button>
                 </form>
               </div>
             </AlertDialogDescription>
@@ -116,4 +112,4 @@ const UpdateAlert = ({ open, setOpen, idupdate, getItems }) => {
   );
 };
 
-export default UpdateAlert;
+export default AddAlert;

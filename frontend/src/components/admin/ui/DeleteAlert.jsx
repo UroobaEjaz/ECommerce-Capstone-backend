@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const DeleteAlert = ({ open, setOpen, items }) => {
+const DeleteAlert = ({ open, setOpen, items, getItems }) => {
   const deleteItem = async () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -35,6 +35,7 @@ const DeleteAlert = ({ open, setOpen, items }) => {
     }
   };
 
+  // used shadcnui's code for the delete alert
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>

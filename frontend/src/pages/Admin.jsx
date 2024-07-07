@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import UpdateAlert from "@/components/admin/ui/updateAlert";
 import DiscountAlert from "@/components/admin/ui/discountAlert";
 import DeleteAlert from "@/components/admin/ui/DeleteAlert";
+import AddAlert from "@/components/admin/ui/addAlert";
 
 const Admin = () => {
   const [items, setItems] = useState([]);
@@ -60,86 +61,14 @@ const Admin = () => {
     }
   };
 
-  const addItem = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    formData.append("name", name);
-    formData.append("image", image);
-    formData.append("price", price);
-    formData.append("category", category);
-    formData.append("description", description);
-    formData.append("countInStock", countInStock);
-    formData.append("normalPrice", price);
-
-    try {
-      const response = await fetch("/api/items/add", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log(data);
-      getItems();
-    } catch (error) {
-      console.log("error adding item", error);
-    }
-  };
-
   useEffect(() => {
     getItems();
   }, []);
 
+  // used shadcnui's code
   return (
     <div>
       <button onClick={() => console.log("items", itemsUpdate)}>click</button>
-      <div className="flex flex-col">
-        <form onSubmit={addItem}>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="name"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="file"
-            name="image"
-            id="image"
-            placeholder="image"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-          <input
-            type="text"
-            name="price"
-            id="price"
-            placeholder="price"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <input
-            type="text"
-            name="category"
-            id="category"
-            placeholder="category"
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <input
-            type="text"
-            name="description"
-            id="description"
-            placeholder="description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <input
-            type="text"
-            name="countInStock"
-            id="countInStock"
-            placeholder="countInStock"
-            onChange={(e) => setCountInStock(e.target.value)}
-          />
-          <button type="submit">Add Item</button>
-        </form>
-      </div>
       <div className="flex flex-col items-center">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -156,6 +85,7 @@ const Admin = () => {
                 </div>
               </div>
               <div className="flex flex-col">
+                <button onClick={() => setOpen("Add")}>Add</button>
                 <button onClick={() => setOpen("Discount")}>discount</button>
                 <button onClick={() => setOpen("Delete")}>Delete</button>
               </div>
@@ -248,12 +178,29 @@ const Admin = () => {
           </div>
         </div>
       </div>
-      {open === "Update" ? (
-        <UpdateAlert open={open} setOpen={setOpen} idupdate={idupdate} />
+      {open === "Add" ? (
+        <AddAlert open={open} setOpen={setOpen} getItems={getItems} />
+      ) : open === "Update" ? (
+        <UpdateAlert
+          open={open}
+          setOpen={setOpen}
+          idupdate={idupdate}
+          getItems={getItems}
+        />
       ) : open === "Discount" ? (
-        <DiscountAlert open={open} setOpen={setOpen} items={itemsUpdate} />
+        <DiscountAlert
+          open={open}
+          setOpen={setOpen}
+          items={itemsUpdate}
+          getItems={getItems}
+        />
       ) : open === "Delete" ? (
-        <DeleteAlert open={open} setOpen={setOpen} items={itemsUpdate} />
+        <DeleteAlert
+          open={open}
+          setOpen={setOpen}
+          items={itemsUpdate}
+          getItems={getItems}
+        />
       ) : null}
     </div>
   );
