@@ -10,8 +10,11 @@ import cartRoutes from "./routes/cart.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import path from "path";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
