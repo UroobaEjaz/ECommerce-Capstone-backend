@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import UpdateAlert from "@/components/admin/ui/updateAlert";
+import DiscountAlert from "@/components/admin/ui/discountAlert";
+import DeleteAlert from "@/components/admin/ui/DeleteAlert";
 
 const Admin = () => {
   const [items, setItems] = useState([]);
@@ -33,9 +35,13 @@ const Admin = () => {
   const [categoryUpdate, setCategoryUpdate] = useState("");
   const [descriptionUpdate, setDescriptionUpdate] = useState("");
   const [countInStockUpdate, setCountInStockUpdate] = useState("");
+  const [discountUpdate, SetdiscountUpdate] = useState("");
+  const [discountPercentUpdate, setDiscountPercentUpdate] = useState("");
+  const [discountStart, setDiscountStart] = useState("");
+  const [discountEnd, setDiscountEnd] = useState("");
   const [idupdate, setIdupdate] = useState("");
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState("false");
 
   const getItems = async () => {
     try {
@@ -77,54 +83,6 @@ const Admin = () => {
       getItems();
     } catch (error) {
       console.log("error adding item", error);
-    }
-  };
-
-  const removeDiscount = async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      ids: ["66862871464daff9e67b6c3e", "66862139aa62e9ecf6f521c3"],
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch("/api/items/removeDiscount", requestOptions);
-      const result = await response.json();
-      console.log(result);
-      getItems();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteItem = async (id) => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({ _id: id });
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch("/api/items/delete", requestOptions);
-      const result = await response.json();
-      console.log(result);
-      getItems();
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -197,6 +155,10 @@ const Admin = () => {
                   <span className="text-lg font-semibold">Item Quantity</span>
                 </div>
               </div>
+              <div className="flex flex-col">
+                <button onClick={() => setOpen("Discount")}>discount</button>
+                <button onClick={() => setOpen("Delete")}>Delete</button>
+              </div>
               <div className="bg-white">
                 {items.map((item) => (
                   <div
@@ -234,7 +196,7 @@ const Admin = () => {
                           <DropdownMenuItem
                             className="justify-center ml-2"
                             onClick={() => {
-                              setOpen(true);
+                              setOpen("Update");
                               setIdupdate(item._id);
                               setNameUpdate(item.name);
                               setImageUpdate(item.image);
@@ -286,18 +248,13 @@ const Admin = () => {
           </div>
         </div>
       </div>
-      {open && (
-        <UpdateAlert
-          open={open}
-          setOpen={setOpen}
-          setNameUpdate={setNameUpdate}
-          setImageUpdate={setImageUpdate}
-          setPriceUpdate={setPriceUpdate}
-          setCategoryUpdate={setCategoryUpdate}
-          setDescriptionUpdate={setDescriptionUpdate}
-          setCountInStockUpdate={setCountInStockUpdate}
-        />
-      )}
+      {open === "Update" ? (
+        <UpdateAlert open={open} setOpen={setOpen} idupdate={idupdate} />
+      ) : open === "Discount" ? (
+        <DiscountAlert open={open} setOpen={setOpen} items={itemsUpdate} />
+      ) : open === "Delete" ? (
+        <DeleteAlert open={open} setOpen={setOpen} items={itemsUpdate} />
+      ) : null}
     </div>
   );
 };

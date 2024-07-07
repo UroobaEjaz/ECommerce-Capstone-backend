@@ -60,7 +60,7 @@ export const getCartDetails = async (req, res) => {
 // cart.controller.js
 
 import CartItem from "../models/cart.model.js";
-import Items from "../models/item.model.js"; // Import your Items model
+import Items from "../models/item.model.js";
 
 export const addToCart = async (req, res) => {
   try {
@@ -135,7 +135,7 @@ export const tempid = async (req, res) => {
 
   try {
     const email = generateTempId();
-    let tempid = await Cart.findOne({ email });
+    let tempid = await CartItem.findOne({ email });
 
     if (!tempid) {
       res.status(200).json({ email });

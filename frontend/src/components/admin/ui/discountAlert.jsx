@@ -12,23 +12,21 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const DiscountAlert = ({ open, setOpen, items }) => {
-  const [nameUpdate, setNameUpdate] = useState("");
-  const [imageUpdate, setImageUpdate] = useState(null);
-  const [priceUpdate, setPriceUpdate] = useState("");
-  const [categoryUpdate, setCategoryUpdate] = useState("");
-  const [descriptionUpdate, setDescriptionUpdate] = useState("");
-  const [countInStockUpdate, setCountInStockUpdate] = useState("");
-  const [idupdate, setIdupdate] = useState("");
+  const [discountUpdate, SetdiscountUpdate] = useState("");
+  const [discountPercentUpdate, setDiscountPercentUpdate] = useState("");
+  const [discountStart, setDiscountStart] = useState("");
+  const [discountEnd, setDiscountEnd] = useState("");
 
-  const discountItem = async () => {
+  const discountItem = async (e) => {
+    e.preventDefault();
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-      ids: ["66862871464daff9e67b6c3e", "66862139aa62e9ecf6f521c3"],
-      discountPercentage: 25,
-      discountStart: "2024-07-05T00:00:00.000Z",
-      discountEnd: "2024-07-15T23:59:59.000Z",
+      ids: items,
+      discountPercentage: discountPercentUpdate,
+      discountStart: discountStart,
+      discountEnd: discountEnd,
     });
 
     const requestOptions = {
@@ -48,57 +46,64 @@ const DiscountAlert = ({ open, setOpen, items }) => {
     }
   };
 
+  const removeDiscount = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      ids: items,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch("/api/items/removeDiscount", requestOptions);
+      const result = await response.json();
+      console.log(result);
+      getItems();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
         {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Update</AlertDialogTitle>
+            <AlertDialogTitle>Discount</AlertDialogTitle>
             <AlertDialogDescription>
-              <div>
-                <form onSubmit={updateItem}>
+              <div className="flex flex-col">
+                <div>
+                  <button onClick={removeDiscount}>remove discount</button>
+                </div>
+                <form onSubmit={discountItem}>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
-                    placeholder="name"
-                    onChange={(e) => setNameUpdate(e.target.value)}
+                    name="discount"
+                    id="discount"
+                    placeholder="discount"
+                    onChange={(e) => setDiscountPercentUpdate(e.target.value)}
                   />
                   <input
-                    type="file"
-                    name="image"
-                    id="image"
-                    placeholder="image"
-                    onChange={(e) => setImageUpdate(e.target.files[0])}
+                    type="date"
+                    name="discountStart"
+                    id="discountStart"
+                    placeholder="discountStart"
+                    onChange={(e) => setDiscountStart(e.target.value)}
                   />
                   <input
-                    type="text"
-                    name="price"
-                    id="price"
-                    placeholder="price"
-                    onChange={(e) => setPriceUpdate(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    name="category"
-                    id="category"
-                    placeholder="category"
-                    onChange={(e) => setCategoryUpdate(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    name="description"
-                    id="description"
-                    placeholder="description"
-                    onChange={(e) => setDescriptionUpdate(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    name="countInStock"
-                    id="countInStock"
-                    placeholder="countInStock"
-                    onChange={(e) => setCountInStockUpdate(e.target.value)}
+                    type="date"
+                    name="discountEnd"
+                    id="discountEnd"
+                    placeholder="discountEnd"
+                    onChange={(e) => setDiscountEnd(e.target.value)}
                   />
                   <button type="submit">Continue</button>
                 </form>

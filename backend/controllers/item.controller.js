@@ -194,7 +194,16 @@ export const updateItem = async (req, res) => {
 export const discountItem = async (req, res) => {
   try {
     const { ids, discountPercentage, discountStart, discountEnd } = req.body;
-    console.log(ids, discountPercentage, discountStart, discountEnd);
+    console.log(
+      "id",
+      ids,
+      "percent:",
+      discountPercentage,
+      "start:",
+      discountStart,
+      "end:",
+      discountEnd
+    );
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return res
@@ -214,6 +223,7 @@ export const discountItem = async (req, res) => {
         .json({ error: "Invalid discount start or end date" });
     }
 
+    // used chatgpt to fix this
     const items = await Item.find({ _id: { $in: ids } });
 
     if (!items || items.length === 0) {
