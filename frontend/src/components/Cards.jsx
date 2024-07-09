@@ -1,6 +1,7 @@
 //reference: https://www.google.com/search?sca_esv=b8996be4c462e1ec&sca_upv=1&rlz=1C1OPNX_enCA1057CA1057&sxsrf=ADLYWILNwRNlDNp1RIm4pU8diULUBW20LA:1718222177946&q=how+to+create+cards+when+data+is+being+fetched+from+api&tbm=vid&source=lnms&fbs=AEQNm0DVrIRjdA3gRKfJJ-deMT8ZtYOjoIt1NWOMRkEKym4u5PkAZgxJOmIgPx6WieMhF6q1Hq7W6nME2Vp0eHuijF3ZElaTgD0zbj1gkQrti2r6HtU_FSIC_TOIRePmNlS6X7JM5HBW5XbZDBZ4_7u7u_1S0lBKWZanVrzOMi5iZT88U7e3_wgsAQOPU_p9Gb66BSsVUXKxPRPH2pqhwDp-oi5jONlpDQ&sa=X&ved=2ahUKEwiV7b607NaGAxWwADQIHakRAsYQ0pQJegQIDBAB&biw=1396&bih=632&dpr=1.38#fpstate=ive&vld=cid:15d3deed,vid:RYF4_pqhS38,st:0
 // to run this install : npm install @mui/material @emotion/react @emotion/styled
-{/*
+{
+  /*
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -154,9 +155,11 @@ const Cards = ({ items }) => {
   );
 };
 
-export default Cards; */}
+export default Cards; */
+}
 
-{/*
+{
+  /*
 
 
 // Import necessary components and functions
@@ -286,8 +289,8 @@ const Cards = ({ items }) => {
 
 export default Cards;
 
-*/}
-
+*/
+}
 
 /*
 import React, { useState } from "react";
@@ -376,7 +379,7 @@ export default Cards;   */
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { useCartItemsContext } from '../context/CartItemsContext'; // Adjust path as per your context setup
+import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -396,19 +399,23 @@ const Cards = ({ items }) => {
   // Function to add item to cart
   const addToCart = async (item) => {
     try {
-      const response = await fetch('/api/cart/add', {
-        method: 'POST',
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ itemId: item._id }),
       });
 
       if (response.ok) {
-        const existingItem = cartItems.find((cartItem) => cartItem.itemId._id === item._id);
+        const existingItem = cartItems.find(
+          (cartItem) => cartItem.itemId._id === item._id
+        );
         const updatedCartItems = existingItem
           ? cartItems.map((cartItem) =>
-              cartItem.itemId._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+              cartItem.itemId._id === item._id
+                ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                : cartItem
             )
           : [...cartItems, { itemId: item, quantity: 1 }];
 
@@ -439,17 +446,18 @@ const Cards = ({ items }) => {
             style={{ width: "18rem", margin: "1rem", display: "flex" }}
           >
             <Card>
-              <Card.Img variant="top" src={`/api/items/images/${item.image}`} alt={item.name} />
+              <Card.Img
+                variant="top"
+                src={`/api/items/images/${item.image}`}
+                alt={item.name}
+              />
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
                 {itemQuantities[item._id] ? (
                   <div>
-                    <Button
-                      onClick={() => addToCart(item)}
-                      variant="success"
-                    >
+                    <Button onClick={() => addToCart(item)} variant="success">
                       Add More
                     </Button>
                   </div>

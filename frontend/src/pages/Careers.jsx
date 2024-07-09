@@ -17,7 +17,7 @@ export default function App() {
 
 const HeroSection = () => {
   return (
-    <section className="mt-[1800px] text-center py-16 bg-white">
+    <section className="mt-[100px] text-center py-16 bg-white">
       <h1 className="text-4xl font-bold">Join JK Convenience's Team</h1>
       <p className="mt-4 text-lg">How to apply for a job at JK</p>
       <button className="mt-4 bg-gray-800 text-white px-4 py-2 rounded">
