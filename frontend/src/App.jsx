@@ -3,8 +3,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Products from "./pages/Products";
+//import Products from "./pages/Products";
 import Admin from "./pages/Admin";
+import Cart from "./pages/Cart";
 import Search from "./pages/Search";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
@@ -53,50 +54,46 @@ export default function App() {
 
   return (
     <>
-      <div className="p-4 h-screen flex items-center justify-center bg-white">
-        <Routes>
-          <Route
-            path="/"
-            element={!authUser ? <Home /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/login"
-            element={!authUser ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/signup"
-            element={!authUser ? <SignUp /> : <Navigate to="/" />}
-          />
-          <Route
+      <Routes>
+        <Route path="/" element={!authUser ? <Home /> : <Navigate to="/" />} />
+        <Route
+          path="/login"
+          element={!authUser ? <Login /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/signup"
+          element={!authUser ? <SignUp /> : <Navigate to="/" />}
+        />
+        {/* <Route
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/About"
-            element={!authUser ? <About /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/Contact"
-            element={!authUser ? <Contact /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/Admin"
-            element={!authUser ? <Admin /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/search"
-            element={!authUser ? <Search /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/Cart"
-            element={!authUser ? <Checkout /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/Careers"
-            element={!authUser ? <Careers /> : <Navigate to="/" />}
-          />
-        </Routes>
-      </div>
+          />   */}
+        <Route
+          path="/About"
+          element={!authUser ? <About /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/cart"
+          element={!authUser ? <Cart /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/Contact"
+          element={!authUser ? <Contact /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/Admin"
+          element={!authUser ? <Admin /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/search"
+          element={!authUser ? <Search /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/Careers"
+          element={!authUser ? <Careers /> : <Navigate to="/" />}
+        />
+      </Routes>
     </>
   );
 }

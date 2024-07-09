@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
-import { CartItemsContextProvider } from "./context/CartItemsContext.jsx";
+import { CartItemsProvider } from "./context/CartItemsContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // for the bot to work and display the message one time, I removed the StrictMode
@@ -12,9 +12,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
   <BrowserRouter>
     <AuthContextProvider>
-      <CartItemsContextProvider>
+      <CartItemsProvider>
         <App />
-      </CartItemsContextProvider>
+      </CartItemsProvider>
     </AuthContextProvider>
   </BrowserRouter>
 );
+  
+
+  // main.jsx (or your main application file)
+
+
