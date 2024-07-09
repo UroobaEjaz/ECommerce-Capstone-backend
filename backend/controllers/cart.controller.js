@@ -62,7 +62,7 @@ export const getCartDetails = async (req, res) => {
 import CartItem from "../models/cart.model.js";
 import Items from "../models/item.model.js";
 
-export const addToCart = async (req, res) => {
+/*export const addToCart = async (req, res) => {
   try {
     const { itemId } = req.body;
     const item = await Items.findById(itemId);
@@ -77,6 +77,35 @@ export const addToCart = async (req, res) => {
       cartItem.quantity += 1;
     } else {
       cartItem = new CartItem({ itemId });
+    }
+
+    await cartItem.save();
+
+    res.status(201).json({ message: "Item added to cart successfully" });
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};  */
+export const addToCart = async (req, res) => {
+  try {
+    const { itemId } = req.body;
+    const item = await Items.findById(itemId);
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    let cartItem = await CartItem.findOne({ itemId });
+
+    if (cartItem) {
+      cartItem.quantity += 1;
+    } else {
+      // Ensure to provide the 'price' field when creating a new CartItem
+      cartItem = new CartItem({
+        itemId,
+        price: item.price, // Assuming 'item' has a 'price' field
+      });
     }
 
     await cartItem.save();

@@ -373,8 +373,6 @@ const Cards = ({ items }) => {
 };
 
 export default Cards;   */
-
-
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -396,23 +394,37 @@ const Cards = ({ items }) => {
   const { cartItems, setCartItems, setCartItemsNumber } = useCartItemsContext(); // Ensure correct usage
 
   // Function to add item to cart
-  const addToCart = (item) => {
-    const existingItem = cartItems.find((cartItem) => cartItem._id === item._id);
-    const updatedCartItems = existingItem
-      ? cartItems.map((cartItem) =>
-          cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        )
-      : [...cartItems, { ...item, quantity: 1 }];
+  const addToCart = async (item) => {
+    try {
+      const response = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itemId: item._id }),
+      });
 
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+      if (response.ok) {
+        const existingItem = cartItems.find((cartItem) => cartItem.itemId._id === item._id);
+        const updatedCartItems = existingItem
+          ? cartItems.map((cartItem) =>
+              cartItem.itemId._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+            )
+          : [...cartItems, { itemId: item, quantity: 1 }];
 
-    setItemQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [item._id]: (prevQuantities[item._id] || 0) + 1,
-    }));
+        setCartItems(updatedCartItems);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
-    setCartItemsNumber(updatedCartItems.length);
+        setItemQuantities((prevQuantities) => ({
+          ...prevQuantities,
+          [item._id]: (prevQuantities[item._id] || 0) + 1,
+        }));
+
+        setCartItemsNumber(updatedCartItems.length);
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
   };
 
   return (
@@ -458,4 +470,3 @@ const Cards = ({ items }) => {
 };
 
 export default Cards;
-

@@ -49,6 +49,10 @@ const cartItemSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
 });
 
 const CartItem = mongoose.model("CartItem", cartItemSchema);
