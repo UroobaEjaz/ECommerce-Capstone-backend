@@ -7,7 +7,7 @@ import itemsRoutes from "./routes/items.routes.js";
 //import purchaseRoutes from "./routes/purchase.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
-
+import cors from "cors";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import path from "path";
 
@@ -15,6 +15,8 @@ const app = express();
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
+
+app.use(cors());
 
 app.use(express.json()); // from req.body
 app.use(cookieParser());

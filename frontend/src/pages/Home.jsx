@@ -43,13 +43,13 @@ const Home = () => {
   return (
    <div >
     <Navbar/> 
-     {/* <Card items={item} /> */}
+    
     
    {/* <Carousel data = {Slides}/>    */}
     {/*<Search/>  */}
     {/* <ListItem /> */}
     <CarouselPage/>  
-
+ <Card items={item} /> 
 
    {/* <ProductList/>  */}
     </div>

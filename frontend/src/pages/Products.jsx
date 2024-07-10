@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Card from "../components/Cards";
-import Cart from "../components/Cart";
+import Cart from "../pages/Cart";
 
 export default function Products() {
   const [items, setItems] = useState([]);
@@ -33,9 +33,9 @@ export default function Products() {
     <div className="p-4">
       <Navbar size={cart.length} />
       <div>
-        <ul className="flex justify-around -mt-80 border border-solid border-black rounded-xl bg-stone-200 ">
+        <ul className="flex justify-around -mt-80 border border-solid border-black rounded-xl bg-stone-200 ">    */
           {/* Example of how to use the getItems function */}
-          <li className="mx-2">
+ /*         <li className="mx-2">
             <button onClick={getItems("Sweet")} className=" hover:text-red-600">
               Sweets
             </button>
@@ -92,4 +92,4 @@ export default function Products() {
       <Card items={items} handleClick={handleClick} />
     </div>
   );
-}
+}  */
