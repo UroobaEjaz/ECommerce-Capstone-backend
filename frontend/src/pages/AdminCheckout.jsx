@@ -34,9 +34,13 @@ const AdminCheckout = () => {
     items.map((item) => {});
   };
 
+  const run = async () => {
+    await getItems();
+    await getTotalPrice();
+  };
+
   useEffect(() => {
-    getItems();
-    getTotalPrice();
+    run();
   }, []);
   return (
     <div>
