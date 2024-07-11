@@ -31,7 +31,7 @@ const AdminCheckout = () => {
   };
 
   const totalPerCatagory = () => {
-    items.category.map((item) => {});
+    items.map((item) => {});
   };
 
   useEffect(() => {
