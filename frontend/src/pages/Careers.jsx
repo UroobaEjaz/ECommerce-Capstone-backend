@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
-
+//References: https://www.youtube.com/watch?v=Nm_IHH4iOx4&t=326s&ab_channel=techM
 export default function App() {
   return (
     <div className="w-screen min-h-screen bg-gray-100">
