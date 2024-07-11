@@ -2,10 +2,47 @@ import React, { useState, useEffect } from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 const AdminCheckout = () => {
+  const [items, setItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState("");
+
+  const getItems = async () => {
+    try {
+      const response = await fetch("/api/admin/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      setItems(data);
+      console.log(data);
+    } catch (error) {
+      console.log("error getting items", error);
+    }
+  };
+
+  const getTotalPrice = () => {
+    let total = 0;
+    items.map((item) => {
+      total += item.price * item.quantity;
+    });
+    setTotalPrice(total);
+  };
+
+  const totalPerCatagory = () => {
+    items.category.map((item) => {});
+  };
+
+  useEffect(() => {
+    getItems();
+    getTotalPrice();
+  }, []);
   return (
     <div>
       <h1>Admin Checkout</h1>
       <p>Admin Checkout page</p>
+      <button onClick={() => totalPerCatagory()}>click</button>
       <div>
         <PieChart
           series={[
@@ -21,6 +58,15 @@ const AdminCheckout = () => {
           height={200}
         />
       </div>
+      {items.map((item) => (
+        <div key={item._id}>
+          <p>{item.name}</p>
+          <p>{item.price}</p>
+          <p>{item.quantity}</p>
+          <p>{item.show}</p>
+        </div>
+      ))}
+      <div>total: {totalPrice}</div>
     </div>
   );
 };
