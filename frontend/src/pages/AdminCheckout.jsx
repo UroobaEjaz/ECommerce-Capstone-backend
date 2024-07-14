@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { BarChart } from "@mui/x-charts/BarChart";
 
 const AdminCheckout = () => {
   const [items, setItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState("");
+  const [total, setTotal] = useState(0);
+  const [categoryTotals, setCategoryTotals] = useState([]);
+  const [monthlySales, setMonthlySales] = useState([]);
+  const [sortedItems, setSortedItems] = useState([]);
 
   const getItems = async () => {
     try {
@@ -23,54 +27,196 @@ const AdminCheckout = () => {
   };
 
   const getTotalPrice = () => {
-    let total = 0;
     items.map((item) => {
-      total += item.price * item.quantity;
+      setTotal((prev) => prev + item.price * item.quantity);
     });
-    setTotalPrice(total);
+    console.log(total);
   };
 
-  const totalPerCatagory = () => {
-    items.map((item) => {});
+  // used chatgpt
+  const totalPerCategory = () => {
+    const categoryMap = items.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = 0;
+      }
+      acc[item.category] += item.price * item.quantity;
+      return acc;
+    }, {});
+
+    const categoryData = Object.entries(categoryMap).map(
+      ([label, value], id) => ({
+        id,
+        label,
+        value,
+      })
+    );
+
+    setCategoryTotals(categoryData);
   };
 
-  const run = async () => {
-    await getItems();
-    await getTotalPrice();
+  const sortItems = () => {
+    const itemMap = items.reduce((acc, item) => {
+      if (!acc[item.name]) {
+        acc[item.name] = { ...item, quantity: 0 };
+      }
+      acc[item.name].quantity += item.quantity;
+      return acc;
+    }, {});
+
+    const combinedItems = Object.values(itemMap);
+
+    const sorted = [...combinedItems].sort((a, b) => b.quantity - a.quantity);
+    setSortedItems(sorted);
+  };
+
+  const salesPerMonth = () => {
+    const monthMap = items.reduce((acc, item) => {
+      const month = new Date(item.date).getMonth(); // Get month (0-11)
+      if (!acc[month]) {
+        acc[month] = 0;
+      }
+      acc[month] += item.price * item.quantity;
+      return acc;
+    }, {});
+
+    const monthData = Object.entries(monthMap).map(([month, total], id) => ({
+      id,
+      label: new Date(0, month).toLocaleString("default", { month: "long" }),
+      value: total,
+    }));
+
+    setMonthlySales(monthData);
+    console.log("monthly sales", monthData);
   };
 
   useEffect(() => {
-    run();
+    getItems();
   }, []);
+
+  useEffect(() => {
+    getTotalPrice();
+    totalPerCategory();
+    sortItems();
+    salesPerMonth();
+  }, [items]);
+
+  // used chatgpt
   return (
-    <div>
-      <h1>Admin Checkout</h1>
-      <p>Admin Checkout page</p>
-      <button onClick={() => totalPerCatagory()}>click</button>
-      <div>
-        <PieChart
-          series={[
-            {
-              data: [
-                { id: 0, value: 10, label: "series A" },
-                { id: 1, value: 15, label: "series B" },
-                { id: 2, value: 20, label: "series C" },
-              ],
-            },
-          ]}
-          width={400}
-          height={200}
-        />
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-blue-600 text-white p-4">
+        <h1 className="text-2xl">Admin Sales Data</h1>
+        <nav className="mt-2">
+          <ul className="flex space-x-4">
+            <li>
+              <a href="#overview" className="hover:underline">
+                Overview
+              </a>
+            </li>
+            <li>
+              <a href="#category-totals" className="hover:underline">
+                Category Totals
+              </a>
+            </li>
+            <li>
+              <a href="#monthly-sales" className="hover:underline">
+                Monthly Sales
+              </a>
+            </li>
+            <li>
+              <a href="#item-details" className="hover:underline">
+                Item Details
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div className="flex">
+        <aside className="w-1/4 bg-white shadow-md p-4">
+          <ul className="space-y-2">
+            <li>
+              <a
+                href="#overview"
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                Overview
+              </a>
+            </li>
+            <li>
+              <a
+                href="#category-totals"
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                Category Totals
+              </a>
+            </li>
+            <li>
+              <a
+                href="#monthly-sales"
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                Monthly Sales
+              </a>
+            </li>
+            <li>
+              <a
+                href="#item-details"
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                Item Details
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <main className="w-3/4 p-4">
+          <section id="overview" className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Sales Overview</h2>
+            <p>Total Sales: ${total.toFixed(2)}</p>
+          </section>
+          <section id="category-totals" className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Sales per Category</h2>
+            <PieChart
+              series={[{ data: categoryTotals }]}
+              width={400}
+              height={200}
+            />
+          </section>
+          <section id="monthly-sales" className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Sales per Month</h2>
+            <BarChart
+              series={[
+                {
+                  data: monthlySales.map((month) => ({
+                    x: month.label,
+                    y: month.value || 0, // Ensure that y has a valid number
+                  })),
+                  label: "Total Sales",
+                },
+              ]}
+              xAxis={[
+                {
+                  data: monthlySales.map((month) => month.label),
+                  scaleType: "band",
+                },
+              ]}
+              width={400}
+              height={200}
+            />
+          </section>
+          <section id="item-details">
+            <h2 className="text-xl font-semibold mb-2">Item Details</h2>
+            {sortedItems.map((item) => (
+              <div
+                key={item._id}
+                className="border-b border-gray-300 pb-2 mb-2"
+              >
+                <p>Name: {item.name}</p>
+                <p>Price: ${item.price}</p>
+                <p>Quantity: {item.quantity}</p>
+              </div>
+            ))}
+          </section>
+        </main>
       </div>
-      {items.map((item) => (
-        <div key={item._id}>
-          <p>{item.name}</p>
-          <p>{item.price}</p>
-          <p>{item.quantity}</p>
-          <p>{item.show}</p>
-        </div>
-      ))}
-      <div>total: {totalPrice}</div>
     </div>
   );
 };
