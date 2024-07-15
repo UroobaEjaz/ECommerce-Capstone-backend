@@ -6,7 +6,7 @@
 
 // export default function Cart() {
 //   const [cart, setCart] = useState(null);
-//   const [loading, setLoading] = useState(true);
+//   const [loading, setLoading] = useState(true
 //   const [error, setError] = useState(null);
 
 //   useEffect(() => {
@@ -79,7 +79,7 @@
 
 
 // Cart.jsx
-
+/*
 import React from "react";
 import { useCartItemsContext } from '../context/CartItemsContext';
 import { Card, Button, Badge } from "react-bootstrap";
@@ -106,6 +106,165 @@ const Cart = () => {
               </Button>
             </Card.Body>
           </Card>
+        ))
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
+    </div>
+  );
+};
+
+export default Cart; */
+/*
+import React, { useEffect } from "react";
+import { useCartItemsContext } from '../context/CartItemsContext';
+import { Card, Button, Badge } from "react-bootstrap";
+
+const Cart = () => {
+
+  const [CartItemsName, setCartItemsName] = useState([]);
+  const [CartItemsPrice, setCartItemsPrice] = useState([]);
+  const [CartItemsQuantity, setCartItemsQuantity] = useState([]);
+
+  const getCartItems = async () => {
+    try {
+      const response = await fetch("/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+     
+
+      const data = await response.json();
+      setCartItemsName(data.name);
+      setCartItemsPrice(data.price);
+      setCartItemsQuantity(data.quantity);
+      console.log(data);
+    } catch (error) {
+      console.log("error getting cart items", error);
+    }
+  };
+
+  const addCartItems = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("name", CartItemsName);
+    formData.append("price", CartItemsPrice);
+    formData.append("quantity", CartItemsQuantity);
+
+    try {
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+      getCartItems();
+    } catch (error) {
+      console.log("error adding item", error);
+    }
+  };
+  useEffect(() => {
+    getCartItems();
+  }, []);
+
+  return (
+    <div className="p-4">
+      <h2>Your Cart</h2>
+      {cartItems.length > 0 ? (
+        cartItems.map((item) => (
+          <Card key={item._id} className="mb-3">
+            <Card.Body>
+              <Card.Title>{item.name}</Card.Title>
+              <Card.Text>Description: {item.description}</Card.Text>
+              <Card.Text>Price: ${item.price}</Card.Text>
+              <Button onClick={() => addCartItem(item)} variant="danger">
+                Add to Cart
+              </Button>
+            </Card.Body>
+          </Card>
+        ))
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
+    </div>
+  );
+}; */
+import React, { useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { useCartItemsContext } from '../context/CartItemsContext';
+
+const Cart = () => {
+  const { cartItems, removeFromCart, setCartItems } = useCartItemsContext();
+
+  useEffect(() => {
+    // Fetch cart items on component mount
+    getCartItems();
+  }, []);
+
+  const getCartItems = async () => {
+    try {
+      const response = await fetch("/api/cart/items", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart items');
+      }
+
+      const data = await response.json();
+      // Update cartItems context state with fetched items
+     
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
+
+  const handleRemoveFromCart = async (item) => {
+    try {
+      await removeFromCart(item); // Call removeFromCart function from context
+      getCartItems(); // Refresh cart items after removal
+    } catch (error) {
+      console.error("Error removing item:", error.message);
+    }
+  };
+
+  return (
+    <div className="p-4">
+      <h2>Your Cart</h2>
+      {cartItems.length > 0 ? (
+        cartItems.map((item) => (
+          <motion.div
+            key={item._id}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            style={{ width: "18rem", margin: "1rem", display: "flex" }}
+          >
+            <Card>
+              <Card.Img
+                variant="top"
+                src={`/api/items/images/${item.image}`}
+                alt={item.name}
+              />
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+                <Card.Text>Description: {item.description}</Card.Text>
+                <Card.Text>Price: ${item.price}</Card.Text>
+                <Button onClick={() => handleRemoveFromCart(item)} variant="danger">
+                  Remove from Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          </motion.div>
         ))
       ) : (
         <p>Your cart is empty.</p>
