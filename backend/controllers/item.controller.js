@@ -319,7 +319,6 @@ export const hideItem = async (req, res) => {
 export const showItem = async (req, res) => {
   try {
     const { ids } = req.body;
-    console.log(ids);
 
     if (!ids || !Array.isArray(ids) || ids.length === 0) {
       return res
