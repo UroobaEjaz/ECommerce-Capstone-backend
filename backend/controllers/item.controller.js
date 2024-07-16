@@ -19,6 +19,7 @@ export async function performVisualSearch(imageUrl) {
 }
 
 // used chatgpt
+// used mongodb documentation
 export const addItem = async (req, res) => {
   try {
     const { name, price, category, description, countInStock } = req.body;

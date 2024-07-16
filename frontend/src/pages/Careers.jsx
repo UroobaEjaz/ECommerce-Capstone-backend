@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+//References: https://www.youtube.com/watch?v=Nm_IHH4iOx4&t=326s&ab_channel=techM
 export default function App() {
   return (
     <div className="w-screen min-h-screen bg-gray-100">
@@ -82,6 +84,28 @@ const SubscriptionSection = () => {
 };
 
 const ApplyForm = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_z5l694s",
+        "template_a7324cs",
+        form.current,
+        "YD1-tcp1vXdAM4GB0"
+      )
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
+
   return (
     <div id="applyform" className="text-center">
       <h1 className="text-5xl font-bold mt-20 mb-10 md:mb-20 mx-4">
@@ -111,7 +135,11 @@ const ApplyForm = () => {
         <h1 className="text-4xl font-bold">Apply Here</h1>
       </div>
       <div className="mx-auto max-w-6xl px-4">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form
+          ref={form}
+          onSubmit={sendEmail}
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -120,10 +148,12 @@ const ApplyForm = () => {
               First Name
             </label>
             <input
+              name="from_name"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="firstName"
               type="text"
               placeholder="Enter your first name"
+              required
             />
           </div>
           <div className="mb-4">
@@ -136,8 +166,10 @@ const ApplyForm = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="lastName"
+              name="lastName"
               type="text"
               placeholder="Enter your last name"
+              required
             />
           </div>
           <div className="mb-4">
@@ -148,10 +180,12 @@ const ApplyForm = () => {
               Mobile Number
             </label>
             <input
+              name="mobileNumber"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="mobileNumber"
               type="text"
               placeholder="Enter your mobile number"
+              required
             />
           </div>
           <div className="mb-4">
@@ -162,16 +196,19 @@ const ApplyForm = () => {
               LinkedIn URL
             </label>
             <input
+              name="linkedin"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="linkedin"
               type="text"
               placeholder="Enter your LinkedIn URL"
+              required
             />
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="resume"
+              name="resume"
             >
               Upload Resume
             </label>
@@ -179,12 +216,15 @@ const ApplyForm = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="resume"
               type="file"
+              name="resume"
+              required
             />
           </div>
           <div className="flex items-center justify-center">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
+              type="submit"
+              onSubmit={sendEmail}
             >
               Submit
             </button>
