@@ -12,7 +12,9 @@ import { useAuthContext } from "./context/AuthContext";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Checkout from "./pages/Checkout";
+import AdminCheckout from "./pages/AdminCheckout";
 import Careers from "./pages/Careers";
+import ItemDetails from "./pages/itemDetails";
 
 // Used ChatGPT to get the syntax for the Router and the Routes URL:https://chatgpt.com/c/eed16b61-cd05-4273-bf35-cdd64b66b642
 // Watched Youtube videos as well url:https://www.youtube.com/watch?v=17l6AOc8s10&ab_channel=CodeComplete , https://www.youtube.com/watch?v=SLfhMt5OUPI&ab_channel=WebDevSimplified
@@ -22,7 +24,7 @@ export default function App() {
   // https://stackoverflow.com/questions/39128931/clear-localstorage-on-tab-browser-close-but-not-on-refresh
   window.onbeforeunload = function(e) {
     window.localStorage.removeItem("cartItems");
-    window.localStorage.removeItem("id");
+    // window.localStorage.removeItem("id");
   };
 
   const [id, setId] = useState(null);
@@ -50,12 +52,13 @@ export default function App() {
 
   useEffect(() => {
     setId(localStorage.getItem("id"));
+    console.log(localStorage.getItem("id"));
   }, []);
 
   return (
     <>
       <Routes>
-        <Route path="/" element={!authUser ? <Home /> : <Navigate to="/" />} />
+        <Route path="/" element={<Home />} />
         <Route
           path="/login"
           element={!authUser ? <Login /> : <Navigate to="/" />}
@@ -68,31 +71,21 @@ export default function App() {
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
           />   */}
-        <Route
-          path="/About"
-          element={!authUser ? <About /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/cart"
-          element={!authUser ? <Cart /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/Contact"
-          element={!authUser ? <Contact /> : <Navigate to="/" />}
-        />
+        <Route path="/About" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/Contact" element={<Contact />} />
         <Route
           path="/Admin"
           element={!authUser ? <Admin /> : <Navigate to="/" />}
         />
         <Route
-          path="/search"
-          element={!authUser ? <Search /> : <Navigate to="/" />}
+          path="/AdminCheckout"
+          element={!authUser ? <AdminCheckout /> : <Navigate to="/" />}
         />
+        <Route path="/search" element={<Search />} />
 
-        <Route
-          path="/Careers"
-          element={!authUser ? <Careers /> : <Navigate to="/" />}
-        />
+        <Route path="/Careers" element={<Careers />} />
+        <Route path="/:details" element={<ItemDetails />} />
       </Routes>
     </>
   );
