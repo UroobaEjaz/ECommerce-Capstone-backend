@@ -27,26 +27,32 @@ const AdminCheckout = () => {
   };
 
   const getTotalPrice = () => {
-    items.map((item) => {
-      setTotal((prev) => prev + item.price * item.quantity);
-    });
-    console.log(total);
+    const totalPrice = items.reduce((acc, sale) => {
+      sale.items.forEach((item) => {
+        acc += item.price * item.quantity;
+      });
+      return acc;
+    }, 0);
+
+    setTotal(totalPrice);
   };
 
   // used chatgpt
   const totalPerCategory = () => {
-    const categoryMap = items.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = 0;
-      }
-      acc[item.category] += item.price * item.quantity;
+    const categoryMap = items.reduce((acc, sale) => {
+      sale.items.forEach((item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = 0;
+        }
+        acc[item.category] += item.price * item.quantity;
+      });
       return acc;
     }, {});
 
     const categoryData = Object.entries(categoryMap).map(
-      ([label, value], id) => ({
+      ([category, value], id) => ({
         id,
-        label,
+        label: category,
         value,
       })
     );
@@ -55,11 +61,13 @@ const AdminCheckout = () => {
   };
 
   const sortItems = () => {
-    const itemMap = items.reduce((acc, item) => {
-      if (!acc[item.name]) {
-        acc[item.name] = { ...item, quantity: 0 };
-      }
-      acc[item.name].quantity += item.quantity;
+    const itemMap = items.reduce((acc, sale) => {
+      sale.items.forEach((item) => {
+        if (!acc[item.name]) {
+          acc[item.name] = { ...item, quantity: 0 };
+        }
+        acc[item.name].quantity += item.quantity;
+      });
       return acc;
     }, {});
 
@@ -69,24 +77,38 @@ const AdminCheckout = () => {
     setSortedItems(sorted);
   };
 
+  // needs work
   const salesPerMonth = () => {
     const monthMap = items.reduce((acc, item) => {
-      const month = new Date(item.date).getMonth(); // Get month (0-11)
-      if (!acc[month]) {
-        acc[month] = 0;
+      try {
+        // Ensure item.date is a valid date string
+        const date = new Date(item.date);
+        if (isNaN(date.getTime())) {
+          console.warn(`Invalid date format for item: ${item._id}`);
+          return acc;
+        }
+
+        // Calculate total sales per month
+        const month = date.getMonth();
+        if (!acc[month]) {
+          acc[month] = 0;
+        }
+        acc[month] += item.price * item.quantity;
+      } catch (error) {
+        console.error(`Error processing item: ${item._id}, ${error}`);
       }
-      acc[month] += item.price * item.quantity;
       return acc;
     }, {});
 
+    // Format monthData for display
     const monthData = Object.entries(monthMap).map(([month, total], id) => ({
       id,
       label: new Date(0, month).toLocaleString("default", { month: "long" }),
       value: total,
     }));
 
+    // Set the state with updated monthData
     setMonthlySales(monthData);
-    console.log("monthly sales", monthData);
   };
 
   useEffect(() => {
@@ -187,7 +209,7 @@ const AdminCheckout = () => {
                 {
                   data: monthlySales.map((month) => ({
                     x: month.label,
-                    y: month.value || 0, // Ensure that y has a valid number
+                    y: month.value,
                   })),
                   label: "Total Sales",
                 },

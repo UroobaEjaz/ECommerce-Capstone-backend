@@ -1,4 +1,5 @@
 import SoldItem from "../models/sold.model.js";
+import Item from "../models/item.model.js";
 
 // used chatgpt for the sample data
 const items = [
@@ -123,6 +124,53 @@ export const getInformation = async (req, res) => {
     res.status(200).send(sales);
   } catch (error) {
     console.log("error getting sales", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getTopSellingItemsByCategory = async (req, res) => {
+  let { category, itemid } = req.body;
+  console.log(category, itemid);
+
+  try {
+    const sales = await SoldItem.find({
+      "items.category": category,
+    });
+
+    const itemMap = sales.reduce((acc, sale) => {
+      sale.items.forEach((item) => {
+        if (item.category === category) {
+          if (!acc[item.name]) {
+            acc[item.name] = { ...item._doc, totalSold: 0 };
+          }
+          acc[item.name].totalSold += item.quantity;
+        }
+      });
+      return acc;
+    }, {});
+
+    const sortedItems = Object.values(itemMap).sort(
+      (a, b) => b.totalSold - a.totalSold
+    );
+
+    const filteredItems = sortedItems.filter(
+      (item) => item.itemId.toString() !== itemid
+    );
+
+    const topItems = filteredItems.slice(0, 4).map((item) => ({
+      itemId: item.itemId,
+    }));
+
+    for (let i = 0; i < topItems.length; i++) {
+      const item = await Item.findById(topItems[i].itemId);
+      topItems[i] = { ...topItems[i], ...item._doc };
+    }
+
+    // console.log("top", topItems);
+
+    res.status(200).json(topItems);
+  } catch (error) {
+    console.error("Error getting top selling items by category:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
