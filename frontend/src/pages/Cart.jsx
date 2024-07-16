@@ -197,6 +197,8 @@ import React, { useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from '../context/CartItemsContext';
+import { Link } from "react-router-dom";
+
 
 const Cart = () => {
   const { cartItems, removeFromCart, setCartItems } = useCartItemsContext();
@@ -237,6 +239,8 @@ const Cart = () => {
     }
   };
 
+  
+
   return (
     <div className="p-4">
       <h2>Your Cart</h2>
@@ -264,11 +268,19 @@ const Cart = () => {
                 </Button>
               </Card.Body>
             </Card>
+            <Link to ='/StripeContainer'>
+            <Button variant="primary">Proceed to Checkout</Button>
+            </Link>
+           
+           
+          
           </motion.div>
+          
         ))
       ) : (
         <p>Your cart is empty.</p>
-      )}
+      )
+      }
     </div>
   );
 };

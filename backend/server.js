@@ -9,7 +9,13 @@ import userRoutes from "./routes/user.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
 import cors from "cors";
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import paymentRoutes from "./routes/payment.routes.js";
+
 import path from "path";
+
+
+
+
 
 const app = express();
 
@@ -31,6 +37,8 @@ app.use("/api/cart", cartRoutes); // cart routes under /api/cart
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
+
+app.use('/api', paymentRoutes);
 
 app.listen(PORT, () => {
   connectToMongoDB();

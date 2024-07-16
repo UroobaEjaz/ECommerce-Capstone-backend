@@ -76,6 +76,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart"; // Ensure correct path to Cart component
 import { useCartItemsContext } from './context/CartItemsContext'; // Adjusted to useCartItemsContext
+import StripeContainer from "./pages/StripeContainer";
 
 export default function App() {
   const { authUser } = useAuthContext();
@@ -121,6 +122,10 @@ export default function App() {
           <Route
             path="/Cart"
             element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} // Pass cartItems and setCartItems props
+          />
+           <Route
+            path="/StripeContainer"
+            element={!authUser ? <StripeContainer /> : <Navigate to="/" />}
           />
         </Routes>
       </div>
