@@ -15,20 +15,17 @@ const stripePromise = loadStripe('pk_test_51PcvRw2NAyVt2xlZwRAfUTenUciVAU25L6g7c
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-
-   // Adjust the path as per your project structure
-
   // for the bot to work and display the message one time, I removed the StrictMode
   // <React.StrictMode>
   
-    <BrowserRouter>
-    <CartItemsProvider>
-      <AuthContextProvider>
-      <Elements stripe={stripePromise}>
-    <App />
-  </Elements>
-      </AuthContextProvider>
-      </CartItemsProvider>
-    </BrowserRouter>
+  <BrowserRouter>
+  <CartItemsProvider>
+    <AuthContextProvider>
+    <Elements stripe={stripePromise}>
+  <App />
+</Elements>
+    </AuthContextProvider>
+    </CartItemsProvider>
+  </BrowserRouter>
   
 );

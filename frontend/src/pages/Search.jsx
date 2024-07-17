@@ -1,68 +1,12 @@
-{/*import React, { useState } from "react";
-import Card from "../components/Cards";
-
-const Search = () => {
-  const [item, setItem] = useState([]);
-  const [name, setName] = useState("");
-  const getItems = async (e) => {
-    e.preventDefault();
-    if (!name) {
-      return (
-        <div>
-          <p>Please enter the name of the item</p>
-        </div>
-      );
-    }
-    try {
-      const response = await fetch("/api/items/getByName", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
-
-      const data = await response.json();
-      setItem(data);
-      console.log(data);
-    } catch (error) {
-      console.log("error getting items", error);
-    }
-  };
-  return (
-    <div>
-      <form onSubmit={getItems}>
-        <input
-          type="text"
-          placeholder="Enter the name of the item"
-          onChange={(e) => setName(e.target.value)}
-          className="border rounded-md border-gray-300 p-2 m-2"
-        />
-        <button type="submit">Search</button>
-      </form>
-      <Card items={item} />
-    </div>
-  );
-};
-export default Search; */}
-
-
-
-// dependency to install : npm install react-speech-recognition
-// npm install @babel/polyfill
-// npm install framer-motion
-// import '@babel/polyfill';
-
-
 // reference: https://www.youtube.com/watch?v=W0-hJ-9YG3I
 
-
-
-import 'regenerator-runtime/runtime';
+import "regenerator-runtime/runtime";
 import React, { useState } from "react";
 import Card from "../components/Cards";
 import { VscDebugStart, VscDebugStop } from "react-icons/vsc";
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import { motion, AnimatePresence } from "framer-motion";
 import { CgClose } from "react-icons/cg";
 
@@ -83,7 +27,7 @@ const Search = () => {
   const handleVoiceEnd = () => {
     SpeechRecognition.stopListening().then(() => {
       console.log("stopped listening");
-    }) // Stop listening for voice input
+    }); // Stop listening for voice input
     if (transcript) {
       setName(transcript); // Set the recognized text as the search input value
     }
@@ -142,14 +86,17 @@ const Search = () => {
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
-            initial={{ x: '-100%' }} // Slide in from left
+            initial={{ x: "-100%" }} // Slide in from left
             animate={{ x: 0 }}
-            exit={{ x: '-100%' }} // Slide out to left
+            exit={{ x: "-100%" }} // Slide out to left
             transition={{ duration: 0.5 }} // Slower animation duration
             className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 rounded-t-md z-10 overflow-y-auto"
             style={{ maxHeight: "100vh" }} // Limit height and enable scrolling
           >
-            <form onSubmit={getItems} className="flex items-center justify-center ">
+            <form
+              onSubmit={getItems}
+              className="flex items-center justify-center "
+            >
               <input
                 type="text"
                 placeholder="Ask me"
@@ -179,19 +126,15 @@ const Search = () => {
                 Search
               </button>
             </form>
-            
-            {item.length > 0 ? (
-              <Card items={item} />
-            ) : (
-              <p> </p>
-            )}
+
+            {item.length > 0 ? <Card items={item} /> : <p> </p>}
 
             {showCloseButton && (
               <button
                 onClick={handleClose}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
               >
-                <CgClose/>
+                <CgClose />
               </button>
             )}
           </motion.div>
@@ -201,6 +144,4 @@ const Search = () => {
   );
 };
 
-export default Search;  
-
-
+export default Search;

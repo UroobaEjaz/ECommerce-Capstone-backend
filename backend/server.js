@@ -7,6 +7,7 @@ import itemsRoutes from "./routes/items.routes.js";
 //import purchaseRoutes from "./routes/purchase.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 //import adminRoutes from "./routes/admin.routes.js";
 import stripePackage from 'stripe';
 import connectToMongoDB from "./db/connectToMongoDB.js";
@@ -34,7 +35,7 @@ app.use("/api/items", itemsRoutes);
 app.use("/api/users", userRoutes);
 //cart routes
 app.use("/api/cart", cartRoutes); // cart routes under /api/cart
-//app.use("/api/admin", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));

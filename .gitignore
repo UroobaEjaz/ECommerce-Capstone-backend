@@ -15,6 +15,7 @@
 
 # uploads
 /uploads/*
+/frontend/src/assets/*
 
 # production
 /build
