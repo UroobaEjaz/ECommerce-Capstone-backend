@@ -32,31 +32,31 @@ const PaymentForm = ({ cartTotal }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: '500px'
-    ,margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
-      <CardElement
-        options={{
-          style: {
-            
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
+    <div className="flex justify-center items-center h-96 ">
+      <form onSubmit={handleSubmit} className="w-full p-6 bg-white  rounded-lg">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
               },
             },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <Button type="submit" disabled={!stripe} style={{ marginTop: '20px', width: '100%', fontSize: '18px' }}>
-        Pay ${cartTotal}
-      </Button>
-      {paymentError && <p style={{ color: 'red', marginTop: '10px', fontSize: '14px' }}>{paymentError}</p>}
-      {paymentSuccess && <p style={{ color: 'green', marginTop: '10px', fontSize: '14px' }}>{paymentSuccess}</p>}
-    </form>
+          }}
+        />
+        <Button type="submit" disabled={!stripe} className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg">
+          Pay ${cartTotal}
+        </Button>
+        {paymentError && <p className="text-red-500 mt-4 text-sm">{paymentError}</p>}
+        {paymentSuccess && <p className="text-green-500 mt-4 text-sm">{paymentSuccess}</p>}
+      </form>
+    </div>
   );
 };
 
