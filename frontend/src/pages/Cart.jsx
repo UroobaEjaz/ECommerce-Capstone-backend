@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, Button, Image } from "react-bootstrap";
-import { useCartItemsContext } from "../context/CartItemsContext";
+import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
 
 const Cart = () => {
   const { cartItems, setCartItems, setCartItemsNumber } = useCartItemsContext();
