@@ -1,88 +1,90 @@
-import React, { useState, useEffect } from "react";
-import { ListGroup, Button, Image } from "react-bootstrap";
-import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
+import React, { useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { useCartItemsContext } from '../context/CartItemsContext';
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, setCartItems, setCartItemsNumber } = useCartItemsContext();
+  const { cartItems, removeFromCart, setCartItems } = useCartItemsContext();
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await fetch("/api/cart");
-        const data = await response.json();
-        setCartItems(data);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
+    getCartItems();
+  }, []);
 
-    fetchCartItems();
-  }, [setCartItems]);
-
-  const removeFromCart = async (itemId) => {
+  const getCartItems = async () => {
     try {
-      const response = await fetch("/api/cart/remove", {
-        method: "POST",
+      const response = await fetch("/api/cart/items", {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ itemId }),
       });
 
-      if (response.ok) {
-        const updatedCartItems = cartItems.filter(
-          (cartItem) => cartItem.itemId._id !== itemId
-        );
-        setCartItems(updatedCartItems);
-        setCartItemsNumber(updatedCartItems.length);
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart items');
       }
+
+      const data = await response.json();
+      setCartItems(data); // Update context state with fetched items
     } catch (error) {
-      console.error("Error removing item from cart:", error);
+      console.error("Error fetching cart items:", error);
     }
   };
 
-  const calculateTotal = () => {
-    return cartItems
-      .reduce((total, item) => total + item.itemId.price * item.quantity, 0)
-      .toFixed(2);
+  const handleRemoveFromCart = async (item) => {
+    try {
+      await removeFromCart(item); // Call removeFromCart function from context
+      getCartItems(); // Refresh cart items after removal
+    } catch (error) {
+      console.error("Error removing item:", error.message);
+    }
   };
 
   return (
-    <ListGroup>
-      {cartItems.length > 0 ? (
-        cartItems.map((cartItem) => (
-          <ListGroup.Item
-            key={cartItem._id}
-            className="d-flex justify-content-between align-items-center"
-          >
-            <div>
-              <strong>{cartItem.itemId.name}</strong>
-              <br />
-              <Image
-                src={`/api/items/images/${cartItem.itemId.image}`}
-                alt={cartItem.itemId.name}
-                thumbnail
-              />
-              <br />
-              Quantity: {cartItem.quantity}
-              <br />
-              Price: ${cartItem.itemId.price}
-            </div>
-            <Button
-              variant="danger"
-              onClick={() => removeFromCart(cartItem.itemId._id)}
-            >
-              Remove
-            </Button>
-          </ListGroup.Item>
-        ))
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
-      <ListGroup.Item>
-        <h5>Total: ${calculateTotal()}</h5>
-      </ListGroup.Item>
-    </ListGroup>
+    <div className="container py-4 d-flex justify-content-center align-items-center">
+      <div className="text-center">
+        <h2 className="mb-4">Your Cart</h2>
+        <div className="row row-cols-1 row-cols-md-2 g-4">
+          {cartItems.length > 0 ? (
+            <>
+              {cartItems.map((item) => (
+                <motion.div
+                  key={item._id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="col mb-3"
+                >
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={`/api/items/images/${item.image}`}
+                      alt={item.name}
+                    />
+                    <Card.Body>
+                      <Card.Title>{item.name}</Card.Title>
+                      <Card.Text>Price: ${item.price}</Card.Text>
+                      <Button onClick={() => handleRemoveFromCart(item)} variant="danger">
+                        Remove from Cart
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </motion.div>
+              ))}
+              <div className="col mt-4">
+                <Link to='/StripeContainer'>
+                  <Button className="mt-3" variant="primary" block>
+                    Proceed to Checkout
+                  </Button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -135,20 +135,6 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-export const getCartItems = async (req, res) => {
-  const { email } = req.body;
-  console.log(email);
-
-  try {
-    const cart = await Cart.findOne({ email });
-
-    if (!cart) {
-      return res.status(404).json({ error: "Cart not found for this user" });
-    }
-
-    cart.cartItems.map((item) => {
-      console.log(item);
-    });
 
     res.status(200).json({ cart });
     console.log("Cart details fetched successfully");
@@ -157,7 +143,7 @@ export const getCartItems = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+*/
 export const tempid = async (req, res) => {
   // looked at the old work for reference
   const generateTempId = () => {
