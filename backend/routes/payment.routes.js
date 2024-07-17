@@ -1,19 +1,9 @@
-import express from 'express';
-import { createPaymentIntent } from '../controllers/payment.controller.js';
-import Stripe from 'stripe';
-import dotenv from 'dotenv';
+/*import express from 'express';
+import { processPayment } from '../controllers/payment.controller.js';
 
-dotenv.config();
-const express = require('express');
-const stripe = require('stripe')(YOUR_SECRET_KEY); // Replace with your actual Stripe secret key
-const bodyParser = require('body-parser');
+const router = express.Router();
 
-const app = express();
-app.use(bodyParser.json());
+// POST request to process payment
+router.post('/payment', processPayment);
 
-// Define your routes here
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default router;*/

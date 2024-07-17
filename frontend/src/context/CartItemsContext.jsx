@@ -1,54 +1,86 @@
-/*import { createContext, useContext, useState } from "react";
+/*import React, { createContext, useContext, useReducer } from "react";
 
-export const CartItemsContext = createContext();
-
-export const useCartItemsContext = () => {
-  return useContext(CartItemsContext);
-};
-
-export const CartItemsContextProvider = ({ children }) => {
-  const [cartItemsNumber, setCartItemsNumber] = useState("0");
-  const [cartItemsContext, setCartItemsContext] = useState([]);
-  return (
-    <CartItemsContext.Provider
-      value={{
-        cartItemsContext,
-        setCartItemsContext,
-        cartItemsNumber,
-        setCartItemsNumber,
-      }}
-    >
-      {children}
-    </CartItemsContext.Provider>
-  );
-};   */
-
-
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-// Create a context
 const CartItemsContext = createContext();
 
-// Create a provider component
-export const CartItemsProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [cartItemsNumber, setCartItemsNumber] = useState(0);
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TO_CART":
+      return [...state, action.payload];
+    case "REMOVE_FROM_CART":
+      return state.filter(item => item._id !== action.payload._id);
+    default:
+      return state;
+  }
+};
 
-  useEffect(() => {
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(storedCartItems);
-    setCartItemsNumber(storedCartItems.length);
-  }, []);
+export const CartItemsProvider = ({ children }) => {
+  const [cartItems, dispatch] = useReducer(cartReducer, []);
+
+  const addToCart = (item) => {
+    dispatch({ type: "ADD_TO_CART", payload: item });
+  };
+
+  const removeFromCart = (item) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: item });
+  };
 
   return (
-    <CartItemsContext.Provider value={{ cartItems, setCartItems, cartItemsNumber, setCartItemsNumber }}>
+    <CartItemsContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartItemsContext.Provider>
   );
 };
 
-// Custom hook to use the CartItemsContext
-export const useCartItemsContext = () => {
-  return useContext(CartItemsContext);
+export const useCartItemsContext = () => useContext(CartItemsContext); */
+
+
+import React, { createContext, useContext, useReducer } from "react";
+
+// Define your initial state for cart items
+const initialCartItemsState = {
+  cartItems: [],
 };
+
+// Create context
+const CartItemsContext = createContext();
+
+// Reducer function to handle state updates
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TO_CART":
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload],
+      };
+    case "REMOVE_FROM_CART":
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((item) => item._id !== action.payload._id),
+      };
+    default:
+      return state;
+  }
+};
+
+// Context Provider component
+export const CartItemsProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialCartItemsState);
+
+  const addToCart = (item) => {
+    dispatch({ type: "ADD_TO_CART", payload: item });
+  };
+
+  const removeFromCart = (item) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: item });
+  };
+
+  return (
+    <CartItemsContext.Provider value={{ cartItems: state.cartItems, addToCart, removeFromCart }}>
+      {children}
+    </CartItemsContext.Provider>
+  );
+};
+
+// Custom hook to consume the context
+export const useCartItemsContext = () => useContext(CartItemsContext);
+ 
