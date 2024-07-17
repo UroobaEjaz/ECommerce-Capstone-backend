@@ -2,12 +2,9 @@ import { BiCart } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useCartItemsContext } from "../context/CartItemsContext";
 
-
-
-
 const Navbar = ({ size }) => {
   const { cartItems } = useCartItemsContext();
-  return (   
+  return (
     // bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 ----> used this as a reference to make the footer styling
     // used chatgpt to get the syntax on navbar url="build a simple navbar "
     // Reference for using router: https://chatgpt.com/c/cec6a917-8d3e-444f-a498-a6ad0c5706cb*/

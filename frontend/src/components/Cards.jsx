@@ -3,7 +3,8 @@
 
 // src/components/ItemGrid.js
 
-{/*import React, { useState } from "react";
+{
+  /*import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -99,7 +100,8 @@ const Cards = ({ items }) => {
   );
 };
 
-export default Cards; */}
+export default Cards; */
+}
 //reference: https://www.google.com/search?sca_esv=b8996be4c462e1ec&sca_upv=1&rlz=1C1OPNX_enCA1057CA1057&sxsrf=ADLYWILNwRNlDNp1RIm4pU8diULUBW20LA:1718222177946&q=how+to+create+cards+when+data+is+being+fetched+from+api&tbm=vid&source=lnms&fbs=AEQNm0DVrIRjdA3gRKfJJ-deMT8ZtYOjoIt1NWOMRkEKym4u5PkAZgxJOmIgPx6WieMhF6q1Hq7W6nME2Vp0eHuijF3ZElaTgD0zbj1gkQrti2r6HtU_FSIC_TOIRePmNlS6X7JM5HBW5XbZDBZ4_7u7u_1S0lBKWZanVrzOMi5iZT88U7e3_wgsAQOPU_p9Gb66BSsVUXKxPRPH2pqhwDp-oi5jONlpDQ&sa=X&ved=2ahUKEwiV7b607NaGAxWwADQIHakRAsYQ0pQJegQIDBAB&biw=1396&bih=632&dpr=1.38#fpstate=ive&vld=cid:15d3deed,vid:RYF4_pqhS38,st:0
 // to run this install : npm install @mui/material @emotion/react @emotion/styled
 {
@@ -1031,7 +1033,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
-import { useCartItemsContext } from '../context/CartItemsContext'; // Adjust path as per your context setup
+import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -1046,11 +1048,11 @@ const truncateText = (text, wordLimit) => {
 const Cards = ({ items }) => {
   // State to manage cart items and item quantities
   const [itemQuantities, setItemQuantities] = useState({});
-  
-  const { cartItems, addToCart} = useCartItemsContext(); // Ensure correct usage
-  const [ CartItemsQuantity, setCartItemsQuantity ] = useState(0);
-  const [ CartItemsPrice, setCartItemsPrice ] = useState(0);
-  
+
+  const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
+  const [CartItemsQuantity, setCartItemsQuantity] = useState(0);
+  const [CartItemsPrice, setCartItemsPrice] = useState(0);
+
   const getCartItems = async () => {
     try {
       const response = await fetch("/api/cart/items", {
@@ -1067,12 +1069,11 @@ const Cards = ({ items }) => {
       console.log("error getting items", error);
     }
   };
-  
+
   const addCartItem = async (e) => {
     e.preventDefault();
     const formData = new FormData();
 
-    
     formData.append("price", CartItemsPrice);
     formData.append("quantity", CartItemsQuantity);
 
@@ -1096,7 +1097,6 @@ const Cards = ({ items }) => {
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
-     
       {items.length > 0 ? (
         items.map((item) => (
           <motion.div
@@ -1142,6 +1142,3 @@ const Cards = ({ items }) => {
 };
 
 export default Cards; 
-
-
-
