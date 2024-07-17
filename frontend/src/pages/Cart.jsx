@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from '../context/CartItemsContext';
@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, removeFromCart, setCartItems } = useCartItemsContext();
-  const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
     getCartItems();
@@ -27,18 +26,9 @@ const Cart = () => {
 
       const data = await response.json();
       setCartItems(data); // Update context state with fetched items
-      calculateSubtotal(data);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
-  };
-
-  const calculateSubtotal = (items) => {
-    let total = 0;
-    items.forEach(item => {
-      total += item.price; // Calculate total price for each item
-    });
-    setSubtotal(total);
   };
 
   const handleRemoveFromCart = async (item) => {
@@ -82,7 +72,6 @@ const Cart = () => {
                 </motion.div>
               ))}
               <div className="col mt-4">
-               {/* <h5>Subtotal: ${subtotal.toFixed(2)}</h5> */}
                 <Link to='/StripeContainer'>
                   <Button className="mt-3" variant="primary" block>
                     Proceed to Checkout
