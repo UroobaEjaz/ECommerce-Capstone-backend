@@ -1,24 +1,10 @@
 import { BiCart } from "react-icons/bi";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import { useCartItemsContext } from "../context/CartItemsContext";
-
-
-
 
 const Navbar = ({ size }) => {
   const { cartItems } = useCartItemsContext();
-  return (   
-=======
-import logo from "../assets/demoLogo.jpg";
-import { useAuthContext } from "../context/AuthContext";
-import { useCartItemsContext } from "../context/CartItemsContext";
-
-const Navbar = ({ size }) => {
-  const { cartItemsNumber } = useCartItemsContext();
-
   return (
->>>>>>> 0c969e7f41e2b0b1316ef78905d9ccf939362ec7
     // bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10 ----> used this as a reference to make the footer styling
     // used chatgpt to get the syntax on navbar url="build a simple navbar "
     // Reference for using router: https://chatgpt.com/c/cec6a917-8d3e-444f-a498-a6ad0c5706cb*/
@@ -81,11 +67,7 @@ const Navbar = ({ size }) => {
           <Link to="/Cart" className="py-6">
             <BiCart className="text-black-600 font-large hover:text-red-600 text-2xl" />
             <span className="mt-8 mr-1 absolute -top-1 -right-0 text-xs text-white bg-red-600 rounded-full px-2 py-1">
-<<<<<<< HEAD
               ({cartItems.length})
-=======
-              {cartItemsNumber}
->>>>>>> 0c969e7f41e2b0b1316ef78905d9ccf939362ec7
             </span>
           </Link>
         </li>
