@@ -74,7 +74,7 @@ export default function App() {
           />   */}
            <Route
           path="/StripeContainer"
-          element={!authUser ? <StripeContainer /> : <Navigate to="/" />}
+          element={<StripeContainer />}
         />
         <Route path="/About" element={<About />} />
         <Route path="/cart" element={<Cart />} />

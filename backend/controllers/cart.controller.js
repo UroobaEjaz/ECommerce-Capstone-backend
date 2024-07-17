@@ -56,6 +56,9 @@ export const getCartDetails = async (req, res) => {
   }
 }; */
 
+
+
+
 // cart.controller.js
 
 import CartItem from "../models/cart.model.js";
@@ -131,6 +134,31 @@ export const removeFromCart = async (req, res) => {
     res.status(200).json({ message: "Item removed from cart successfully" });
   } catch (error) {
     console.error("Error removing item from cart:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+export const getCartDetails = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+ 
+  try {
+    // Find the cart for the user
+    const cart = await Cart.findOne({ email });
+ 
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found for this user" });
+    }
+ 
+    cart.cartItems.map((item) => {
+      console.log(item);
+    });
+ 
+    res.status(200).json({ cart });
+    console.log("Cart details fetched successfully");
+  } catch (error) {
+    console.error("Error fetching cart details:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
