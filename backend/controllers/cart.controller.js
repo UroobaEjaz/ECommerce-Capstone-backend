@@ -56,9 +56,6 @@ export const getCartDetails = async (req, res) => {
   }
 }; */
 
-
-
-
 // cart.controller.js
 
 import CartItem from "../models/cart.model.js";
@@ -139,12 +136,24 @@ export const removeFromCart = async (req, res) => {
 };
 
 export const getCartItems = async (req, res) => {
-  try {
-    const cartItems = await CartItem.find().populate("itemId");
+  const { email } = req.body;
+  console.log(email);
 
-    res.status(200).json(cartItems);
+  try {
+    const cart = await Cart.findOne({ email });
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found for this user" });
+    }
+
+    cart.cartItems.map((item) => {
+      console.log(item);
+    });
+
+    res.status(200).json({ cart });
+    console.log("Cart details fetched successfully");
   } catch (error) {
-    console.error("Error fetching cart items:", error);
+    console.error("Error fetching cart details:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
