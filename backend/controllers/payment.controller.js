@@ -23,7 +23,7 @@ export const processPayment = async (req, res) => {
     // Create a charge with Stripe
     const charge = await stripe.charges.create({
       amount: totalAmount * 100, // Amount in cents
-      currency: 'usd', // Currency code (USD in this example)
+      currency: 'cad', // Currency code (USD in this example)
       source: token, // Token obtained from frontend (Stripe.js or Elements)
       description: 'Payment for items in cart',
     });
@@ -39,7 +39,7 @@ export const processPayment = async (req, res) => {
   }
 };
 */
-/*
+
 import stripePackage from 'stripe';
 import CartItem from '../models/cart.model.js'; // Ensure correct path and model name
 
@@ -69,7 +69,7 @@ export const processPayment = async (req, res) => {
     // Create a charge with Stripe
     const charge = await stripe.charges.create({
       amount: totalAmount * 100, // Amount in cents
-      currency: 'usd', // Currency code (USD in this example)
+      currency: 'cad', // Currency code (USD in this example)
       source: token, // Token obtained from frontend (Stripe.js or Elements)
       description: 'Payment for items in cart',
     });
@@ -85,4 +85,3 @@ export const processPayment = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while processing payment' });
   }
 };
-*/

@@ -10,6 +10,7 @@ import cartRoutes from "./routes/cart.routes.js";
 //import adminRoutes from "./routes/admin.routes.js";
 import stripePackage from 'stripe';
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import paymentRoutes from "./routes/payment.routes.js";
 import path from "path";
 import cors from "cors";
 
@@ -39,14 +40,14 @@ app.use("/api/cart", cartRoutes); // cart routes under /api/cart
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
 
-app.post('/api/payment', async (req, res) => {
+/*app.post('/api/payment', async (req, res) => {
   const { amount, payment_method_id } = req.body;
 
   try {
     // Create PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: 'usd',
+      currency: 'cad',
       payment_method: payment_method_id,
       confirmation_method: 'manual',
       confirm: true,
@@ -57,7 +58,9 @@ app.post('/api/payment', async (req, res) => {
     console.error('Error creating PaymentIntent:', error);
     res.status(500).json({ error: 'Failed to create PaymentIntent' });
   }
-});
+}); */
+
+app.use("/api/payment" , paymentRoutes)
 
 
 app.listen(PORT, () => {
