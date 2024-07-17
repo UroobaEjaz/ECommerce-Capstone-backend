@@ -58,6 +58,7 @@ const CartItem = mongoose.model('CartItem', cartItemSchema);
 export default CartItem;
 */
 import mongoose from 'mongoose';
+import Item from './item.model.js'; // Ensure correct path and model name
 
 const cartItemSchema = new mongoose.Schema({
   email: {
