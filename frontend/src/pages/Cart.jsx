@@ -268,7 +268,7 @@ const Cart = () => {
                 </Button>
               </Card.Body>
             </Card>
-            <Link to ='/StripeContainer'>
+            <Link to ='/Checkout'>
             <Button variant="primary">Proceed to Checkout</Button>
             </Link>
            

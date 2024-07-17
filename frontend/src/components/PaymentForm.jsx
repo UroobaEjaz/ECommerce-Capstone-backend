@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 export default function PaymentForm() {
@@ -90,3 +90,51 @@ export default function PaymentForm() {
         </div>
     );
 }
+*/
+
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Button } from 'react-bootstrap';
+
+const PaymentForm = ({ cartTotal }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [paymentError, setPaymentError] = useState(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+    });
+
+    if (error) {
+      setPaymentError(error.message);
+      setPaymentSuccess(null);
+    } else {
+      // Handle successful payment here, e.g., send paymentMethod.id to your server
+      setPaymentError(null);
+      setPaymentSuccess('Payment successful!');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement options={{}} />
+      <Button type="submit" disabled={!stripe}>
+        Pay ${cartTotal}
+      </Button>
+      {paymentError && <p style={{ color: 'red' }}>{paymentError}</p>}
+      {paymentSuccess && <p style={{ color: 'green' }}>{paymentSuccess}</p>}
+    </form>
+  );
+};
+
+export default PaymentForm;
