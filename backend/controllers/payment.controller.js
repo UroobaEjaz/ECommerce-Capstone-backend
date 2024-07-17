@@ -39,7 +39,7 @@ export const processPayment = async (req, res) => {
   }
 };
 */
-
+/*
 import stripePackage from 'stripe';
 import CartItem from '../models/cart.model.js'; // Ensure correct path and model name
 
@@ -85,3 +85,4 @@ export const processPayment = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while processing payment' });
   }
 };
+*/
