@@ -138,7 +138,7 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-export const getCartDetails = async (req, res) => {
+/*export const getCartDetails = async (req, res) => {
   const { email } = req.body;
   console.log(email);
  
@@ -161,7 +161,7 @@ export const getCartDetails = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+*/
 export const tempid = async (req, res) => {
   // looked at the old work for reference
   const generateTempId = () => {
