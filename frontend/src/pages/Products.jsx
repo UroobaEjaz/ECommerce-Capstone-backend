@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Card from "../components/Cards";
-import Cart from "../components/Cart";
+import Cart from "../pages/Cart";
 
 export default function Products() {
   const [items, setItems] = useState([]);
