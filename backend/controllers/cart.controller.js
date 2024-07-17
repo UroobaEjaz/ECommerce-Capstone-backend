@@ -135,15 +135,6 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-
-    res.status(200).json({ cart });
-    console.log("Cart details fetched successfully");
-  } catch (error) {
-    console.error("Error fetching cart details:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-*/
 export const tempid = async (req, res) => {
   // looked at the old work for reference
   const generateTempId = () => {
