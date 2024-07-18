@@ -1028,7 +1028,6 @@ const Cards = ({ items }) => {
 
 export default Cards;*/
 
-
 import React, { useState, useEffect } from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -1052,6 +1051,7 @@ const Cards = ({ items }) => {
   const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
   const [CartItemsQuantity, setCartItemsQuantity] = useState(0);
   const [CartItemsPrice, setCartItemsPrice] = useState(0);
+  const nevigate = useNavigate();
 
   const getCartItems = async () => {
     try {
@@ -1111,10 +1111,22 @@ const Cards = ({ items }) => {
                 variant="top"
                 src={`/api/items/images/${item.image}`}
                 alt={item.name}
+                onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                className="cursor-pointer"
               />
               <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>{truncateText(item.description, 8)}</Card.Text>
+                <Card.Title
+                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                  className="cursor-pointer"
+                >
+                  {item.name}
+                </Card.Title>
+                <Card.Text
+                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                  className="cursor-pointer"
+                >
+                  {truncateText(item.description, 8)}
+                </Card.Text>
                 <Card.Text>${item.price}</Card.Text>
                 {itemQuantities[item._id] ? (
                   <div>
@@ -1141,4 +1153,4 @@ const Cards = ({ items }) => {
   );
 };
 
-export default Cards; 
+export default Cards;
