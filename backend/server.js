@@ -11,7 +11,9 @@ import adminRoutes from "./routes/admin.routes.js";
 //import adminRoutes from "./routes/admin.routes.js";
 import stripePackage from 'stripe';
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import wishListRoutes from "./routes/wishList.routes.js";
 //import paymentRoutes from "./routes/payment.routes.js";
+
 import path from "path";
 import cors from "cors";
 
@@ -36,6 +38,7 @@ app.use("/api/users", userRoutes);
 //cart routes
 app.use("/api/cart", cartRoutes); // cart routes under /api/cart
 app.use("/api/admin", adminRoutes);
+app.use("/api", wishListRoutes);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));

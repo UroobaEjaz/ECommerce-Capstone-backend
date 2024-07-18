@@ -79,13 +79,13 @@ const Cart = () => {
                 </Card>
               </motion.div>
             ))}
-           <div className="fixed bottom-0 right-0 p-4">
-        <Link to='/StripeContainer'>
-          <Button className="mt-3" variant="primary">
-            Proceed to Checkout
-          </Button>
-        </Link>
-      </div>
+            <div className="col mt-3 mb-9 ">
+              <Link to='/StripeContainer'>
+                <Button className="mt-3" variant="primary" block>
+                  Proceed to Checkout
+                </Button>
+              </Link>
+            </div>
           </>
         ) : (
           <p className="text-center">Your cart is empty.</p>
