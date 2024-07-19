@@ -1027,10 +1027,10 @@ const Cards = ({ items }) => {
 };
 
 export default Cards;*/
+
 import React, { useState, useEffect } from "react";
-import { Card, Button, Badge } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
 
 // Function to truncate text
@@ -1045,28 +1045,9 @@ const truncateText = (text, wordLimit) => {
 // Cards component to display items
 const Cards = ({ items }) => {
   const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
-  const [CartItemsQuantity, setCartItemsQuantity] = useState(0);
-  const [CartItemsPrice, setCartItemsPrice] = useState(0);
-  
 
-  const getCartItems = async () => {
-    try {
-      const response = await fetch("/api/cart/items", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log("Error getting items", error);
-    }
-  };
-
-  // Updated function to include item details in the request
-  const addCartItem = async (item) => {
+  // Function to handle adding item to cart
+  const handleAddToCart = async (item) => {
     try {
       const response = await fetch("/api/cart/add", {
         method: "POST",
@@ -1076,22 +1057,20 @@ const Cards = ({ items }) => {
         body: JSON.stringify({
           email: "uroobanumair", // Replace with actual user email
           itemId: item._id,
-          setCartItemsPrice: item.price,
-          setCartItemsQuantity: 1,
+          cartItemsPrice: item.price,
+          cartItemsQuantity: 1,
         }),
       });
 
       const data = await response.json();
       console.log(data);
-      getCartItems();
+
+      // Add item to context
+      addToCart(item);
     } catch (error) {
       console.log("Error adding item", error);
     }
   };
-
-  useEffect(() => {
-    getCartItems();
-  }, []);
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
@@ -1114,7 +1093,7 @@ const Cards = ({ items }) => {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
-                <Button onClick={() => addCartItem(item)} variant="primary">
+                <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
                 </Button>
               </Card.Body>

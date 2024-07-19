@@ -33,10 +33,9 @@ export const CartItemsProvider = ({ children }) => {
 
 export const useCartItemsContext = () => useContext(CartItemsContext); */
 
-
 import React, { createContext, useContext, useReducer } from "react";
 
-// Define your initial state for cart items
+// Define initial state
 const initialCartItemsState = {
   cartItems: [],
 };
@@ -81,6 +80,5 @@ export const CartItemsProvider = ({ children }) => {
   );
 };
 
-// Custom hook to consume the context
+// Custom hook to use the CartItemsContext
 export const useCartItemsContext = () => useContext(CartItemsContext);
- 
