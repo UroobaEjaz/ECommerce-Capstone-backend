@@ -1027,8 +1027,6 @@ const Cards = ({ items }) => {
 };
 
 export default Cards;*/
-
-
 import React, { useState, useEffect } from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -1046,12 +1044,10 @@ const truncateText = (text, wordLimit) => {
 
 // Cards component to display items
 const Cards = ({ items }) => {
-  // State to manage cart items and item quantities
-  const [itemQuantities, setItemQuantities] = useState({});
-
   const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
   const [CartItemsQuantity, setCartItemsQuantity] = useState(0);
   const [CartItemsPrice, setCartItemsPrice] = useState(0);
+  
 
   const getCartItems = async () => {
     try {
@@ -1063,31 +1059,33 @@ const Cards = ({ items }) => {
       });
 
       const data = await response.json();
-      //setItems(data);
       console.log(data);
     } catch (error) {
-      console.log("error getting items", error);
+      console.log("Error getting items", error);
     }
   };
 
-  const addCartItem = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    formData.append("price", CartItemsPrice);
-    formData.append("quantity", CartItemsQuantity);
-
+  // Updated function to include item details in the request
+  const addCartItem = async (item) => {
     try {
-      const response = await fetch("/api/items/add", {
+      const response = await fetch("/api/cart/add", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: "uroobanumair", // Replace with actual user email
+          itemId: item._id,
+          setCartItemsPrice: item.price,
+          setCartItemsQuantity: 1,
+        }),
       });
 
       const data = await response.json();
       console.log(data);
       getCartItems();
     } catch (error) {
-      console.log("error adding item", error);
+      console.log("Error adding item", error);
     }
   };
 
@@ -1116,20 +1114,9 @@ const Cards = ({ items }) => {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
-                {itemQuantities[item._id] ? (
-                  <div>
-                    <Button onClick={() => addCartItem()} variant="success">
-                      Add More
-                    </Button>
-                    <Badge pill variant="info" className="ml-2">
-                      {itemQuantities[item._id]}
-                    </Badge>
-                  </div>
-                ) : (
-                  <Button onClick={() => addToCart(item)} variant="primary">
-                    Add to Cart
-                  </Button>
-                )}
+                <Button onClick={() => addCartItem(item)} variant="primary">
+                  Add to Cart
+                </Button>
               </Card.Body>
             </Card>
           </motion.div>
@@ -1141,4 +1128,4 @@ const Cards = ({ items }) => {
   );
 };
 
-export default Cards; 
+export default Cards;
