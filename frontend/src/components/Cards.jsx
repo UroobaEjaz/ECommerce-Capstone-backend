@@ -1028,7 +1028,7 @@ const Cards = ({ items }) => {
 
 export default Cards;*/
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
@@ -1043,30 +1043,33 @@ const truncateText = (text, wordLimit) => {
 };
 
 // Cards component to display items
-const Cards = ({ items }) => {
-  const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
+const Cards = ({ items = [] }) => {
+  const { cartItems, addToCart, increaseQuantity, decreaseQuantity } = useCartItemsContext(); // Ensure correct usage
 
   // Function to handle adding item to cart
   const handleAddToCart = async (item) => {
     try {
-      const response = await fetch("/api/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: "uroobanumair", // Replace with actual user email
-          itemId: item._id,
-          cartItemsPrice: item.price,
-          cartItemsQuantity: 1,
-        }),
-      });
+      const existingItem = cartItems.find(cartItem => cartItem._id === item._id);
+      if (!existingItem) {
+        const response = await fetch("/api/cart/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: "uroobanumair", // Replace with actual user email
+            itemId: item._id,
+            cartItemsPrice: item.price,
+            cartItemsQuantity: 1,
+          }),
+        });
 
-      const data = await response.json();
-      console.log(data);
+        const data = await response.json();
+        console.log(data);
 
-      // Add item to context
-      addToCart(item);
+        // Add item to context
+        addToCart(item);
+      }
     } catch (error) {
       console.log("Error adding item", error);
     }
@@ -1093,6 +1096,11 @@ const Cards = ({ items }) => {
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
+                <div className="d-flex justify-content-between align-items-center">
+                  <Button onClick={() => decreaseQuantity(item)} variant="secondary">-</Button>
+                  <span>{cartItems.find(cartItem => cartItem._id === item._id)?.quantity || 0}</span>
+                  <Button onClick={() => increaseQuantity(item)} variant="secondary">+</Button>
+                </div>
                 <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
                 </Button>
