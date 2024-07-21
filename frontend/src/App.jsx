@@ -16,6 +16,7 @@ import AdminCheckout from "./pages/AdminCheckout";
 import Careers from "./pages/Careers";
 import ItemDetails from "./pages/itemDetails";
 import StripeContainer from "./pages/StripeContainer";
+import WishList from "./pages/WishList";
 
 // Used ChatGPT to get the syntax for the Router and the Routes URL:https://chatgpt.com/c/eed16b61-cd05-4273-bf35-cdd64b66b642
 // Watched Youtube videos as well url:https://www.youtube.com/watch?v=17l6AOc8s10&ab_channel=CodeComplete , https://www.youtube.com/watch?v=SLfhMt5OUPI&ab_channel=WebDevSimplified
@@ -91,6 +92,7 @@ export default function App() {
 
         <Route path="/Careers" element={<Careers />} />
         <Route path="/:details" element={<ItemDetails />} />
+        <Route path = "/wishlist" element = {<WishList />} />
       </Routes>
     </>
   );
