@@ -84,7 +84,7 @@ export const CartItemsProvider = ({ children }) => {
 export const useCartItemsContext = () => useContext(CartItemsContext);
 */
 
-
+/*
 import React, { createContext, useContext, useReducer } from "react";
 
 // Define your initial state for cart items
@@ -162,4 +162,40 @@ export const CartItemsProvider = ({ children }) => {
 };
 
 // Custom hook to consume the context
-export const useCartItemsContext = () => useContext(CartItemsContext);
+export const useCartItemsContext = () => useContext(CartItemsContext);*/
+
+import React, { createContext, useContext, useState } from 'react';
+
+const CartItemsContext = createContext();
+
+export const useCartItemsContext = () => {
+  return useContext(CartItemsContext);
+};
+
+export const CartItemsProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCartContext = (item) => {
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(cartItem => cartItem._id === item._id);
+      if (existingItem) {
+        return prevItems.map(cartItem =>
+          cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        );
+      } else {
+        return [...prevItems, item];
+      }
+    });
+  };
+
+  const removeFromCartContext = (item) => {
+    setCartItems(prevItems => prevItems.filter(cartItem => cartItem._id !== item._id));
+  };
+
+  return (
+    <CartItemsContext.Provider value={{ cartItems, addToCartContext, removeFromCartContext }}>
+      {children}
+    </CartItemsContext.Provider>
+  );
+};
+
