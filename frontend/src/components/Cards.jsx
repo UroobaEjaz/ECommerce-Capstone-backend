@@ -1033,6 +1033,9 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -1047,6 +1050,8 @@ const truncateText = (text, wordLimit) => {
 const Cards = ({ items = [] }) => {
   const { cartItems, addToCart, increaseQuantity, decreaseQuantity } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
+  // wishlist added
+  const [wishlist, setWishlist] = useState([]);
 
   // Function to handle quantity change
   const handleQuantityChange = (item, change) => {
@@ -1094,6 +1099,32 @@ const Cards = ({ items = [] }) => {
       console.log("Error adding item", error);
     }
   };
+// wishlist adding function
+// Function to handle adding item to wishlist
+ // Function to handle adding item to wishlist
+ const handleAddToWishlist = async (item) => {
+  try {
+    const response = await fetch("/api/wishlist/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        itemId: item._id,
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    // Show success toast message
+    toast.success("Item successfully added to the wishlist!");
+  } catch (error) {
+    console.log("Error adding item to wishlist", error);
+    // Show error toast message
+    toast.error("Failed to add item to wishlist.");
+  }
+};
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
@@ -1123,6 +1154,9 @@ const Cards = ({ items = [] }) => {
                 </div>
                 <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
+                </Button>
+                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger">
+                  ❤️ Add to Wishlist
                 </Button>
               </Card.Body>
             </Card>
