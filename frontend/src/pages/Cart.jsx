@@ -105,7 +105,7 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, setCartItems } = useCartItemsContext();
+  const { cartItems, removeFromCart } = useCartItemsContext();
 
   useEffect(() => {
     getCartItems();
@@ -125,7 +125,7 @@ const Cart = () => {
       }
 
       const data = await response.json();
-      setCartItems(data); // Update context state with fetched items
+     // setCartItems(data); // Update context state with fetched items
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }

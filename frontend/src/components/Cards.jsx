@@ -1028,6 +1028,7 @@ const Cards = ({ items }) => {
 
 export default Cards;*/
 
+
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -1045,31 +1046,50 @@ const truncateText = (text, wordLimit) => {
 // Cards component to display items
 const Cards = ({ items = [] }) => {
   const { cartItems, addToCart, increaseQuantity, decreaseQuantity } = useCartItemsContext(); // Ensure correct usage
+  const [itemQuantities, setItemQuantities] = useState({});
+
+  // Function to handle quantity change
+  const handleQuantityChange = (item, change) => {
+    setItemQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[item._id] || 0;
+      const newQuantity = Math.max(0, currentQuantity + change); // Ensure quantity is not negative
+      return { ...prevQuantities, [item._id]: newQuantity };
+    });
+  };
 
   // Function to handle adding item to cart
   const handleAddToCart = async (item) => {
+    const quantity = itemQuantities[item._id] || 1; // Default to 1 if not set
+
     try {
-      const existingItem = cartItems.find(cartItem => cartItem._id === item._id);
-      if (!existingItem) {
-        const response = await fetch("/api/cart/add", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: "uroobanumair", // Replace with actual user email
-            itemId: item._id,
-            cartItemsPrice: item.price,
-            cartItemsQuantity: 1,
-          }),
-        });
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: "uroobanumair", // Replace with actual user email
+          itemId: item._id,
+          cartItemsPrice: item.price,
+          cartItemsQuantity: quantity,
+        }),
+      });
 
-        const data = await response.json();
-        console.log(data);
+      const data = await response.json();
+      console.log(data);
 
-        // Add item to context
-        addToCart(item);
+      // Add or update item in context
+      if (cartItems.find(cartItem => cartItem._id === item._id)) {
+        increaseQuantity(item);
+      } else {
+        addToCart({ ...item, quantity });
       }
+
+      // Reset the quantity for this item after adding to cart
+      setItemQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [item._id]: 0,
+      }));
     } catch (error) {
       console.log("Error adding item", error);
     }
@@ -1097,9 +1117,9 @@ const Cards = ({ items = [] }) => {
                 <Card.Text>{truncateText(item.description, 8)}</Card.Text>
                 <Card.Text>${item.price}</Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
-                  <Button onClick={() => decreaseQuantity(item)} variant="secondary">-</Button>
-                  <span>{cartItems.find(cartItem => cartItem._id === item._id)?.quantity || 0}</span>
-                  <Button onClick={() => increaseQuantity(item)} variant="secondary">+</Button>
+                  <Button onClick={() => handleQuantityChange(item, -1)} variant="secondary">-</Button>
+                  <span>{itemQuantities[item._id] || 0}</span>
+                  <Button onClick={() => handleQuantityChange(item, 1)} variant="secondary">+</Button>
                 </div>
                 <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
