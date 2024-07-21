@@ -25,3 +25,25 @@ export const addToWishlist = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+export const getWishlistItems = async (req, res) => {
+  try {
+    const wishlistItems = await WishlistItem.find().populate('item');
+    res.status(200).json(wishlistItems);
+  } catch (error) {
+    console.error("Error fetching wishlist items:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const removeFromWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await WishlistItem.findByIdAndDelete(id);
+    res.status(200).json({ message: "Item removed from wishlist" });
+  } catch (error) {
+    console.error("Error removing item from wishlist:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
