@@ -213,8 +213,10 @@ const Cart = () => {
 export default Cart;
 
 */
+//// reference: https://www.google.com/search?q=bradtraversy+shopping+app+ecommerce+website&sca_esv=5b98f86993edd4ca&sca_upv=1&rlz=1C1OPNX_enCA1057CA1057&biw=1242&bih=545&tbm=vid&sxsrf=ADLYWIKbU_O_1FsGznMJZp-SJaVae8lwrQ%3A1721586276381&ei=ZFKdZsj_FoDw0PEP2f6LiA4&oq=bradtraversy+shopping+app+ecomm&gs_lp=Eg1nd3Mtd2l6LXZpZGVvIh9icmFkdHJhdmVyc3kgc2hvcHBpbmcgYXBwIGVjb21tKgIIATIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwVIyBRQ5wRYkQ1wAHgAkAEAmAGCAaABmQWqAQM1LjK4AQPIAQD4AQGYAgegAq4FwgIEECMYJ8ICCBAAGIAEGKIEwgIHECEYoAEYCpgDAIgGAZIHAzUuMqAHqR8&sclient=gws-wiz-video#fpstate=ive&vld=cid:d47fdefa,vid:6AI-gFM8gco,st:0
 
-
+// reference: https://www.youtube.com/watch?v=lATafp15HWA
+//
 import React, { useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";

@@ -15,7 +15,7 @@ import Contact from "./pages/Contact";
 import AdminCheckout from "./pages/AdminCheckout";
 import Careers from "./pages/Careers";
 import ItemDetails from "./pages/itemDetails";
-import StripeContainer from "./pages/StripeContainer";
+//import StripeContainer from "./pages/StripeContainer";
 import WishList from "./pages/WishList";
 import Cancel from "./pages/Cancel";
 import Success from "./pages/Success";
@@ -76,10 +76,10 @@ export default function App() {
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
           />   */}
-           <Route
+        {/*   <Route
           path="/StripeContainer"
           element={<StripeContainer />}
-        />
+        /> */}
         <Route path="/About" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Contact" element={<Contact />} />
