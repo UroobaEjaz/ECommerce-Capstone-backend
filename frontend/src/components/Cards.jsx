@@ -1142,10 +1142,22 @@ const Cards = ({ items = [] }) => {
                 variant="top"
                 src={`/api/items/images/${item.image}`}
                 alt={item.name}
+                onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                className="cursor-pointer"
               />
               <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>{truncateText(item.description, 8)}</Card.Text>
+                <Card.Title
+                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                  className="cursor-pointer"
+                >
+                  {item.name}
+                </Card.Title>
+                <Card.Text
+                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+                  className="cursor-pointer"
+                >
+                  {truncateText(item.description, 8)}
+                </Card.Text>
                 <Card.Text>${item.price}</Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
                   <Button onClick={() => handleQuantityChange(item, -1)} variant="secondary">-</Button>
