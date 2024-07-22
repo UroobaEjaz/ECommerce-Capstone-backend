@@ -222,6 +222,11 @@ import { useCartItemsContext } from "../context/CartItemsContext";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
+
+
+
+//
+
 const Cart = () => {
   const { cartItems, removeFromCartContext } = useCartItemsContext();
 
@@ -311,7 +316,7 @@ const Cart = () => {
             ))}
             <div className="col mt-3">
               <h4>Total Price: ${totalPrice.toFixed(2)}</h4>
-              <Link to="/StripeContainer">
+              <Link to="/Payment">
                 <Button className="mt-3" variant="primary" block>
                   Proceed to Checkout
                 </Button>

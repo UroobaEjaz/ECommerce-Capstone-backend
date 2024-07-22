@@ -10,7 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { WishlistProvider } from "./context/WishListContext.jsx";
 
 
-const stripePromise = loadStripe('pk_test_51PcvRw2NAyVt2xlZwRAfUTenUciVAU25L6g7ce8iC3jrhfvgjIfjOXgE3NHM0UNqbJsM5tgjwediHPajDGujy0rc00baHVM7DQ');
+const stripePromise = loadStripe('pk_test_51PYndvHxPts9QUETEV1U87HCoGLMj2Ry7v0MGJtgU5xlRYLWZ0sVqvwnhPAOtpjSdPCL0FcE3uIYoLxtFwiHA7Yc008Sa0mhT1');
 
 
 
