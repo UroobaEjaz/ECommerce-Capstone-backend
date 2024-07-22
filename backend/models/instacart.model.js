@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const listItemSchema = new mongoose.Schema({
+const instaCartSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
   },
-  listname: [
+  lists: [
     {
       name: {
         type: String,
@@ -24,6 +24,6 @@ const listItemSchema = new mongoose.Schema({
   ],
 });
 
-const ListItem = mongoose.model("ListItem", listItemSchema);
+const InstaCart = mongoose.model("InstaCart", instaCartSchema);
 
-export default ListItem;
+export default InstaCart;
