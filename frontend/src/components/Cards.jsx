@@ -1048,10 +1048,10 @@ const truncateText = (text, wordLimit) => {
 
 // Cards component to display items
 const Cards = ({ items = [] }) => {
-  const { cartItems, addToCart, increaseQuantity, decreaseQuantity } = useCartItemsContext(); // Ensure correct usage
+  const { cartItems, increaseQuantity, decreaseQuantity, addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
   // wishlist added
-  const [wishlist, setWishlist] = useState([]);
+  //const [wishlist, setWishlist] = useState([]);
 
   // Function to handle quantity change
   const handleQuantityChange = (item, change) => {
@@ -1087,7 +1087,7 @@ const Cards = ({ items = [] }) => {
       if (cartItems.find(cartItem => cartItem._id === item._id)) {
         increaseQuantity(item);
       } else {
-        addToCart({ ...item, quantity });
+        addToCartContext({ ...item, quantity });
       }
 
       // Reset the quantity for this item after adding to cart
