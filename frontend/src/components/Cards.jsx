@@ -1048,7 +1048,7 @@ const truncateText = (text, wordLimit) => {
 
 // Cards component to display items
 const Cards = ({ items = [] }) => {
-  const { cartItems, increaseQuantity, decreaseQuantity, addToCartContext } = useCartItemsContext(); // Ensure correct usage
+  const { cartItems,  addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
   // wishlist added
   //const [wishlist, setWishlist] = useState([]);

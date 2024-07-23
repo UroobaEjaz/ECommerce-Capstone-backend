@@ -252,7 +252,7 @@ const Cart = () => {
       const data = await response.json();
       //setCartItems(data); // Update context state with fetched items
     } catch (error) {
-      console.error("Error fetching cart items:", error);
+      console.log("Error fetching cart items:", error);
     }
   };
 
