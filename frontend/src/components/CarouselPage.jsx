@@ -7,7 +7,7 @@ import Img2 from '../assets/Img2.jpg';
 import Img3 from '../assets/Img3.jpg';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import SpeechRecognition from 'react-speech-recognition';
-import { VscDebugStart, VscDebugStop } from 'react-icons/vsc';
+import { FiMic } from 'react-icons/fi';
 import { CgClose } from 'react-icons/cg';
 import Card from './Cards';
 
@@ -134,17 +134,11 @@ function CarouselPage() {
           />
           <button
             type="button"
-            onClick={handleVoiceStart}
+            onMouseDown={handleVoiceStart}
+            onMouseUp={handleVoiceEnd}
             className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            <VscDebugStart />
-          </button>
-          <button
-            type="button"
-            onClick={handleVoiceEnd}
-            className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-          >
-            <VscDebugStop />
+            <FiMic />
           </button>
           <button
             type="submit"
@@ -173,3 +167,6 @@ function CarouselPage() {
 }
 
 export default CarouselPage;
+
+
+// reference: https://chatgpt.com/c/bf0887e3-94a4-4dd0-9723-e0293b46d938

@@ -123,7 +123,7 @@ const Search = () => {
                 type="submit"
                 className="bg-black hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
               >
-                Search
+                Search here
               </button>
             </form>
 
