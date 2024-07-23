@@ -8,19 +8,17 @@ import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import SaltyCravings from "../components/SaltyCravings";
-
-//Reference: Chat gpt for css and Tailwind website:https://tailwindcss.com/ for tailwind css
-// for Cart length Reference: https://www.youtube.com/watch?v=P9-zbdMTwjM&ab_channel=CodeForU
 
 const Home = () => {
   const [item, setItem] = useState([]);
   const [cart, setCart] = useState([]);
   const [id, setId] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleClick = (item) => {
     setCart([...cart, item]);
   };
+
   const getItems = async () => {
     try {
       const response = await fetch("/api/items/get", {
@@ -48,9 +46,9 @@ const Home = () => {
       <div className="mb-32">
         <Navbar />
       </div>
-      <CarouselPage />
-      {/*   <SaltyCravings /> */}
-      <Card items={item} />
+      <CarouselPage setSearchResults={setSearchResults} />
+      {/* Only show the Card component with items if there are no search results */}
+      {searchResults.length === 0 ? <Card items={item} /> : <Card items={searchResults} />}
     </div>
   );
 };
