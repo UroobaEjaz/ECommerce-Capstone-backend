@@ -64,6 +64,15 @@ const Navbar = ({ size }) => {
           </Link>
         </li>
         <li>
+          <Link
+            to="/WishList"
+            className="text-black-600 font-large hover:text-red-600 p-3"
+          >
+            Wishlist
+            
+          </Link>
+        </li>
+        <li>
           <Link to="/Cart" className="py-6">
             <BiCart className="text-black-600 font-large hover:text-red-600 text-2xl" />
             <span className="mt-8 mr-1 absolute -top-1 -right-0 text-xs text-white bg-red-600 rounded-full px-2 py-1">

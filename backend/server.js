@@ -11,7 +11,9 @@ import adminRoutes from "./routes/admin.routes.js";
 //import adminRoutes from "./routes/admin.routes.js";
 import stripePackage from 'stripe';
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import wishListRoutes from "./routes/wishList.routes.js";
 //import paymentRoutes from "./routes/payment.routes.js";
+
 import path from "path";
 import cors from "cors";
 
@@ -23,7 +25,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 
-const stripe = stripePackage('sk_test_51PcvRw2NAyVt2xlZU2sciY2mwNKeGvzR8CRtl1eRn0679zmGkd5mHCSptUqF1IQ0IjmmQR7SiaGCh0EKdVYdWb1S00jY1eBXRT'); // Replace with your own Stripe secret key
+const stripe = stripePackage('sk_test_51PYndvHxPts9QUETMUdTC8rm196kYkn6t5YpCPHxv93FmYrhVCYccO3r7E5oRMLqMmPFQxYSx0AcDSb3Zw1965Yh00eZmtmCHB'); // Replace with your own Stripe secret key
 
 
 app.use(express.json()); // from req.body
@@ -36,12 +38,13 @@ app.use("/api/users", userRoutes);
 //cart routes
 app.use("/api/cart", cartRoutes); // cart routes under /api/cart
 app.use("/api/admin", adminRoutes);
+app.use("/api", wishListRoutes);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
 
-app.post('/api/payment', async (req, res) => {
+/*app.post('/api/payment', async (req, res) => {
   const { amount, payment_method_id } = req.body;
 
   try {
@@ -60,7 +63,41 @@ app.post('/api/payment', async (req, res) => {
     res.status(500).json({ error: 'Failed to create PaymentIntent' });
   }
 }); 
-//app.use("/api/payment" , paymentRoutes)
+//app.use("/api/payment" , paymentRoutes)*/
+
+app.post('/api/checkout', async (req, res) => {
+  const items = req.body.items;
+  let lineItems = [];
+
+  items.forEach((item) => {
+      lineItems.push({
+          price_data: {
+              currency: 'cad',
+              product_data: {
+                  name: item.name,
+              },
+              unit_amount: item.price * 100,
+          },
+          quantity: item.quantity,
+      });
+  });
+
+  try {
+      const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: lineItems,
+          mode: 'payment',
+          success_url: 'http://localhost:3000/Success',
+          cancel_url: 'http://localhost:3000/Cancel',
+      });
+
+      res.send(JSON.stringify({
+          url: session.url
+      }));
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
 
 
 app.listen(PORT, () => {

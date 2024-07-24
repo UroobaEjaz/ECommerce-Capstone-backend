@@ -14,8 +14,12 @@ import Contact from "./pages/Contact";
 import AdminCheckout from "./pages/AdminCheckout";
 import Careers from "./pages/Careers";
 import ItemDetails from "./pages/itemDetails";
-import StripeContainer from "./pages/StripeContainer";
-
+//import StripeContainer from "./pages/StripeContainer";
+import WishList from "./pages/WishList";
+import Cancel from "./pages/Cancel";
+import Success from "./pages/Success";
+import { Payment } from "@mui/icons-material";
+import PaymentPage from "./pages/PaymentForm";
 // Used ChatGPT to get the syntax for the Router and the Routes URL:https://chatgpt.com/c/eed16b61-cd05-4273-bf35-cdd64b66b642
 // Watched Youtube videos as well url:https://www.youtube.com/watch?v=17l6AOc8s10&ab_channel=CodeComplete , https://www.youtube.com/watch?v=SLfhMt5OUPI&ab_channel=WebDevSimplified
 export default function App() {
@@ -71,7 +75,7 @@ export default function App() {
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
           />   */}
-        <Route path="/StripeContainer" element={<StripeContainer />} />
+     {/*   <Route path="/StripeContainer" element={<StripeContainer />} /> */}
         <Route path="/About" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Contact" element={<Contact />} />
@@ -87,6 +91,12 @@ export default function App() {
 
         <Route path="/Careers" element={<Careers />} />
         <Route path="/:details" element={<ItemDetails />} />
+        <Route path = "/wishlist" element = {<WishList />} />
+
+        <Route path="/Cancel" element={<Cancel />} />
+
+        <Route path="/Success" element={<Success />} />
+        <Route path = "/Payment" element ={<PaymentPage />} />
       </Routes>
     </>
   );
