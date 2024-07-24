@@ -1028,11 +1028,14 @@ const Cards = ({ items }) => {
 
 export default Cards;*/
 
-import React, { useState, useEffect } from "react";
-import { Card, Button, Badge } from "react-bootstrap";
+
+import React, { useState } from "react";
+import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -1044,56 +1047,84 @@ const truncateText = (text, wordLimit) => {
 };
 
 // Cards component to display items
-const Cards = ({ items }) => {
-  // State to manage cart items and item quantities
+const Cards = ({ items = [] }) => {
+  const { cartItems,  addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
+  // wishlist added
+  //const [wishlist, setWishlist] = useState([]);
 
-  const { cartItems, addToCart } = useCartItemsContext(); // Ensure correct usage
-  const [CartItemsQuantity, setCartItemsQuantity] = useState(0);
-  const [CartItemsPrice, setCartItemsPrice] = useState(0);
-  const nevigate = useNavigate();
+  // Function to handle quantity change
+  const handleQuantityChange = (item, change) => {
+    setItemQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[item._id] || 0;
+      const newQuantity = Math.max(0, currentQuantity + change); // Ensure quantity is not negative
+      return { ...prevQuantities, [item._id]: newQuantity };
+    });
+  };
 
-  const getCartItems = async () => {
+  // Function to handle adding item to cart
+  const handleAddToCart = async (item) => {
+    const quantity = itemQuantities[item._id] || 1; // Default to 1 if not set
+
     try {
-      const response = await fetch("/api/cart/items", {
-        method: "GET",
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-      });
-
-      const data = await response.json();
-      //setItems(data);
-      console.log(data);
-    } catch (error) {
-      console.log("error getting items", error);
-    }
-  };
-
-  const addCartItem = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    formData.append("price", CartItemsPrice);
-    formData.append("quantity", CartItemsQuantity);
-
-    try {
-      const response = await fetch("/api/items/add", {
-        method: "POST",
-        body: formData,
+        body: JSON.stringify({
+          email: "uroobanumair", // Replace with actual user email
+          itemId: item._id,
+          cartItemsPrice: item.price,
+          cartItemsQuantity: quantity,
+        }),
       });
 
       const data = await response.json();
       console.log(data);
-      getCartItems();
+
+      // Add or update item in context
+      if (cartItems.find(cartItem => cartItem._id === item._id)) {
+        increaseQuantity(item);
+      } else {
+        addToCartContext({ ...item, quantity });
+      }
+
+      // Reset the quantity for this item after adding to cart
+      setItemQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [item._id]: 0,
+      }));
     } catch (error) {
-      console.log("error adding item", error);
+      console.log("Error adding item", error);
     }
   };
+// wishlist adding function
+// Function to handle adding item to wishlist
+ // Function to handle adding item to wishlist
+ const handleAddToWishlist = async (item) => {
+  try {
+    const response = await fetch("/api/wishlist/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        itemId: item._id,
+      }),
+    });
 
-  useEffect(() => {
-    getCartItems();
-  }, []);
+    const data = await response.json();
+    console.log(data);
+
+    // Show success toast message
+    toast.success("Item successfully added to the wishlist!");
+  } catch (error) {
+    console.log("Error adding item to wishlist", error);
+    // Show error toast message
+    toast.error("Failed to add item to wishlist.");
+  }
+};
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
@@ -1128,20 +1159,17 @@ const Cards = ({ items }) => {
                   {truncateText(item.description, 8)}
                 </Card.Text>
                 <Card.Text>${item.price}</Card.Text>
-                {itemQuantities[item._id] ? (
-                  <div>
-                    <Button onClick={() => addCartItem()} variant="success">
-                      Add More
-                    </Button>
-                    <Badge pill variant="info" className="ml-2">
-                      {itemQuantities[item._id]}
-                    </Badge>
-                  </div>
-                ) : (
-                  <Button onClick={() => addToCart(item)} variant="primary">
-                    Add to Cart
-                  </Button>
-                )}
+                <div className="d-flex justify-content-between align-items-center">
+                  <Button onClick={() => handleQuantityChange(item, -1)} variant="secondary">-</Button>
+                  <span>{itemQuantities[item._id] || 0}</span>
+                  <Button onClick={() => handleQuantityChange(item, 1)} variant="secondary">+</Button>
+                </div>
+                <Button onClick={() => handleAddToCart(item)} variant="primary">
+                  Add to Cart
+                </Button>
+                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger">
+                  ❤️ Add to Wishlist
+                </Button>
               </Card.Body>
             </Card>
           </motion.div>

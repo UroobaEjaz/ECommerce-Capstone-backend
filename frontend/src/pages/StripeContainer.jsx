@@ -1,9 +1,9 @@
-import React from "react";
+/*import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import PaymentForm from "../components/PaymentForm";
+import PaymentForm from "./PaymentForm";
 
-const PUBLIC_KEY = "pk_test_51PcvRw2NAyVt2xlZwRAfUTenUciVAU25L6g7ce8iC3jrhfvgjIfjOXgE3NHM0UNqbJsM5tgjwediHPajDGujy0rc00baHVM7DQ";
+const PUBLIC_KEY = "pk_test_51PYndvHxPts9QUETEV1U87HCoGLMj2Ry7v0MGJtgU5xlRYLWZ0sVqvwnhPAOtpjSdPCL0FcE3uIYoLxtFwiHA7Yc008Sa0mhT1";
 
 const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
@@ -24,4 +24,4 @@ export default function StripeContainer() {
       </div>
     </Elements>
   );
-}
+}*/
