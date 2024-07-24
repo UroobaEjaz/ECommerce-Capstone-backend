@@ -138,23 +138,30 @@ const WishlistPage = () => {
     fetchWishlist();
   }, []);
 
+
   const removeFromWishlist = async (itemId) => {
     try {
-      const response = await fetch(`/api/wishlist/remove/${itemId}`, {
+      const response = await fetch(`/api/wishlist/remove`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId }),
       });
+  
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+  
       // Remove the item from the local state after successful deletion
       setWishlistItems(wishlistItems.filter(wishlistItem => wishlistItem.item._id !== itemId));
       toast.success("Item removed from wishlist.");
     } catch (error) {
-      console.log("Error removing wishlist item", error);
+      console.log("Error removing wishlist item:", error);
       toast.error("Failed to remove item from wishlist.");
     }
   };
-
+  
   const addToCart = async (item) => {
     try {
       const response = await fetch("/api/cart/add", {

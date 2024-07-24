@@ -37,11 +37,22 @@ export const getWishlistItems = async (req, res) => {
   }
 };
 
+
 export const removeFromWishlist = async (req, res) => {
   try {
-    const { id } = req.params;
-    await WishlistItem.findByIdAndDelete(id);
-    res.status(200).json({ message: "Item removed from wishlist" });
+    const { itemId } = req.body;
+    console.log(`Removing item from wishlist: itemId=${itemId}`);
+
+    // Find the WishlistItem by itemId
+    const wishlistItem = await WishlistItem.findOne({ item: itemId });
+    if (!wishlistItem) {
+      return res.status(404).json({ error: "Item not found in wishlist" });
+    }
+
+    // Remove the item from the wishlist
+    await WishlistItem.findByIdAndDelete(wishlistItem._id);
+
+    res.status(200).json({ message: "Item removed from wishlist successfully" });
   } catch (error) {
     console.error("Error removing item from wishlist:", error);
     res.status(500).json({ error: "Internal server error" });
