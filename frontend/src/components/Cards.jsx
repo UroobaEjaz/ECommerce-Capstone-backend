@@ -1167,8 +1167,8 @@ const Cards = ({ items = [] }) => {
                 <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
                 </Button>
-                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger">
-                  ❤️ Add to Wishlist
+                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger"  className="ms-2">
+                  ❤️ 
                 </Button>
               </Card.Body>
             </Card>

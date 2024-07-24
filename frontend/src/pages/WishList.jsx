@@ -196,8 +196,8 @@ const WishlistPage = () => {
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>${item.price}</Card.Text>
-                <Button variant="danger" onClick={() => removeFromWishlist(item._id)}>Remove</Button>
-                <Button variant="primary" onClick={() => addToCart(item)}>Add to Cart</Button>
+                <Button variant="danger" onClick={() => removeFromWishlist(item._id)}  style={{ marginRight: '15px' }}>-</Button>
+                <Button variant="primary" onClick={() => addToCart(item)}  style={{ marginLeft: '70px' }}>add to cart</Button>
               </Card.Body>
             </Card>
           );

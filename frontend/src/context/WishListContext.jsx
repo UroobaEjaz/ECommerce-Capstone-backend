@@ -11,7 +11,7 @@ export const WishlistProvider = ({ children }) => {
 
   const fetchWishlistItems = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/wishlist/items');
+      const response = await fetch('/api/wishlist/items');
       const data = await response.json();
       setWishlistItems(data);
     } catch (error) {
@@ -21,7 +21,7 @@ export const WishlistProvider = ({ children }) => {
 
   const addToWishlist = async (itemId) => {
     try {
-      const response = await fetch('http://localhost:5000/api/addToWishList', {
+      const response = await fetch('/api/addToWishList', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
