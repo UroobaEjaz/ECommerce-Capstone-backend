@@ -11,7 +11,6 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-//import Checkout from "./pages/Checkout";
 import AdminCheckout from "./pages/AdminCheckout";
 import Careers from "./pages/Careers";
 import ItemDetails from "./pages/itemDetails";
@@ -27,7 +26,7 @@ export default function App() {
   const { authUser } = useAuthContext();
 
   // https://stackoverflow.com/questions/39128931/clear-localstorage-on-tab-browser-close-but-not-on-refresh
-  window.onbeforeunload = function(e) {
+  window.onbeforeunload = function (e) {
     window.localStorage.removeItem("cartItems");
     // window.localStorage.removeItem("id");
   };
@@ -76,10 +75,7 @@ export default function App() {
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
           />   */}
-        {/*   <Route
-          path="/StripeContainer"
-          element={<StripeContainer />}
-        /> */}
+     {/*   <Route path="/StripeContainer" element={<StripeContainer />} /> */}
         <Route path="/About" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Contact" element={<Contact />} />
