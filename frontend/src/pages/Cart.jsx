@@ -223,6 +223,8 @@ import { motion } from "framer-motion";
 import { useCartItemsContext } from "../context/CartItemsContext";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -259,7 +261,7 @@ const Cart = () => {
   const handleRemoveFromCart = async (item) => {
     try {
       await fetch(`/api/cart/remove/${item._id}`, {
-        method: "DELETE",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -271,8 +273,27 @@ const Cart = () => {
       console.error("Error removing item:", error.message);
     }
   };
+  // addToWishlist function
+  const addToWishList = async(item) => {
+    try {
+      await fetch(`/api/wishlist/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId: item._id }),
+      }
+    );
+    toast.success("Item added to wishlist.");
+    } catch (error) {
+      console.error("Error adding to wishlist:", error);
+      toast.error("Failed to add item to wishlist.");
+    }
+  }
+  
 
-  // Calculate total price
+  // Calculate total price   // reference: https://www.youtube.com/watch?v=lATafp15HWA
+
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -311,6 +332,9 @@ const Cart = () => {
                     <Card.Text>Quantity: {item.quantity}</Card.Text>
                     <Button onClick={() => handleRemoveFromCart(item)} variant="danger">
                       Remove from Cart
+                    </Button>
+                    <Button onClick={() => addToWishList(item)} variant="primary">
+                      Add to Wishlist 
                     </Button>
                   </Card.Body>
                 </Card>

@@ -19,7 +19,7 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  const addToWishlist = async (itemId) => {
+ {/* const addToWishlist = async (itemId) => {
     try {
       const response = await fetch('/api/addToWishList', {
         method: 'POST',
@@ -39,9 +39,9 @@ export const WishlistProvider = ({ children }) => {
       console.error('Error adding item to wishlist:', error);
     }
   };
-
+*/}
   return (
-    <WishlistContext.Provider value={{ wishlistItems, addToWishlist }}>
+    <WishlistContext.Provider value={{ wishlistItems }}>
       {children}
     </WishlistContext.Provider>
   );
@@ -50,3 +50,6 @@ export const WishlistProvider = ({ children }) => {
 export const useWishlistContext = () => {
   return useContext(WishlistContext);
 };
+
+
+// reference: https://www.youtube.com/watch?v=3yrMcx02jXs
