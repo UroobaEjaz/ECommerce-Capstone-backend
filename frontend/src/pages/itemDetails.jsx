@@ -13,7 +13,7 @@ const ItemDetails = () => {
   const [itemCategory, setItemCategory] = useState("");
   const [similarItem, setSimilarItem] = useState([]);
   const [itemQuantities, setItemQuantities] = useState({});
-  const { cartItems, addToCart } = useCartItemsContext();
+  const { cartItems, addToCartContext } = useCartItemsContext();
   const [listItems, setListItems] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const ItemDetails = () => {
 
   const add = (item) => {
     for (let i = 0; i < itemQuantities[item._id]; i++) {
-      addToCart(item);
+      addToCartContext(item);
     }
   };
 
