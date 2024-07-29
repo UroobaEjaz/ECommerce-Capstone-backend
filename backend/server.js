@@ -99,6 +99,7 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
+// email confirmation: pabbly connect
 
 app.listen(PORT, () => {
   connectToMongoDB();
