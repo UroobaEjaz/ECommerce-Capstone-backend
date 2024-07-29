@@ -233,26 +233,28 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = () => {
   const { cartItems, removeFromCartContext } = useCartItemsContext();
+  const email = "uroobanumair"; // Hardcoded email for now
 
   useEffect(() => {
-    getCartItems();
-  }, []);
+    getCartItems(email);
+  }, [email]);
 
-  const getCartItems = async () => {
+  const getCartItems = async (email) => {
     try {
-      const response = await fetch("/api/cart/items", {
+      const response = await fetch(`/api/cart/items/${encodeURIComponent(email)}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-
+  
       if (!response.ok) {
         throw new Error("Failed to fetch cart items");
       }
-
+  
       const data = await response.json();
-      //setCartItems(data); // Update context state with fetched items
+      // Assuming data has a 'CartItems' array
+      setCartItems(data.CartItems); // Update context state with fetched items
     } catch (error) {
       console.log("Error fetching cart items:", error);
     }
@@ -260,11 +262,14 @@ const Cart = () => {
 
   const handleRemoveFromCart = async (item) => {
     try {
-      await fetch(`/api/cart/remove/${item._id}`, {
+      await fetch(`/api/cart/remove`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ 
+          email:"uroobanumair",
+          itemId: item._id }),
       });
 
       // Update the cart context after removing item

@@ -119,7 +119,7 @@ export const removeFromCart = async (req, res) => {
 };
 
 export const getCartDetails = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.params;
   console.log(`Fetching cart details: email=${email}`);
 
   try {
