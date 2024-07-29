@@ -34,47 +34,8 @@ const ItemDetails = () => {
     }
   };
 
-  // const addToCart = async (item) => {
-  //   try {
-  //     const response = await fetch("/api/cart/add", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ itemId: item._id }),
-  //     });
-
-  //     if (response.ok) {
-  //       const existingItem = cartItems.find(
-  //         (cartItem) => cartItem.itemId._id === item._id
-  //       );
-  //       const updatedCartItems = existingItem
-  //         ? cartItems.map((cartItem) =>
-  //             cartItem.itemId._id === item._id
-  //               ? { ...cartItem, quantity: cartItem.quantity + 1 }
-  //               : cartItem
-  //           )
-  //         : [...cartItems, { itemId: item, quantity: 1 }];
-
-  //       setCartItems(updatedCartItems);
-  //       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-
-  //       setItemQuantities((prevQuantities) => ({
-  //         ...prevQuantities,
-  //         [item._id]: (prevQuantities[item._id] || 0) + 1,
-  //       }));
-
-  //       setCartItemsNumber(updatedCartItems.length);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding item to cart:", error);
-  //   }
-  // };
-
   const add = (item) => {
-    for (let i = 0; i < itemQuantities[item._id]; i++) {
-      addToCartContext(item);
-    }
+    addToCartContext({ ...item, quantity: itemQuantities[item._id] || 1 });
   };
 
   const getSimilarItems = async () => {
@@ -85,7 +46,7 @@ const ItemDetails = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          category: item.category,
+          category: itemCategory,
           itemid: location.state,
         }),
       });
@@ -106,7 +67,6 @@ const ItemDetails = () => {
     }
   }, [item]);
 
-  // used chatgpt
   const increaseQuantity = (itemId) => {
     setItemQuantities((prevQuantities) => {
       const newQuantities = { ...prevQuantities };
@@ -149,7 +109,7 @@ const ItemDetails = () => {
                   -
                 </button>
                 <span className="bg-gray-100 text-gray-700 font-semibold py-1 px-3">
-                  {itemQuantities[item._id] || 0}
+                  {itemQuantities[item._id] || 1}
                 </span>
                 <button
                   className="bg-gray-200 text-gray-700 font-semibold py-1 px-3 rounded-r"
