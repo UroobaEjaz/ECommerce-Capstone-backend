@@ -396,6 +396,11 @@ const Cart = () => {
           Continue Shopping
         </Button>
         </Link>
+        <Link to ="/WishList">
+        <Button className="w-full mt-6" variant="primary">
+          View Wishlist
+        </Button>
+        </Link>
       </div>
     </div>
   );
