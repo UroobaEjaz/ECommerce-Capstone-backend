@@ -280,7 +280,9 @@ const Cart = () => {
 
   const handleQuantityChange = (item, newQuantity) => {
     if (newQuantity < 1) return; // Avoid setting quantity to less than 1
+  
     updateCartItemQuantity(item._id, newQuantity);
+  
     // Optionally update server with new quantity
     fetch(`/api/cart/update`, {
       method: "POST",
@@ -288,12 +290,24 @@ const Cart = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
-        email: "uroobanumair",
-        quantity: newQuantity ,
-        itemId: item._id }),
-    }).catch(error => console.error("Error updating quantity:", error));
+        email: "uroobanumair", // Replace with dynamic email if possible
+        quantity: newQuantity,
+        itemId: item._id,
+      }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Quantity updated successfully:", data);
+      // Optionally show a success message to the user
+    })
+    .catch(error => console.error("Error updating quantity:", error));
   };
-
+  
   const addToWishList = async(item) => {
     try {
       await fetch(`/api/wishlist/add`, {
