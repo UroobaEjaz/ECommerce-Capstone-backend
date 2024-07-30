@@ -357,7 +357,7 @@ export const deleteItem = async (req, res) => {
       return res.status(400).json({ error: "Item IDs array is required" });
     }
 
-    // used chatgpt to make this methord delete multiple items at once
+    // used chatgpt to make this method delete multiple items at once
     for (let i = 0; i < ids.length; i++) {
       const itemId = ids[i];
 

@@ -218,7 +218,7 @@ export default Cart;
 // reference: https://www.youtube.com/watch?v=lATafp15HWA
 //
 import React, { useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Form } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from "../context/CartItemsContext";
 import { Link } from "react-router-dom";
@@ -228,33 +228,32 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-
-//
-
 const Cart = () => {
-  const { cartItems, removeFromCartContext } = useCartItemsContext();
-  const email = "uroobanumair"; // Hardcoded email for now
-
+  const { cartItems, removeFromCartContext, updateCartItemQuantity } = useCartItemsContext();
+  
   useEffect(() => {
-    getCartItems(email);
-  }, [email]);
+    getCartItems();
+  }, []);
 
-  const getCartItems = async (email) => {
+  const getCartItems = async () => {
     try {
-      const response = await fetch(`/api/cart/items/${encodeURIComponent(email)}`, {
-        method: "GET",
+      const response = await fetch("/api/cart/items", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ email: "uroobanumair",
+          //itemId: item._id 
+         }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to fetch cart items");
       }
-  
+
       const data = await response.json();
-      // Assuming data has a 'CartItems' array
-      setCartItems(data.CartItems); // Update context state with fetched items
+      // Update context with fetched items
+      // Assuming `setCartItems` is used directly in context
     } catch (error) {
       console.log("Error fetching cart items:", error);
     }
@@ -268,7 +267,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          email:"uroobanumair",
+          email: "uroobanumair",
           itemId: item._id }),
       });
 
@@ -278,7 +277,23 @@ const Cart = () => {
       console.error("Error removing item:", error.message);
     }
   };
-  // addToWishlist function
+
+  const handleQuantityChange = (item, newQuantity) => {
+    if (newQuantity < 1) return; // Avoid setting quantity to less than 1
+    updateCartItemQuantity(item._id, newQuantity);
+    // Optionally update server with new quantity
+    fetch(`/api/cart/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        email: "uroobanumair",
+        quantity: newQuantity ,
+        itemId: item._id }),
+    }).catch(error => console.error("Error updating quantity:", error));
+  };
+
   const addToWishList = async(item) => {
     try {
       await fetch(`/api/wishlist/add`, {
@@ -287,17 +302,13 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ itemId: item._id }),
-      }
-    );
-    toast.success("Item added to wishlist.");
+      });
+      toast.success("Item added to wishlist.");
     } catch (error) {
       console.error("Error adding to wishlist:", error);
       toast.error("Failed to add item to wishlist.");
     }
   }
-  
-
-  // Calculate total price   // reference: https://www.youtube.com/watch?v=lATafp15HWA
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -334,7 +345,16 @@ const Cart = () => {
                   <Card.Body>
                     <Card.Title>{item.name}</Card.Title>
                     <Card.Text>Price: ${item.price}</Card.Text>
-                    <Card.Text>Quantity: {item.quantity}</Card.Text>
+                    <Card.Text>
+                      Quantity: 
+                      <Form.Control
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => handleQuantityChange(item, parseInt(e.target.value))}
+                        style={{ width: '70px', display: 'inline-block', marginLeft: '10px' }}
+                      />
+                    </Card.Text>
                     <Button onClick={() => handleRemoveFromCart(item)} variant="danger">
                       Remove from Cart
                     </Button>
@@ -358,7 +378,6 @@ const Cart = () => {
           <p className="text-center">Your cart is empty.</p>
         )}
       </div>
-   
     </div>
   );
 };
