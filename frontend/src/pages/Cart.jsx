@@ -407,3 +407,5 @@ const Cart = () => {
 };
 
 export default Cart;
+
+// styled: https://chatgpt.com/c/fdfa28a7-a60e-4beb-83e8-e2b11d4ea8c3

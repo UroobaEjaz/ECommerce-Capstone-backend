@@ -16,13 +16,13 @@ const Login = () => {
   };
 
   return (
-    <div className="">
-      <div className="max-w-md w-full bg-darkred p-8 shadow-lg rounded-lg outline">
-        <img src="/logo.jpg" alt="Logo" className="h-22 w-12 mr-9 mb-6" />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-md w-full bg-darkred p-8 shadow-lg rounded-lg flex flex-col items-center">
+        <img src="/logo.jpg" alt="Logo" className="h-24 w-auto mb-6" />
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Login
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -60,7 +60,7 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-black-500 mr-4">
+            <p className="text-sm text-gray-700 mr-4">
               Don't have an account?
             </p>
             <Link
@@ -72,7 +72,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className=" bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 mx-40 mt-4 rounded focus:outline-none focus:ring focus:ring-red-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 w-full mt-4 rounded focus:outline-none focus:ring focus:ring-red-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
@@ -84,3 +84,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+// styled: https://chatgpt.com/c/fdfa28a7-a60e-4beb-83e8-e2b11d4ea8c3
