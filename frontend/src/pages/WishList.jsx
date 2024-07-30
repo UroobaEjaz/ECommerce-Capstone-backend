@@ -115,7 +115,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useCartItemsContext } from "../context/CartItemsContext"; // Import cart context
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaTrash} from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaHome } from "react-icons/fa";
 
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -195,7 +195,7 @@ const WishlistPage = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
-        <h1 className="text-4xl font-bold inline-flex items-center mt-8 mb-7">
+        <h1 className="text-4xl font-bold inline-flex items-center mt-12 mb-7">
         Your Wishlist
         <FaHeart className="text-red-500 ml-3 text-4xl" />
       </h1>
@@ -228,11 +228,18 @@ const WishlistPage = () => {
           <ListGroup.Item>No items in wishlist.</ListGroup.Item>
         )}
       </ListGroup>
-      <div className="mt-4">
-        <Button className="btn btn-primary">
-          <Link to="/cart" className="text-white text-decoration-none">Go to Cart</Link>
-        </Button>
-      </div>
+      <div className="mt-6">
+      <Button className="btn btn-primary mb-4">
+        <Link to="/cart" className="text-white text-decoration-none w-full">
+          <FaShoppingCart />
+        </Link>
+      </Button>
+      <Button className="btn btn-primary mb-4 ml-4">
+        <Link to="/" className="text-white text-decoration-none text-center">
+          <FaHome />
+        </Link>
+      </Button>
+    </div>
     </div>
   );
 };

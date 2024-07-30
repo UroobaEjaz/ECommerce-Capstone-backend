@@ -334,11 +334,10 @@ const Cart = () => {
     <div className="container py-4 flex flex-col md:flex-row">
       <div className="flex-grow md:mr-8">
         <div className="text-center mb-4">
-          <h2 className="relative inline-block">
-            <FaShoppingCart className="inline-block mr-2 text-xl align-middle" />
-            Cart
-            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1"></span>
-          </h2>
+        <h1 className="text-4xl font-bold inline-flex items-center mt-8 mb-7">
+        Cart
+        <FaShoppingCart className="text-black ml-3 text-4xl" />
+      </h1>
         </div>
 
         <ListGroup>
