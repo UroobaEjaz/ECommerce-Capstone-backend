@@ -218,13 +218,13 @@ export default Cart;
 // reference: https://www.youtube.com/watch?v=lATafp15HWA
 //
 import React, { useEffect } from "react";
-import { Card, Button, Form } from "react-bootstrap";
-import { motion } from "framer-motion";
+import { ListGroup, Button, Form } from "react-bootstrap";
 import { useCartItemsContext } from "../context/CartItemsContext";
 import { Link } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaTrash, FaHeart } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -329,68 +329,73 @@ const Cart = () => {
     0
   );
 
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   return (
-    <div className="container py-4">
-      <div className="text-center mb-4">
-        <h2 className="relative inline-block">
-          <FaShoppingCart className="inline-block mr-2 text-xl align-middle" />
-          Cart
-          <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1"></span>
-        </h2>
-      </div>
+    <div className="container py-4 flex flex-col md:flex-row">
+      <div className="flex-grow md:mr-8">
+        <div className="text-center mb-4">
+          <h2 className="relative inline-block">
+            <FaShoppingCart className="inline-block mr-2 text-xl align-middle" />
+            Cart
+            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1"></span>
+          </h2>
+        </div>
 
-      <div className="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
-        {cartItems.length > 0 ? (
-          <>
-            {cartItems.map((item) => (
-              <motion.div
-                key={item._id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                style={{ width: "18rem", margin: "1rem", display: "flex" }}
-              >
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src={`/api/items/images/${item.image}`}
-                    alt={item.name}
-                  />
-                  <Card.Body>
-                    <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>Price: ${item.price}</Card.Text>
-                    <Card.Text>
-                      Quantity: 
+        <ListGroup>
+          {cartItems.length > 0 ? (
+            <>
+              {cartItems.map((item) => (
+                <ListGroup.Item key={item._id} className="d-flex justify-content-between align-items-center mb-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={`/api/items/images/${item.image}`}
+                      alt={item.name}
+                      className="img-thumbnail me-3"
+                      style={{ width: '100px', height: '100px' }}
+                    />
+                    <div>
+                      <h5 className="mb-1">{item.name}</h5>
+                      <p className="mb-1">Price: ${item.price}</p>
                       <Form.Control
                         type="number"
                         min="1"
                         value={item.quantity}
                         onChange={(e) => handleQuantityChange(item, parseInt(e.target.value))}
-                        style={{ width: '70px', display: 'inline-block', marginLeft: '10px' }}
+                        className="w-25"
                       />
-                    </Card.Text>
-                    <Button onClick={() => handleRemoveFromCart(item)} variant="danger">
-                      Remove from Cart
+                    </div>
+                  </div>
+                  <div>
+                    <Button onClick={() => handleRemoveFromCart(item)} variant="danger" className="me-2">
+                    <FaTrash /> 
                     </Button>
                     <Button onClick={() => addToWishList(item)} variant="primary">
-                      Add to Wishlist 
+                      <FaHeart />
                     </Button>
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            ))}
-            <div className="col mt-3">
-              <h4>Total Price: ${totalPrice.toFixed(2)}</h4>
-              <Link to="/Payment">
-                <Button className="mt-3" variant="primary" block>
-                  Proceed to Checkout
-                </Button>
-              </Link>
-            </div>
-          </>
-        ) : (
-          <p className="text-center">Your cart is empty.</p>
-        )}
+                  </div>
+                </ListGroup.Item>
+              ))}
+            </>
+          ) : (
+            <p className="text-center">Your cart is empty.</p>
+          )}
+        </ListGroup>
+      </div>
+
+      <div className="summary-container bg-gray-100 p-8 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
+        <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
+        <p className="text-lg mb-2">Total Quantity: {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</p>
+        <p className="text-lg mb-4">Total Price: ${totalPrice.toFixed(2)}</p>
+        <Link to="/Payment">
+          <Button className="w-full" variant="primary">
+            Proceed to Checkout
+          </Button>
+        </Link>
+        <Link to ="/">
+        <Button className="w-full mt-6" variant="primary">
+          Continue Shopping
+        </Button>
+        </Link>
       </div>
     </div>
   );

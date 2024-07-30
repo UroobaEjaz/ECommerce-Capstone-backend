@@ -1028,14 +1028,12 @@ const Cards = ({ items }) => {
 
 export default Cards;*/
 
-
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -1048,10 +1046,8 @@ const truncateText = (text, wordLimit) => {
 
 // Cards component to display items
 const Cards = ({ items = [] }) => {
-  const { cartItems,  addToCartContext } = useCartItemsContext(); // Ensure correct usage
+  const { cartItems, addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
-  // wishlist added
-  //const [wishlist, setWishlist] = useState([]);
 
   // Function to handle quantity change
   const handleQuantityChange = (item, change) => {
@@ -1085,8 +1081,10 @@ const Cards = ({ items = [] }) => {
 
       // Add or update item in context
       if (cartItems.find(cartItem => cartItem._id === item._id)) {
-        increaseQuantity(item);
+        // If item already in cart, update quantity
+        addToCartContext({ ...item, quantity: itemQuantities[item._id] });
       } else {
+        // If item not in cart, add new item
         addToCartContext({ ...item, quantity });
       }
 
@@ -1099,32 +1097,31 @@ const Cards = ({ items = [] }) => {
       console.log("Error adding item", error);
     }
   };
-// wishlist adding function
-// Function to handle adding item to wishlist
- // Function to handle adding item to wishlist
- const handleAddToWishlist = async (item) => {
-  try {
-    const response = await fetch("/api/wishlist/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        itemId: item._id,
-      }),
-    });
 
-    const data = await response.json();
-    console.log(data);
+  // Function to handle adding item to wishlist
+  const handleAddToWishlist = async (item) => {
+    try {
+      const response = await fetch("/api/wishlist/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId: item._id,
+        }),
+      });
 
-    // Show success toast message
-    toast.success("Item successfully added to the wishlist!");
-  } catch (error) {
-    console.log("Error adding item to wishlist", error);
-    // Show error toast message
-    toast.error("Failed to add item to wishlist.");
-  }
-};
+      const data = await response.json();
+      console.log(data);
+
+      // Show success toast message
+      toast.success("Item successfully added to the wishlist!");
+    } catch (error) {
+      console.log("Error adding item to wishlist", error);
+      // Show error toast message
+      toast.error("Failed to add item to wishlist.");
+    }
+  };
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
@@ -1167,8 +1164,8 @@ const Cards = ({ items = [] }) => {
                 <Button onClick={() => handleAddToCart(item)} variant="primary">
                   Add to Cart
                 </Button>
-                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger"  className="ms-2">
-                  ❤️ 
+                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger" className="ms-2">
+                  ❤️
                 </Button>
               </Card.Body>
             </Card>
