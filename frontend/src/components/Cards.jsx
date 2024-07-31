@@ -1036,6 +1036,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsFillCartFill } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -1050,6 +1051,7 @@ const truncateText = (text, wordLimit) => {
 const Cards = ({ items = [] }) => {
   const { cartItems, addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
+  const nevigate = useNavigate();
 
   // Function to handle quantity change
   const handleQuantityChange = (item, change) => {
@@ -1140,18 +1142,18 @@ const Cards = ({ items = [] }) => {
               src={`/api/items/images/${item.image}`}
               alt={item.name}
               className="w-full h-48 object-cover cursor-pointer"
-              onClick={() => navigate(`/${item._id}`, { state: item._id })}
+              onClick={() => nevigate(`/${item._id}`, { state: item._id })}
             />
             <div className="p-4 flex flex-col flex-grow">
               <h2
                 className="text-xl font-semibold mb-2 cursor-pointer"
-                onClick={() => navigate(`/${item._id}`, { state: item._id })}
+                onClick={() => nevigate(`/${item._id}`, { state: item._id })}
               >
                 {item.name}
               </h2>
               <p
                 className="text-black mb-2 cursor-pointer"
-                onClick={() => navigate(`/${item._id}`, { state: item._id })}
+                onClick={() => nevigate(`/${item._id}`, { state: item._id })}
               >
                 {truncateText(item.description, 8)}
               </p>
