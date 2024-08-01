@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import { motion } from "framer-motion";
+//import { Card, Button } from "react-bootstrap";
 import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
 import {toast} from 'react-toastify';
-import {useNavigate} from 'react-router-dom';
-
 import 'react-toastify/dist/ReactToastify.css';
-
+import { BsFillCartFill } from "react-icons/bs";
+import { FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Function to truncate text
 const truncateText = (text, wordLimit) => {
@@ -19,10 +18,8 @@ const truncateText = (text, wordLimit) => {
 
 // Cards component to display items
 const Cards = ({ items = [] }) => {
-  const { cartItems,  addToCartContext } = useCartItemsContext(); // Ensure correct usage
+  const { cartItems, addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
-  const nevigate = useNavigate();
-
   // wishlist added
   //const [wishlist, setWishlist] = useState([]);
 
@@ -58,8 +55,10 @@ const Cards = ({ items = [] }) => {
 
       // Add or update item in context
       if (cartItems.find(cartItem => cartItem._id === item._id)) {
-        increaseQuantity(item);
+        // If item already in cart, update quantity
+        addToCartContext({ ...item, quantity: itemQuantities[item._id] });
       } else {
+        // If item not in cart, add new item
         addToCartContext({ ...item, quantity });
       }
 
@@ -72,80 +71,98 @@ const Cards = ({ items = [] }) => {
       console.log("Error adding item", error);
     }
   };
-// wishlist adding function
-// Function to handle adding item to wishlist
- // Function to handle adding item to wishlist
- const handleAddToWishlist = async (item) => {
-  try {
-    const response = await fetch("/api/wishlist/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        itemId: item._id,
-      }),
-    });
 
-    const data = await response.json();
-    console.log(data);
+  // Function to handle adding item to wishlist
+  const handleAddToWishlist = async (item) => {
+    try {
+      const response = await fetch("/api/wishlist/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId: item._id,
+        }),
+      });
 
-    // Show success toast message
-    toast.success("Item successfully added to the wishlist!");
-  } catch (error) {
-    console.log("Error adding item to wishlist", error);
-    // Show error toast message
-    toast.error("Failed to add item to wishlist.");
-  }
-};
+      const data = await response.json();
+      console.log(data);
+
+      // Show success toast message
+      toast.success("Item successfully added to the wishlist!");
+    } catch (error) {
+      console.log("Error adding item to wishlist", error);
+      // Show error toast message
+      toast.error("Failed to add item to wishlist.");
+    }
+  };
+
+  
+ 
 
   return (
-    <div className="d-flex flex-wrap justify-content-center">
+    <div className="flex flex-wrap justify-center">
       {items.length > 0 ? (
         items.map((item) => (
-          <motion.div
+          <div
             key={item._id}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            style={{ width: "18rem", margin: "1rem", display: "flex" }}
+            className="w-72 m-4 bg-slate-100 shadow-lg rounded-lg overflow-hidden flex flex-col"
           >
-            <Card>
-              <Card.Img
-                variant="top"
-                src={`/api/items/images/${item.image}`}
-                alt={item.name}
+            <img
+              src={`/api/items/images/${item.image}`}
+              alt={item.name}
+              className="w-full h-48 object-cover cursor-pointer"
+              onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+            />
+            <div className="p-4 flex flex-col flex-grow">
+              <h2
+                className="text-xl font-semibold mb-2 cursor-pointer"
                 onClick={() => nevigate(`/${item._id}`, { state: item._id })}
-                className="cursor-pointer"
-              />
-              <Card.Body>
-                <Card.Title
-                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
-                  className="cursor-pointer"
-                >
-                  {item.name}
-                </Card.Title>
-                <Card.Text
-                  onClick={() => nevigate(`/${item._id}`, { state: item._id })}
-                  className="cursor-pointer"
-                >
-                  {truncateText(item.description, 8)}
-                </Card.Text>
-                <Card.Text>${item.price}</Card.Text>
-                <div className="d-flex justify-content-between align-items-center">
-                  <Button onClick={() => handleQuantityChange(item, -1)} variant="secondary">-</Button>
-                  <span>{itemQuantities[item._id] || 0}</span>
-                  <Button onClick={() => handleQuantityChange(item, 1)} variant="secondary">+</Button>
+              >
+                {item.name}
+              </h2>
+              <p
+                className="text-black mb-2 cursor-pointer"
+                onClick={() => nevigate(`/${item._id}`, { state: item._id })}
+              >
+                {truncateText(item.description, 8)}
+              </p>
+              <div className="flex items-center justify-between mb-4 mt-3">
+                <p className="text-lg font-bold">${item.price}</p>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => handleQuantityChange(item, -1)}
+                    className="px-2 py-1 bg-black text-white focus:outline-none"
+                  >
+                    -
+                  </button>
+                  <span className="mx-4 text-lg">{itemQuantities[item._id] || 0}</span>
+                  <button
+                    onClick={() => handleQuantityChange(item, 1)}
+                   className=" px-2 py-1 bg-black text-white hover:bg-gray-700 focus:outline-none"
+                  >
+                    +
+                  </button>
                 </div>
-                <Button onClick={() => handleAddToCart(item)} variant="primary">
-                  Add to Cart
-                </Button>
-                <Button onClick={() => handleAddToWishlist(item)} variant="outline-danger">
-                  ❤️ Add to Wishlist
-                </Button>
-              </Card.Body>
-            </Card>
-          </motion.div>
+              </div>
+              <div className="flex justify-between gap-2 mb-0">
+                <button
+                  onClick={() => handleAddToCart(item)}
+                  className="bg-black text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none flex items-center"
+                >
+                  <BsFillCartFill className="mr-2" />
+               
+                </button>
+                <button
+                  onClick={() => handleAddToWishlist(item)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none flex items-center"
+                >
+                  <FaRegHeart />
+                  <span className="sr-only">Add to Wishlist</span>
+                </button>
+              </div>
+            </div>
+          </div>
         ))
       ) : (
         <p>No items found.</p>

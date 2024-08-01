@@ -109,11 +109,13 @@ const addToCart = async (item) => {
 export default WishlistPage; */
 
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCartItemsContext } from "../context/CartItemsContext"; // Import cart context
 import { Link } from "react-router-dom";
+import { FaShoppingCart, FaTrash} from "react-icons/fa";
+import { FaHeart, FaHome } from "react-icons/fa";
 
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -140,17 +142,23 @@ const WishlistPage = () => {
 
   const removeFromWishlist = async (itemId) => {
     try {
-      const response = await fetch(`/api/wishlist/remove/${itemId}`, {
+      const response = await fetch(`/api/wishlist/remove`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId }),
       });
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+
       // Remove the item from the local state after successful deletion
       setWishlistItems(wishlistItems.filter(wishlistItem => wishlistItem.item._id !== itemId));
       toast.success("Item removed from wishlist.");
     } catch (error) {
-      console.log("Error removing wishlist item", error);
+      console.log("Error removing wishlist item:", error);
       toast.error("Failed to remove item from wishlist.");
     }
   };
@@ -186,34 +194,54 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="d-flex flex-wrap justify-content-center">
-      {wishlistItems.length > 0 ? (
-        wishlistItems.map(wishlistItem => {
-          const item = wishlistItem.item;
-          return (
-            <Card key={item._id} style={{ width: "18rem", margin: "1rem" }}>
-              <Card.Img variant="top" src={`/api/items/images/${item.image}`} alt={item.name} />
-              <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-                <Card.Text>${item.price}</Card.Text>
-                <Button variant="danger" onClick={() => removeFromWishlist(item._id)}>Remove</Button>
-                <Button variant="primary" onClick={() => addToCart(item)}>Add to Cart</Button>
-              </Card.Body>
-            </Card>
-          );
-        })
-      ) : (
-        <p>No items in wishlist.</p>
-      )}
-       
-        <div>
-        <Button> <Link to="/cart" className="btn btn-primary"> Go to Cart
-        </Link></Button>
-        </div>
+    <div className="d-flex flex-column align-items-center">
+        <h1 className="text-4xl font-bold inline-flex items-center mt-12 mb-7">
+        Your Wishlist
+        <FaHeart className="text-red-500 ml-3 text-4xl" />
+      </h1>
+      <ListGroup className="w-75 mt-3">
+        {wishlistItems.length > 0 ? (
+          wishlistItems.map((wishlistItem, index) => {
+            const item = wishlistItem.item;
+            return (
+              <ListGroup.Item
+                key={item._id}
+                className="d-flex justify-content-between align-items-center"
+                style={{ marginTop: index > 0 ? '10px' : '0' }} // Add top margin between items
+              >
+                <div>
+                  <img
+                    src={`/api/items/images/${item.image}`}
+                    alt={item.name}
+                    style={{ width: "50px", height: "50px", objectFit: "cover", marginRight: "10px" }}
+                  />
+                  {item.name} - ${item.price}
+                </div>
+                <div>
+                  <Button variant="danger" onClick={() => removeFromWishlist(item._id)} style={{ marginRight: '10px' }}><FaTrash/></Button>
+                  <Button variant="primary" onClick={() => addToCart(item)}><FaShoppingCart/></Button>
+                </div>
+              </ListGroup.Item>
+            );
+          })
+        ) : (
+          <ListGroup.Item>No items in wishlist.</ListGroup.Item>
+        )}
+      </ListGroup>
+      <div className="mt-6">
+      <Button className="btn btn-primary mb-4">
+        <Link to="/cart" className="text-white text-decoration-none w-full">
+          <FaShoppingCart />
+        </Link>
+      </Button>
+      <Button className="btn btn-primary mb-4 ml-4">
+        <Link to="/" className="text-white text-decoration-none text-center">
+          <FaHome />
+        </Link>
+      </Button>
     </div>
-    
+    </div>
   );
 };
 
 export default WishlistPage;
-

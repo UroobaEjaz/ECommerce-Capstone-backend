@@ -8,6 +8,8 @@ import { CartItemsProvider } from './context/CartItemsContext';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { WishlistProvider } from "./context/WishListContext.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const stripePromise = loadStripe('pk_test_51PYndvHxPts9QUETEV1U87HCoGLMj2Ry7v0MGJtgU5xlRYLWZ0sVqvwnhPAOtpjSdPCL0FcE3uIYoLxtFwiHA7Yc008Sa0mhT1');
@@ -25,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Elements stripe={stripePromise}>
       <WishlistProvider>
           <App />
+          <ToastContainer />
       </WishlistProvider>
 
 </Elements>

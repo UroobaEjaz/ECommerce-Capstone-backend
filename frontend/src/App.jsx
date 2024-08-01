@@ -91,7 +91,7 @@ export default function App() {
 
         <Route path="/Careers" element={<Careers />} />
         <Route path="/:details" element={<ItemDetails />} />
-        <Route path = "/wishlist" element = {<WishList />} />
+        <Route path = "/WishList" element = {<WishList />} />
 
         <Route path="/Cancel" element={<Cancel />} />
 

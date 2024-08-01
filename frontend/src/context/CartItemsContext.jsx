@@ -191,9 +191,15 @@ export const CartItemsProvider = ({ children }) => {
   const removeFromCartContext = (item) => {
     setCartItems(prevItems => prevItems.filter(cartItem => cartItem._id !== item._id));
   };
-
+  const updateCartItemQuantity = (itemId, quantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === itemId ? { ...item, quantity } : item
+      )
+    );
+  };
   return (
-    <CartItemsContext.Provider value={{ cartItems, addToCartContext, removeFromCartContext }}>
+    <CartItemsContext.Provider value={{ cartItems, addToCartContext, removeFromCartContext, updateCartItemQuantity }}>
       {children}
     </CartItemsContext.Provider>
   );

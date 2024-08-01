@@ -7,11 +7,11 @@ import Img2 from '../assets/Img2.jpg';
 import Img3 from '../assets/Img3.jpg';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import SpeechRecognition from 'react-speech-recognition';
-import { VscDebugStart, VscDebugStop } from 'react-icons/vsc';
+import { FiMic } from 'react-icons/fi';
 import { CgClose } from 'react-icons/cg';
 import Card from './Cards';
 
-function CarouselPage() {
+function CarouselPage({ setSearchResults }) {
   const [item, setItem] = useState([]);
   const [name, setName] = useState('');
   const { transcript, resetTranscript } = useSpeechRecognition();
@@ -48,6 +48,7 @@ function CarouselPage() {
 
       const data = await response.json();
       setItem(data);
+      setSearchResults(data); // Set search results in Home component
       console.log(data);
 
       setShowCloseButton(true);
@@ -60,6 +61,7 @@ function CarouselPage() {
 
   const handleClose = () => {
     setItem([]);
+    setSearchResults([]); // Clear search results in Home component
     setShowCloseButton(false);
   };
 
@@ -134,17 +136,11 @@ function CarouselPage() {
           />
           <button
             type="button"
-            onClick={handleVoiceStart}
+            onMouseDown={handleVoiceStart}
+            onMouseUp={handleVoiceEnd}
             className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            <VscDebugStart />
-          </button>
-          <button
-            type="button"
-            onClick={handleVoiceEnd}
-            className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-          >
-            <VscDebugStop />
+            <FiMic />
           </button>
           <button
             type="submit"
@@ -153,18 +149,17 @@ function CarouselPage() {
             Search
           </button>
         </form>
-
-        {item.length > 0 ? <Card items={item} /> : <p> </p>}
-
-        {showCloseButton && (
-          <button
-            onClick={handleClose}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-          >
-            <CgClose />
-          </button>
-        )}
       </div>
+
+      {showCloseButton && (
+        <button
+          onClick={handleClose}
+          className="fixed bottom-3 right-5"
+        >
+          <CgClose />
+        </button>
+      )}
+      
       <div className="flex justify-center bg-red-950 h-11 mt-3">
         <h1 className="text-3xl font-serif text-white py-2">Salty Cravings</h1>
       </div>
@@ -173,3 +168,6 @@ function CarouselPage() {
 }
 
 export default CarouselPage;
+
+
+// reference: https://chatgpt.com/c/bf0887e3-94a4-4dd0-9723-e0293b46d938
