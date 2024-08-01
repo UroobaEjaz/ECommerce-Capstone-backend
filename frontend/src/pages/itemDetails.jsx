@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 import { useCartItemsContext } from "../context/CartItemsContext";
 import Card from "../components/Cards";
 import Navbar from "@/components/Navbar";
+import { BiListPlus } from "react-icons/bi";
+import InstaCartPopup from "@/components/InstaCartPopup";
 
 const ItemDetails = () => {
   const location = useLocation();
@@ -12,6 +14,8 @@ const ItemDetails = () => {
   const [similarItem, setSimilarItem] = useState([]);
   const [itemQuantities, setItemQuantities] = useState({});
   const { cartItems, addToCart } = useCartItemsContext();
+  const [listItems, setListItems] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const details = async () => {
     try {
@@ -161,6 +165,14 @@ const ItemDetails = () => {
               >
                 Add to Cart
               </Button>
+              <div
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
+                <BiListPlus />
+              </div>
             </div>
           </>
         )}
@@ -168,11 +180,12 @@ const ItemDetails = () => {
           <h3>Similar Items</h3>
           <div>
             <Card items={similarItem} />
-            import {useCartItemsContext} from "../context/CartItemsContext";
-            const {(cartItems, addToCart)} = useCartItemsContext();
           </div>
         </div>
       </div>
+      {open && (
+        <InstaCartPopup open={open} setOpen={setOpen} item={location.state} />
+      )}
     </div>
   );
 };

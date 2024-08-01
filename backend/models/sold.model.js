@@ -40,6 +40,10 @@ const soldItemSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       },
+      payment: {
+        type: String,
+        required: true,
+      },
       date: {
         type: Date,
         default: Date.now,
