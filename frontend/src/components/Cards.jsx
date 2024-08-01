@@ -20,6 +20,7 @@ const truncateText = (text, wordLimit) => {
 const Cards = ({ items = [] }) => {
   const { cartItems, addToCartContext } = useCartItemsContext(); // Ensure correct usage
   const [itemQuantities, setItemQuantities] = useState({});
+  const nevigate = useNavigate();
   // wishlist added
   //const [wishlist, setWishlist] = useState([]);
 
