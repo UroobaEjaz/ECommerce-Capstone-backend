@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import { Card, Button } from "react-bootstrap";
-import { useCartItemsContext } from "../context/CartItemsContext"; // Adjust path as per your context setup
+import { useCartItemsContext } from "../context/CartItemsContext"; 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsFillCartFill } from "react-icons/bs";
@@ -173,3 +173,6 @@ const Cards = ({ items = [] }) => {
 };
 
 export default Cards;
+
+// reference: https://www.youtube.com/watch?v=tjLXot9FsGE  (TOAST MESSAGE)
+// REFERENCE: https://www.youtube.com/watch?v=dGYs8I9XY98
