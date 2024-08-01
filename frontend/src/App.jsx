@@ -65,11 +65,11 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
-          element={!authUser ? <Login /> : <Navigate to="/" />}
+          element={authUser ? <Login /> : <Navigate to="/" />}
         />
         <Route
           path="/signup"
-          element={!authUser ? <SignUp /> : <Navigate to="/" />}
+          element={authUser ? <SignUp /> : <Navigate to="/" />}
         />
         {/* <Route
             path="/Products"
