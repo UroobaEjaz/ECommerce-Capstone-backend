@@ -17,10 +17,10 @@ export default function About() {
   };
 
   return (
-    <>
+    <div className="bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
       <Navbar />
       <div className="bg-gray-100 min-h-screen py-16 px-6 pt-36">
-        <div className="container mx-auto max-w-4xl p-8 bg-white rounded-xl shadow-lg">
+        <div className="container mx-auto max-w-4xl p-8 bg-gradient-to-r from-slate-200 via-red-400 to-amber-900 rounded-xl shadow-lg">
           <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">About Us</h1>
           <p className="text-lg text-gray-700 mb-8 text-center">
             Welcome to our convenience store! We have locations in NE and SW Calgary. Choose a location below to view its map.
@@ -65,6 +65,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

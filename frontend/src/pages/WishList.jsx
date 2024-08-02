@@ -209,14 +209,14 @@ const WishlistPage = () => {
             return (
               <ListGroup.Item
                 key={item._id}
-                className="d-flex justify-content-between align-items-center"
+                className="d-flex justify-content-between align-items-center "
                 style={{ marginTop: index > 0 ? '10px' : '0' }} // Add top margin between items
               >
                 <div>
                   <img
                     src={`/api/items/images/${item.image}`}
                     alt={item.name}
-                    style={{ width: "120px", height: "120px", objectFit: "cover", marginRight: "10px" }}
+                    style={{ width: "70px", height: "70px", objectFit: "cover", marginRight: "10px" }}
                   />
               <div className="font-bold mt-8 text-xl">{item.name} - ${item.price}</div>
               </div>
@@ -225,7 +225,7 @@ const WishlistPage = () => {
                   <Button variant="danger" onClick={() => removeFromWishlist(item._id)}
                   className="bg-red-900 text-xl" style={{ marginRight: '10px' }}><FaTrash/></Button>
                   <Button variant="primary" onClick={() => addToCart(item)}
-                    className="bg-black text-xl"><FaShoppingCart/></Button>
+                    className="bg-black text-2xl"><FaShoppingCart/></Button>
                 </div>
               </ListGroup.Item>
             );

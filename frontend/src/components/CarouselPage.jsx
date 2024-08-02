@@ -130,8 +130,8 @@ function CarouselPage({ setSearchResults }) {
         </Carousel.Item>
       </Carousel>
 
-      <div className="flex justify-center mt-3">
-        <form onSubmit={getItems} className="flex items-center justify-center">
+      <div className="flex justify-center mt-0 mb-0 bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
+        <form onSubmit={getItems} className="flex items-center justify-center mt-2">
           <input
             type="text"
             placeholder="Ask me"
@@ -152,7 +152,7 @@ function CarouselPage({ setSearchResults }) {
             type="submit"
             className="bg-black hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
           >
-            <FaSearch />
+            <FaSearch/>
           </button>
         </form>
       </div>
