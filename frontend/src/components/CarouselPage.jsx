@@ -15,6 +15,7 @@ import { FiMic } from 'react-icons/fi';
 import { CgClose } from 'react-icons/cg';
 
 import Card from './Cards';
+import { FaSearch } from 'react-icons/fa';
 
 function CarouselPage({ setSearchResults }) {
   const [item, setItem] = useState([]);
@@ -151,7 +152,7 @@ function CarouselPage({ setSearchResults }) {
             type="submit"
             className="bg-black hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
           >
-            Search
+            <FaSearch />
           </button>
         </form>
       </div>
