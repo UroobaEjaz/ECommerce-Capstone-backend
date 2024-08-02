@@ -224,6 +224,7 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaTrash, FaHeart } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from "@/components/Navbar";
 
 
 
@@ -331,7 +332,9 @@ const Cart = () => {
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   return (
-    <div className="container py-4 flex flex-col md:flex-row">
+    <>
+  <Navbar />
+    <div className="container pt-20 flex flex-col md:flex-row">
       <div className="flex-grow md:mr-8">
         <div className="text-center mb-4">
         <h1 className="text-4xl font-bold inline-flex items-center mt-8 mb-7">
@@ -381,7 +384,7 @@ const Cart = () => {
         </ListGroup>
       </div>
 
-      <div className="summary-container bg-gray-100 p-8 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
+      <div className="summary-container bg-gray-100 p-12 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
         <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
         <p className="text-lg mb-2">Total Quantity: {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</p>
         <p className="text-lg mb-4">Total Price: ${totalPrice.toFixed(2)}</p>
@@ -402,6 +405,7 @@ const Cart = () => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

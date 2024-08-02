@@ -116,6 +116,7 @@ import { useCartItemsContext } from "../context/CartItemsContext"; // Import car
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaTrash} from "react-icons/fa";
 import { FaHeart, FaHome } from "react-icons/fa";
+import Navbar from "@/components/Navbar";
 
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -194,7 +195,9 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center">
+    <>
+    <Navbar />
+    <div className="d-flex flex-column align-items-center pt-16">
         <h1 className="text-4xl font-bold inline-flex items-center mt-12 mb-7">
         Your Wishlist
         <FaHeart className="text-red-500 ml-3 text-4xl" />
@@ -241,7 +244,9 @@ const WishlistPage = () => {
       </Button>
     </div>
     </div>
+    </>
   );
+
 };
 
 export default WishlistPage;

@@ -20,36 +20,35 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-blur-lg bg-opacity-0">
-        <h1 className="text-3xl font-semibold text-center text-gray-300">
+    <div className="flex items-center justify-center min-h-screen pt-16 bg-gray-100">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Sign Up
-          <span className="text-blue-500"></span>
         </h1>
-        <form onSubmit={handleSubmit}>
-          <div className="flex gap-1">
-            <div>
-              <label className="label p-2">
-                <span className="text-base label-text">First Name</span>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                First Name
               </label>
               <input
                 type="text"
                 placeholder="Enter First Name"
-                className="w-full input input-bordered h-10"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={input.firstname}
                 onChange={(e) =>
                   setInput({ ...input, firstname: e.target.value })
                 }
               />
             </div>
-            <div>
-              <label className="label p-2">
-                <span className="text-base label-text">Last Name</span>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Last Name
               </label>
               <input
                 type="text"
                 placeholder="Enter Last Name"
-                className="w-full input input-bordered h-10 ml-1"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={input.lastname}
                 onChange={(e) =>
                   setInput({ ...input, lastname: e.target.value })
@@ -58,65 +57,92 @@ const SignUp = () => {
             </div>
           </div>
           <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Phone Number</span>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Phone Number
             </label>
             <input
               type="text"
               placeholder="Enter Phone Number"
-              className="w-full input input-bordered h-10"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={input.phone}
               onChange={(e) => setInput({ ...input, phone: e.target.value })}
             />
           </div>
           <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Email</span>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Email
             </label>
             <input
-              type="text"
+              type="email"
               placeholder="Enter Email"
-              className="w-full input input-bordered h-10"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={input.email}
               onChange={(e) => setInput({ ...input, email: e.target.value })}
             />
           </div>
           <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Password</span>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Password
             </label>
             <input
               type="password"
               placeholder="Enter Password"
-              className="w-full input input-bordered h-10"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={input.password}
               onChange={(e) => setInput({ ...input, password: e.target.value })}
             />
           </div>
           <div>
-            <label className="label p-2">
-              <span className="text-base label-text">Confirm Password</span>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Confirm Password
             </label>
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full input input-bordered h-10"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={input.confirmPassword}
               onChange={(e) =>
                 setInput({ ...input, confirmPassword: e.target.value })
               }
             />
           </div>
-
-          <Link
-            to="/login"
-            className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+          <div className="text-center">
+            <Link
+              to="/login"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Already have an account?
+            </Link>
+          </div>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading}
           >
-            Already have an account
-          </Link>
-          <button className="btn btn-block btn-sm mt-2" disabled={loading}>
             {loading ? (
-              <span className="loading loading-spinner"></span>
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 0115.326-4.826L20.879 9.12A6 6 0 004 12z"
+                  ></path>
+                </svg>
+                Signing Up...
+              </span>
             ) : (
               "Sign Up"
             )}

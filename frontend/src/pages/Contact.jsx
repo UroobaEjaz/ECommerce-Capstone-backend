@@ -7,9 +7,8 @@ export default function Contact() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending....");
+    setResult("Sending...");
     const formData = new FormData(event.target);
-
     formData.append("access_key", "23e62f53-73c6-4963-ba24-01de24f35a87");
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -31,90 +30,81 @@ export default function Contact() {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-4xl p-8 bg-white shadow-lg rounded-lg">
+      <div className="flex flex-col items-center min-h-screen bg-gray-100 pt-16 w-full">
+        <div className=" p-8 bg-white ">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Contact Form Section */}
             <div>
-              <h2 className="text-2xl font-bold mb-4">Get in touch</h2>
-              <p className="mb-8">
-                Have a question or want to work together? Fill out the form
-                below and we'll get back to you as soon as possible.
+              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Get in Touch</h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Have a question or want to work together? Fill out the form below and we'll get back to you as soon as possible.
               </p>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="space-y-6">
                 <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="name"
-                  >
+                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="name">
                     Name
                   </label>
                   <input
                     name="name"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="name"
                     type="text"
                     placeholder="Enter your name"
+                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="email"
-                  >
+                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="email">
                     Email
                   </label>
                   <input
                     name="email"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
                     type="email"
                     placeholder="Enter your email"
+                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="message"
-                  >
+                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="message">
                     Message
                   </label>
                   <textarea
                     name="message"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="message"
                     placeholder="Enter your message"
+                    className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows="4"
                   ></textarea>
                 </div>
-                <div>
-                  <button
-                    className="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit"
-                  >
-                    Submit
-                  </button>
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Submit
+                </button>
+                <div className="mt-4 text-center text-lg text-gray-600">
+                  {result}
                 </div>
               </form>
-              <div className="mt-4">
-                <p>{result}</p>
-              </div>
             </div>
+
+            {/* Contact Info Section */}
             <div>
-              <h2 className="text-2xl font-bold mb-4">Contact Info</h2>
-              <p className="mb-4">
-                You can reach us at the following address, phone number, and
-                email.
+              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Contact Info</h2>
+              <p className="text-lg text-gray-600 mb-6">
+                You can reach us at the following address, phone number, and email.
               </p>
-              <div className="mb-4">
-                <h3 className="font-bold">Address</h3>
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-700">Address</h3>
                 <p>4440 44 Ave NE Unit #5, Calgary, AB T1Y 4W5</p>
                 <p>208 Haddon Rd SW, Calgary, AB T2V 2Y6</p>
               </div>
-              <div className="mb-4">
-                <h3 className="font-bold">Phone</h3>
-                <p>+14032853824</p>
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-700">Phone</h3>
+                <p>+1 403-285-3824</p>
               </div>
               <div>
-                <h3 className="font-bold">Email</h3>
+                <h3 className="font-semibold text-gray-700">Email</h3>
                 <p>kapilpopli1992@gmail.com</p>
               </div>
             </div>

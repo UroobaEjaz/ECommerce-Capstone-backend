@@ -46,7 +46,7 @@ const Home = () => {
       <div className="mb-32">
         <Navbar />
       </div>
-      <CarouselPage setSearchResults={setSearchResults} />
+    <CarouselPage setSearchResults={setSearchResults} /> 
       {/* Only show the Card component with items if there are no search results */}
       {searchResults.length === 0 ? <Card items={item} /> : <Card items={searchResults} />}
     </div>
