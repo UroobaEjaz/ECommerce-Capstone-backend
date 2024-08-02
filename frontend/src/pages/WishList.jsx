@@ -216,13 +216,16 @@ const WishlistPage = () => {
                   <img
                     src={`/api/items/images/${item.image}`}
                     alt={item.name}
-                    style={{ width: "50px", height: "50px", objectFit: "cover", marginRight: "10px" }}
+                    style={{ width: "120px", height: "120px", objectFit: "cover", marginRight: "10px" }}
                   />
-                  {item.name} - ${item.price}
-                </div>
+              <div className="font-bold mt-8 text-xl">{item.name} - ${item.price}</div>
+              </div>
+                
                 <div>
-                  <Button variant="danger" onClick={() => removeFromWishlist(item._id)} style={{ marginRight: '10px' }}><FaTrash/></Button>
-                  <Button variant="primary" onClick={() => addToCart(item)}><FaShoppingCart/></Button>
+                  <Button variant="danger" onClick={() => removeFromWishlist(item._id)}
+                  className="bg-red-900 text-xl" style={{ marginRight: '10px' }}><FaTrash/></Button>
+                  <Button variant="primary" onClick={() => addToCart(item)}
+                    className="bg-black text-xl"><FaShoppingCart/></Button>
                 </div>
               </ListGroup.Item>
             );
