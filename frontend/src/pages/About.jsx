@@ -2,12 +2,12 @@
 /* how to embed google maps in react */
 /* https://chatgpt.com/c/deaa3004-8d11-48c0-845c-aba7ccfb6b64 */
 
+
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
 export default function About() {
   const [location, setLocation] = useState(null);
- 
 
   const locations = {
     SW:
@@ -17,51 +17,54 @@ export default function About() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 p-4">
-     {/* <Navbar size={cart.length} /> */} {/*not working at the moment*/}
-      <h1 className="text-3xl font-bold mb-4 my-9">About Us</h1>
-      <p className="mb-4">
-        Welcome to our convenience store! Our current locations are in NE and
-        SW. Pick one to display the map.
-      </p>
-      <div className="flex space-x-4 mb-4">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => setLocation("SW")}
-        >
-          SW Location
-        </button>
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded"
-          onClick={() => setLocation("NE")}
-        >
-          NE location
-        </button>
-        <button
-          className="bg-red-500 text-white px-4 py-2 rounded"
-          onClick={() => setLocation(null)}
-        >
-          Hide map
-        </button>
-      </div>
-      {location && (
-        <div className="w-full h-96 mb-4">
-          <iframe
-            width="100%"
-            height="100%"
-            src={locations[location]}
-            title={`${location} Location`}
-            style={{ border: 0 }}
-            allowFullScreen=""
-            aria-hidden="false"
-            tabIndex="0"
-          ></iframe>
+    <div className="bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
+      <Navbar />
+      <div className="bg-gray-100 min-h-screen py-16 px-6 pt-36">
+        <div className="container mx-auto max-w-4xl p-8 bg-gradient-to-r from-slate-200 via-red-400 to-amber-900 rounded-xl shadow-lg">
+          <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">About Us</h1>
+          <p className="text-lg text-gray-700 mb-8 text-center">
+            Welcome to our convenience store! We have locations in NE and SW Calgary. Choose a location below to view its map.
+          </p>
+          <div className="flex justify-center space-x-4 mb-8">
+            <button
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              onClick={() => setLocation("SW")}
+            >
+              SW Location
+            </button>
+            <button
+              className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              onClick={() => setLocation("NE")}
+            >
+              NE Location
+            </button>
+            <button
+              className="bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              onClick={() => setLocation(null)}
+            >
+              Hide Map
+            </button>
+          </div>
+          {location && (
+            <div className="w-full h-80 mb-8 overflow-hidden rounded-xl shadow-lg transition-transform duration-500 ease-in-out transform scale-100 hover:scale-105">
+              <iframe
+                width="100%"
+                height="100%"
+                src={locations[location]}
+                title={`${location} Location`}
+                style={{ border: 0 }}
+                allowFullScreen=""
+                aria-hidden="false"
+                tabIndex="0"
+                className="transition-transform transform scale-100 duration-500 ease-in-out"
+              ></iframe>
+            </div>
+          )}
+          <p className="text-lg text-center text-gray-700">
+            We look forward to your visit! Explore our wide range of products and enjoy exceptional customer service.
+          </p>
         </div>
-      )}
-      <p>
-        Come visit us for a wide range of products and excellent customer
-        service!
-      </p>
+      </div>
     </div>
   );
 }

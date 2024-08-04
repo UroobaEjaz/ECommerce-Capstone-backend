@@ -102,7 +102,7 @@ const Cards = ({ items = [] }) => {
  
 
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
       {items.length > 0 ? (
         items.map((item) => (
           <div

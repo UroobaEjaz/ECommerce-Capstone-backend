@@ -224,6 +224,8 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaTrash, FaHeart } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from "@/components/Navbar";
+import { IoBagCheckOutline } from "react-icons/io5";
 
 
 
@@ -331,7 +333,9 @@ const Cart = () => {
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   return (
-    <div className="container py-4 flex flex-col md:flex-row">
+    <>
+  <Navbar />
+    <div className="container pt-20 flex flex-col md:flex-row">
       <div className="flex-grow md:mr-8">
         <div className="text-center mb-4">
         <h1 className="text-4xl font-bold inline-flex items-center mt-8 mb-7">
@@ -350,17 +354,17 @@ const Cart = () => {
                       src={`/api/items/images/${item.image}`}
                       alt={item.name}
                       className="img-thumbnail me-3"
-                      style={{ width: '100px', height: '100px' }}
+                      style={{ width: '120px', height: '120px' }}
                     />
                     <div>
-                      <h5 className="mb-1">{item.name}</h5>
-                      <p className="mb-1">Price: ${item.price}</p>
+                      <h5 className="mb-3 text-lg font-bold">{item.name}</h5>
+                      <p className="mb-1 font-semibold">Price: ${item.price}</p>
                       <Form.Control
                         type="number"
                         min="1"
                         value={item.quantity}
                         onChange={(e) => handleQuantityChange(item, parseInt(e.target.value))}
-                        className="w-25"
+                        className="w-25 font-bold"
                       />
                     </div>
                   </div>
@@ -381,13 +385,14 @@ const Cart = () => {
         </ListGroup>
       </div>
 
-      <div className="summary-container bg-gray-100 p-8 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
-        <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-        <p className="text-lg mb-2">Total Quantity: {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</p>
-        <p className="text-lg mb-4">Total Price: ${totalPrice.toFixed(2)}</p>
+      <div className="summary-container bg-slate-950 p-12 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
+        <h3 className="text-xl font-bold mb-4 text-white ">Order Summary</h3>
+        <p className="text-lg mb-2 font-semibold text-white">Total Quantity: {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</p>
+        <p className="text-lg mb-4 font-bold text-white">Total Price: ${totalPrice.toFixed(2)}</p>
         <Link to="/Payment">
-          <Button className="w-full" variant="primary">
-            Proceed to Checkout
+        <Button className="w-full flex items-center justify-center py-2 px-4 bg-slate-500 text-white bg-primary hover:bg-primary-dark">
+        <IoBagCheckOutline className="mr-2 text-xl" />
+        Checkout
           </Button>
         </Link>
         <Link to ="/">
@@ -402,6 +407,7 @@ const Cart = () => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

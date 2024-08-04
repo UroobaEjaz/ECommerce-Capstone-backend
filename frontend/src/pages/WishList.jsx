@@ -116,6 +116,7 @@ import { useCartItemsContext } from "../context/CartItemsContext"; // Import car
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaTrash} from "react-icons/fa";
 import { FaHeart, FaHome } from "react-icons/fa";
+import Navbar from "@/components/Navbar";
 
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -194,7 +195,9 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center">
+    <>
+    <Navbar />
+    <div className="d-flex flex-column align-items-center pt-16">
         <h1 className="text-4xl font-bold inline-flex items-center mt-12 mb-7">
         Your Wishlist
         <FaHeart className="text-red-500 ml-3 text-4xl" />
@@ -206,20 +209,23 @@ const WishlistPage = () => {
             return (
               <ListGroup.Item
                 key={item._id}
-                className="d-flex justify-content-between align-items-center"
+                className="d-flex justify-content-between align-items-center "
                 style={{ marginTop: index > 0 ? '10px' : '0' }} // Add top margin between items
               >
                 <div>
                   <img
                     src={`/api/items/images/${item.image}`}
                     alt={item.name}
-                    style={{ width: "50px", height: "50px", objectFit: "cover", marginRight: "10px" }}
+                    style={{ width: "70px", height: "70px", objectFit: "cover", marginRight: "10px" }}
                   />
-                  {item.name} - ${item.price}
-                </div>
+              <div className="font-bold mt-8 text-xl">{item.name} - ${item.price}</div>
+              </div>
+                
                 <div>
-                  <Button variant="danger" onClick={() => removeFromWishlist(item._id)} style={{ marginRight: '10px' }}><FaTrash/></Button>
-                  <Button variant="primary" onClick={() => addToCart(item)}><FaShoppingCart/></Button>
+                  <Button variant="danger" onClick={() => removeFromWishlist(item._id)}
+                  className="bg-red-900 text-xl" style={{ marginRight: '10px' }}><FaTrash/></Button>
+                  <Button variant="primary" onClick={() => addToCart(item)}
+                    className="bg-black text-2xl"><FaShoppingCart/></Button>
                 </div>
               </ListGroup.Item>
             );
@@ -241,7 +247,9 @@ const WishlistPage = () => {
       </Button>
     </div>
     </div>
+    </>
   );
+
 };
 
 export default WishlistPage;

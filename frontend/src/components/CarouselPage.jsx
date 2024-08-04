@@ -2,14 +2,20 @@ import 'regenerator-runtime/runtime';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Carousel from 'react-bootstrap/Carousel';
-import Img1 from '../assets/Img1.jpg';
-import Img2 from '../assets/Img2.jpg';
-import Img3 from '../assets/Img3.jpg';
+//import Img1 from '../assets/Img1.jpg';
+//import Img2 from '../assets/Img2.jpg';
+//import Img3 from '../assets/Img3.jpg';
+import candy1 from '../assets/candy1.jpg';
+import ice from '../assets/ice.jpg';
+import chips from '../assets/chips.jpg';
+import laysAndPepsi from '../assets/laysAndPepsi.png';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import SpeechRecognition from 'react-speech-recognition';
 import { FiMic } from 'react-icons/fi';
 import { CgClose } from 'react-icons/cg';
+
 import Card from './Cards';
+import { FaSearch } from 'react-icons/fa';
 
 function CarouselPage({ setSearchResults }) {
   const [item, setItem] = useState([]);
@@ -66,15 +72,15 @@ function CarouselPage({ setSearchResults }) {
   };
 
   return (
-    <div>
+    <div className='relative mx-auto overflow-hidden mt-[-100px] z-15 h-5/6'>
       <Carousel fade>
-        <Carousel.Item style={{ height: '500px' }} key="1">
+        <Carousel.Item style={{ height: '350px' }} key="1">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="d-block w-100"
-            src={Img1}
+            src={ice}
             alt="First slide"
           />
           <Carousel.Caption>
@@ -86,13 +92,13 @@ function CarouselPage({ setSearchResults }) {
             </motion.p>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item style={{ height: '450px' }} key="2">
+        <Carousel.Item style={{ height: '350px' }} key="2">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="d-block w-100"
-            src={Img2}
+            src={candy1}
             alt="Second slide"
           />
           <Carousel.Caption>
@@ -104,13 +110,13 @@ function CarouselPage({ setSearchResults }) {
             </motion.p>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item style={{ height: '450px' }} key="3">
+        <Carousel.Item style={{ height: '350px' }} key="3">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="d-block w-100"
-            src={Img3}
+            src={laysAndPepsi}
             alt="Third slide"
           />
           <Carousel.Caption>
@@ -124,8 +130,8 @@ function CarouselPage({ setSearchResults }) {
         </Carousel.Item>
       </Carousel>
 
-      <div className="flex justify-center mt-3">
-        <form onSubmit={getItems} className="flex items-center justify-center">
+      <div className="flex justify-center mt-0 mb-0 bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
+        <form onSubmit={getItems} className="flex items-center justify-center mt-2">
           <input
             type="text"
             placeholder="Ask me"
@@ -146,7 +152,7 @@ function CarouselPage({ setSearchResults }) {
             type="submit"
             className="bg-black hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
           >
-            Search
+            <FaSearch/>
           </button>
         </form>
       </div>
@@ -160,9 +166,7 @@ function CarouselPage({ setSearchResults }) {
         </button>
       )}
       
-      <div className="flex justify-center bg-red-950 h-11 mt-3">
-        <h1 className="text-3xl font-serif text-white py-2">Salty Cravings</h1>
-      </div>
+    
     </div>
   );
 }
