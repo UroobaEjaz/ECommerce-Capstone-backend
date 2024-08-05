@@ -75,13 +75,13 @@ export default function App() {
             path="/Products"
             element={!authUser ? <Products /> : <Navigate to="/" />}
           />   */}
-     {/*   <Route path="/StripeContainer" element={<StripeContainer />} /> */}
+        {/*   <Route path="/StripeContainer" element={<StripeContainer />} /> */}
         <Route path="/About" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Contact" element={<Contact />} />
         <Route
           path="/Admin"
-          element={!authUser ? <Admin /> : <Navigate to="/" />}
+          element={authUser ? <Admin /> : <Navigate to="/" />}
         />
         <Route
           path="/AdminCheckout"
@@ -91,12 +91,12 @@ export default function App() {
 
         <Route path="/Careers" element={<Careers />} />
         <Route path="/:details" element={<ItemDetails />} />
-        <Route path = "/WishList" element = {<WishList />} />
+        <Route path="/WishList" element={<WishList />} />
 
         <Route path="/Cancel" element={<Cancel />} />
 
         <Route path="/Success" element={<Success />} />
-        <Route path = "/Payment" element ={<PaymentPage />} />
+        <Route path="/Payment" element={<PaymentPage />} />
       </Routes>
     </>
   );

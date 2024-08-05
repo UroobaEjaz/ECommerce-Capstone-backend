@@ -8,7 +8,6 @@ import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
 const Home = () => {
   const [item, setItem] = useState([]);
   const [cart, setCart] = useState([]);
@@ -43,12 +42,16 @@ const Home = () => {
 
   return (
     <div>
-      <div className="mb-32">
+      <div className="mb-44">
         <Navbar />
       </div>
-    <CarouselPage setSearchResults={setSearchResults} /> 
+      <CarouselPage setSearchResults={setSearchResults} />
       {/* Only show the Card component with items if there are no search results */}
-      {searchResults.length === 0 ? <Card items={item} /> : <Card items={searchResults} />}
+      {searchResults.length === 0 ? (
+        <Card items={item} />
+      ) : (
+        <Card items={searchResults} />
+      )}
     </div>
   );
 };

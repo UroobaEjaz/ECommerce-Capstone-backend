@@ -7,10 +7,6 @@ export default function App() {
   return (
     <div className="w-screen min-h-screen bg-gray-100">
       <Navbar />
-      <HeroSection />
-      <JobSection />
-      <RecruitmentSection />
-      <SubscriptionSection />
       <ApplyForm />
       <Footer />
     </div>

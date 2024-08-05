@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 //import { Card, Button } from "react-bootstrap";
-import { useCartItemsContext } from "../context/CartItemsContext"; 
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useCartItemsContext } from "../context/CartItemsContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BsFillCartFill } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +55,7 @@ const Cards = ({ items = [] }) => {
       console.log(data);
 
       // Add or update item in context
-      if (cartItems.find(cartItem => cartItem._id === item._id)) {
+      if (cartItems.find((cartItem) => cartItem._id === item._id)) {
         // If item already in cart, update quantity
         addToCartContext({ ...item, quantity: itemQuantities[item._id] });
       } else {
@@ -98,11 +98,8 @@ const Cards = ({ items = [] }) => {
     }
   };
 
-  
- 
-
   return (
-    <div className="flex flex-wrap justify-center bg-gradient-to-r from-slate-200 via-red-400 to-amber-900">
+    <div className="flex flex-wrap justify-center ">
       {items.length > 0 ? (
         items.map((item) => (
           <div
@@ -137,10 +134,12 @@ const Cards = ({ items = [] }) => {
                   >
                     -
                   </button>
-                  <span className="mx-4 text-lg">{itemQuantities[item._id] || 0}</span>
+                  <span className="mx-4 text-lg">
+                    {itemQuantities[item._id] || 0}
+                  </span>
                   <button
                     onClick={() => handleQuantityChange(item, 1)}
-                   className=" px-2 py-1 bg-black text-white hover:bg-gray-700 focus:outline-none"
+                    className=" px-2 py-1 bg-black text-white hover:bg-gray-700 focus:outline-none"
                   >
                     +
                   </button>
@@ -152,7 +151,6 @@ const Cards = ({ items = [] }) => {
                   className="bg-black text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none flex items-center"
                 >
                   <BsFillCartFill className="mr-2" />
-               
                 </button>
                 <button
                   onClick={() => handleAddToWishlist(item)}
