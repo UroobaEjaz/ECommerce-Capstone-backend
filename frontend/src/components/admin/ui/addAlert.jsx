@@ -98,13 +98,13 @@ const AddAlert = ({ open, setOpen, getItems }) => {
                     placeholder="countInStock"
                     onChange={(e) => setCountInStock(e.target.value)}
                   />
-                  <button type="submit">Add Item</button>
+                  <button type="submit" className="px-4 py-2 mt-2 mr-5 bg-gray-300 text-gray-800 rounded hover:bg-blue-400">Add Item</button>
                 </form>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancel</AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

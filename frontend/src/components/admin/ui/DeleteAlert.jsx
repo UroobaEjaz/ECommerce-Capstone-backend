@@ -42,18 +42,20 @@ const DeleteAlert = ({ open, setOpen, items, getItems }) => {
         {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Confermation</AlertDialogTitle>
+            <AlertDialogTitle>Delete Confirmation</AlertDialogTitle>
             <AlertDialogDescription>
               <div>
                 <p>Are you sure you want to delete this item?</p>
                 <div className="flex justify-center">
                   <AlertDialogAction
                     as="button"
-                    onClick={() => deleteItem(items)}
+                    onClick={() => deleteItem(items)  }
+                    className ="px-4 py-2 mt-2 mr-5 bg-gray-300 text-gray-800 rounded hover:bg-blue-400"
                   >
                     Yes
                   </AlertDialogAction>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel
+                  className="px-4 py-2 mt-2 bg-gray-300 text-gray-800 rounded hover:bg-blue-400">Cancel</AlertDialogCancel>
                 </div>
               </div>
             </AlertDialogDescription>
