@@ -7,7 +7,6 @@ import Carousel from 'react-bootstrap/Carousel';
 //import Img3 from '../assets/Img3.jpg';
 import candy1 from '../assets/candy1.jpg';
 import ice from '../assets/ice.jpg';
-import chips from '../assets/chips.jpg';
 import laysAndPepsi from '../assets/laysAndPepsi.png';
 import { useSpeechRecognition } from 'react-speech-recognition';
 import SpeechRecognition from 'react-speech-recognition';
