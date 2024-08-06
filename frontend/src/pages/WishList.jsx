@@ -197,7 +197,7 @@ const WishlistPage = () => {
   return (
     <>
     <Navbar />
-    <div className="d-flex flex-column align-items-center pt-16">
+    <div className="d-flex flex-column align-items-center pt-16 mt-10">
         <h1 className="text-4xl font-bold inline-flex items-center mt-12 mb-7">
         Your Wishlist
         <FaHeart className="text-red-500 ml-3 text-4xl" />
