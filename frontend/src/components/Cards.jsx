@@ -145,7 +145,8 @@ const Cards = ({ items = [] }) => {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between gap-2 mb-0">
+              <div className="flex justify-between gap-2  ">
+                {/* ml-3 gap-20 absolute -bottom-60 mt-4 */}
                 <button
                   onClick={() => handleAddToCart(item)}
                   className="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none flex items-center"

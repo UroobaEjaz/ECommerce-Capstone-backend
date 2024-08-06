@@ -71,7 +71,7 @@ function CarouselPage({ setSearchResults }) {
   };
 
   return (
-    <div className="relative mx-auto overflow-hidden mt-[-100px] z-15 h-5/6">
+    <div className="relative mx-auto overflow-hidden mt-[-180px] z-15 h-5/6">
       <Carousel fade>
         <Carousel.Item style={{ height: "350px" }} key="1">
           <motion.img

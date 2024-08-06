@@ -7,6 +7,7 @@ import ListItem from "./Admin";
 import Search from "./Search";
 import CarouselPage from "../components/CarouselPage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Line from "@/components/ui/line";
 
 const Home = () => {
   const [item, setItem] = useState([]);
@@ -44,6 +45,7 @@ const Home = () => {
     <div>
       <div className="mb-44">
         <Navbar />
+        <Line />
       </div>
       <CarouselPage setSearchResults={setSearchResults} />
       <div className="text-3xl font-bold mb-10 mt-10 text-center">
@@ -55,6 +57,7 @@ const Home = () => {
       ) : (
         <Card items={searchResults} />
       )}
+      <Footer />
     </div>
   );
 };

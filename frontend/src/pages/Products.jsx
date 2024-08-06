@@ -29,7 +29,7 @@ const Products = () => {
     }
   };
   return (
-    <div className="p-32">
+    <div className="p-32 -mt-20">
       <Navbar />
       <div>
         <ul className="flex justify-around  border border-solid border-black  bg-red-800 p-1 text-white">
