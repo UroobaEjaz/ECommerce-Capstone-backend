@@ -46,6 +46,9 @@ const Home = () => {
         <Navbar />
       </div>
       <CarouselPage setSearchResults={setSearchResults} />
+      <div className="text-3xl font-bold mb-10 mt-10 text-center">
+        <h1>Our Products</h1>
+      </div>
       {/* Only show the Card component with items if there are no search results */}
       {searchResults.length === 0 ? (
         <Card items={item} />

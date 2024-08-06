@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Card from "../components/Cards";
-import Cart from "../pages/Cart";
 
-export default function Products() {
+const Products = () => {
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
 
@@ -30,23 +29,29 @@ export default function Products() {
     }
   };
   return (
-    <div className="p-4">
-      <Navbar size={cart.length} />
+    <div className="p-32">
+      <Navbar />
       <div>
-        <ul className="flex justify-around mt-96 border border-solid border-black rounded-xl bg-stone-200 ">
-          {" "}
-          {/* Example of how to use the getItems function */}
+        <ul className="flex justify-around  border border-solid border-black  bg-red-800 p-1 text-white">
           <li className="mx-2">
             <button onClick={getItems("Sweet")} className=" hover:text-red-600">
-              Sweets
+              Candy
             </button>
           </li>
           <li className="mx-2">
             <button
-              onClick={getItems("Drinks")}
+              onClick={getItems("Chocolate")}
               className=" hover:text-gray-300"
             >
-              Cold Drink
+              Chocolates
+            </button>
+          </li>
+          <li className="mx-2">
+            <button
+              onClick={getItems("Soft Drinks")}
+              className=" hover:text-gray-300"
+            >
+              Soft Drink
             </button>
           </li>
           <li className="mx-2">
@@ -58,39 +63,26 @@ export default function Products() {
             </button>
           </li>
           <li className="mx-2">
-            <Link to="/dairy" className=" hover:text-gray-300">
-              Dairy Products
-            </Link>
+            <button
+              onClick={getItems("Household")}
+              className=" hover:text-gray-300"
+            >
+              Households
+            </button>
           </li>
           <li className="mx-2">
-            <Link to="/baked-goods" className=" hover:text-gray-300">
-              Baked Goods
-            </Link>
-          </li>
-          <li className="mx-2">
-            <Link to="/household-items" className=" hover:text-gray-300">
-              Household Items
-            </Link>
-          </li>
-          <li className="mx-2">
-            <Link to="/personal-care" className=" hover:text-gray-300">
-              Personal Care
-            </Link>
-          </li>
-          s
-          <li className="mx-2">
-            <Link to="/frozen-foods" className=" hover:text-gray-300">
-              Frozen Foods
-            </Link>
-          </li>
-          <li className="mx-2">
-            <Link to="/fresh-produce" className=" hover:text-gray-300">
-              Fresh Produce
-            </Link>
+            <button
+              onClick={getItems("Energy")}
+              className=" hover:text-gray-300"
+            >
+              Energy Drinks
+            </button>
           </li>
         </ul>
       </div>
       <Card items={items} handleClick={handleClick} />
     </div>
   );
-}
+};
+
+export default Products;

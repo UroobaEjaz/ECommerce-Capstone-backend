@@ -109,7 +109,7 @@ const Cards = ({ items = [] }) => {
             <img
               src={`/api/items/images/${item.image}`}
               alt={item.name}
-              className="w-full h-48 object-cover cursor-pointer"
+              className="w-full h-50 object-cover cursor-pointer"
               onClick={() => nevigate(`/${item._id}`, { state: item._id })}
             />
             <div className="p-4 flex flex-col flex-grow">
@@ -130,7 +130,7 @@ const Cards = ({ items = [] }) => {
                 <div className="flex items-center">
                   <button
                     onClick={() => handleQuantityChange(item, -1)}
-                    className="px-2 py-1 bg-black text-white focus:outline-none"
+                    className="px-2 py-1 bg-red-700 text-white focus:outline-none"
                   >
                     -
                   </button>
@@ -139,7 +139,7 @@ const Cards = ({ items = [] }) => {
                   </span>
                   <button
                     onClick={() => handleQuantityChange(item, 1)}
-                    className=" px-2 py-1 bg-black text-white hover:bg-gray-700 focus:outline-none"
+                    className=" px-2 py-1 bg-red-700 text-white hover:bg-gray-700 focus:outline-none"
                   >
                     +
                   </button>
@@ -148,13 +148,13 @@ const Cards = ({ items = [] }) => {
               <div className="flex justify-between gap-2 mb-0">
                 <button
                   onClick={() => handleAddToCart(item)}
-                  className="bg-black text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none flex items-center"
+                  className="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none flex items-center"
                 >
                   <BsFillCartFill className="mr-2" />
                 </button>
                 <button
                   onClick={() => handleAddToWishlist(item)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none flex items-center"
+                  className="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none flex items-center"
                 >
                   <FaRegHeart />
                   <span className="sr-only">Add to Wishlist</span>
