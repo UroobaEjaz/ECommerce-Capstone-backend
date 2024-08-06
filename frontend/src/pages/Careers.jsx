@@ -5,7 +5,7 @@ import emailjs from "@emailjs/browser";
 //References: https://www.youtube.com/watch?v=Nm_IHH4iOx4&t=326s&ab_channel=techM
 export default function App() {
   return (
-    <div className="w-screen min-h-screen bg-gray-100">
+    <div className="w-screen min-h-screen bg-red-100">
       <Navbar />
       <ApplyForm />
       <Footer />
@@ -218,7 +218,7 @@ const ApplyForm = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
               onSubmit={sendEmail}
             >
@@ -233,7 +233,7 @@ const ApplyForm = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-4">
+    <footer className="bg-red-700 text-white py-4">
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-sm">Apply for Jobs | Trusted since 2018</p>
         <div className="flex justify-center space-x-4 mt-4">

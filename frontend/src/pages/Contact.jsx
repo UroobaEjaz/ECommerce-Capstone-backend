@@ -30,18 +30,24 @@ export default function Contact() {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center min-h-screen bg-gray-100 pt-16 w-full">
+      <div className="flex flex-col items-center min-h-screen bg-red-100 pt-16 w-full">
         <div className=" p-8 bg-white ">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Contact Form Section */}
             <div>
-              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Get in Touch</h2>
+              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">
+                Get in Touch
+              </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Have a question or want to work together? Fill out the form below and we'll get back to you as soon as possible.
+                Have a question or want to work together? Fill out the form
+                below and we'll get back to you as soon as possible.
               </p>
               <form onSubmit={onSubmit} className="space-y-6">
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="name">
+                  <label
+                    className="block text-gray-700 text-sm font-medium mb-2"
+                    htmlFor="name"
+                  >
                     Name
                   </label>
                   <input
@@ -53,7 +59,10 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="email">
+                  <label
+                    className="block text-gray-700 text-sm font-medium mb-2"
+                    htmlFor="email"
+                  >
                     Email
                   </label>
                   <input
@@ -65,7 +74,10 @@ export default function Contact() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="message">
+                  <label
+                    className="block text-gray-700 text-sm font-medium mb-2"
+                    htmlFor="message"
+                  >
                     Message
                   </label>
                   <textarea
@@ -78,7 +90,7 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-red-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Submit
                 </button>
@@ -90,9 +102,12 @@ export default function Contact() {
 
             {/* Contact Info Section */}
             <div>
-              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Contact Info</h2>
+              <h2 className="text-3xl font-extrabold mb-6 text-gray-800">
+                Contact Info
+              </h2>
               <p className="text-lg text-gray-600 mb-6">
-                You can reach us at the following address, phone number, and email.
+                You can reach us at the following address, phone number, and
+                email.
               </p>
               <div className="mb-6">
                 <h3 className="font-semibold text-gray-700">Address</h3>

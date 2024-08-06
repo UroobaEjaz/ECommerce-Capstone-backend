@@ -27,19 +27,19 @@ export default function About() {
           </p>
           <div className="flex justify-center space-x-4 mb-8">
             <button
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              className="bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
               onClick={() => setLocation("SW")}
             >
               SW Location
             </button>
             <button
-              className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              className="bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
               onClick={() => setLocation("NE")}
             >
               NE Location
             </button>
             <button
-              className="bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
+              className="bg-red-700 text-white px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"
               onClick={() => setLocation(null)}
             >
               Hide Map

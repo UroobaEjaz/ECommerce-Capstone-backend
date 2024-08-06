@@ -108,20 +108,20 @@ const Search = () => {
               <button
                 type="button"
                 onClick={handleVoiceStart}
-                className="bg-red-900  hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-red-700  hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 <VscDebugStart />
               </button>
               <button
                 type="button"
                 onClick={handleVoiceEnd}
-                className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+                className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
               >
                 <VscDebugStop />
               </button>
               <button
                 type="submit"
-                className="bg-black hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+                className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
               >
                 Search here
               </button>
