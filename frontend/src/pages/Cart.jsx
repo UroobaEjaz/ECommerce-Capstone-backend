@@ -335,10 +335,10 @@ const Cart = () => {
   return (
     <>
   <Navbar />
-    <div className="container pt-20 flex flex-col md:flex-row">
+    <div className="container pt-20 flex flex-col md:flex-row mt-8">
       <div className="flex-grow md:mr-8">
         <div className="text-center mb-4">
-        <h1 className="text-4xl font-bold inline-flex items-center mt-8 mb-7">
+        <h1 className="text-4xl font-bold inline-flex items-center mt-10 mb-7">
         Cart
         <FaShoppingCart className="text-black ml-3 text-4xl" />
       </h1>
@@ -385,7 +385,7 @@ const Cart = () => {
         </ListGroup>
       </div>
 
-      <div className="summary-container bg-slate-950 p-12 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto">
+      <div className="summary-container bg-slate-950 p-12 rounded-lg shadow-md md:w-1/4 mt-4 md:mt-0 ml-auto mt-6">
         <h3 className="text-xl font-bold mb-4 text-white ">Order Summary</h3>
         <p className="text-lg mb-2 font-semibold text-white">Total Quantity: {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</p>
         <p className="text-lg mb-4 font-bold text-white">Total Price: ${totalPrice.toFixed(2)}</p>
