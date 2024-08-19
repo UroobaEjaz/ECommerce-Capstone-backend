@@ -11,7 +11,7 @@ const useLogin = () => {
       email,
       password,
     });
-    if (!sucess) return;
+    if (!success) return;
 
     setLoading(true);
     try {
