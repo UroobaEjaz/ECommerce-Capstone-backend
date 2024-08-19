@@ -243,7 +243,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "uroobanumair",
+          email: email ,
           //itemId: item._id
         }),
       });
@@ -268,7 +268,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "uroobanumair",
+          email: email ,
           itemId: item._id,
         }),
       });

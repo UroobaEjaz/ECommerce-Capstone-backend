@@ -66,7 +66,7 @@ const Navbar = ({ size }) => {
           </li>
           <li>
             <Link
-              to="/Login"
+              to="/LoginPage"
               className="text-black-600 font-large hover:text-red-600 p-3"
             >
               Login

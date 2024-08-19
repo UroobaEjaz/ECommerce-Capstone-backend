@@ -44,7 +44,7 @@ const Cards = ({ items = [] }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "uroobanumair", // Replace with actual user email
+          email: email , // Replace with actual user email
           itemId: item._id,
           cartItemsPrice: item.price,
           cartItemsQuantity: quantity,

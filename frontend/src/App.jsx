@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Login from "./pages/LoginPage";
 import SignUp from "./pages/SignUp";
 //import Products from "./pages/Products";
 import Admin from "./pages/Admin";
@@ -65,11 +65,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/login"
+          path="/LoginPage"
           element={authUser ? <Login /> : <Navigate to="/" />}
         />
         <Route
-          path="/signup"
+          path="/SignUp"
           element={authUser ? <SignUp /> : <Navigate to="/" />}
         />
         <Route path="/Products" element={<Products />} />
