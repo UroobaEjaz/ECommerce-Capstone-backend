@@ -9,12 +9,13 @@ export const signup = async (req, res) => {
     if (password !== confirmPassword) {
       return res
         .status(400)
-        .json({ error: "Password and conferm password do not match!" });
+        .json({ error: "Password and confirm password do not match!" });
     }
 
     if (phone.length < 10 || phone.length > 10) {
       return res.status(400).json({ error: "Not a valid phone number" });
     }
+    
     const user = await User.findOne({ email });
 
     if (user) {
@@ -26,7 +27,7 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Profile picture
-    const profilePicture = `https://avatar.iran.liara.run/email?email=${firstname}+${lastname}`;
+    const profilePicture = `https://avatar.iran.liara.run/public`;
     const newUser = new User({
       firstname,
       lastname,
